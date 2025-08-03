@@ -70,9 +70,6 @@ function compareRarity(min, actual) {
 }
 
 // ==== RESET FUNCTION ====
-function resetXP() {
-  document.getElementById("resultText").innerHTML = "🎲";
-}
 window.tossBones = tossBones;
 window.resetXP = function resetXP() {
   currentXP = 0;
