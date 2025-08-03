@@ -50,3 +50,4 @@ function tossBones() {
 
   // Placeholder: Insert UI update logic here for roll results (rarity, flavor, loot, perk)
 }
+window.tossBones = tossBones;
