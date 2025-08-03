@@ -1,47 +1,167 @@
 [
   {
-    "name": "Dusty",
-    "min": 1,
-    "max": 749,
-    "flavors": {
-      "moisture": ["Dry AF", "Anhydrous", "Rainless", "Waterless", "Dry", "Arid", "Dehydrated", "Thirsty", "Juiceless", "Parched", "Wilted", "Withered"],
-      "thickness": ["Flat AF", "Delicate", "Tiny", "Underwhelming", "Forgettable", "Unremarkable", "Unimpressed", "Deflated", "Subtle", "Feathery", "Bony", "Small", "Skinny", "Pancake", "Thin"]
-    }
-  },
-  {
-    "name": "Glimmer",
-    "min": 770,
-    "max": 899,
-    "flavors": {
-      "moisture": ["Damp", "Drippy", "Wet", "Moist", "Glossed", "Lightly Glazed"],
-      "thickness": ["Plush", "Plump", "Phat", "Phatty", "Thicc", "Thiccy", "Thicky", "Thiccness", "Thickness", "Soft", "Rounded"]
-    }
-  },
-  {
-    "name": "Radiant",
-    "min": 900,
-    "max": 969,
-    "flavors": {
-      "moisture": ["Moist", "Glazed", "Glistening", "Wet", "Glossy", "Soaked"],
-      "thickness": ["Juicy", "Dense", "Thick"]
-    }
-  },
-  {
-    "name": "Mythborn",
-    "min": 970,
-    "max": 994,
-    "flavors": {
-      "moisture": ["Slick", "Dripping", "Super Soaker", "Drenched", "Flooded", "Wet-Wet"],
-      "thickness": ["Thicc AF", "Double Cheeked", "Godthicc"]
-    }
-  },
-  {
-    "name": "Fated",
-    "min": 995,
-    "max": 1000,
-    "flavors": {
-      "moisture": ["Liquified", "Super Duper Soaker", "Purely Dripping"],
-      "thickness": ["Transcendent", "Voidthicc", "Astral"]
-    }
+  "name": "Dusty",
+  "min": 1,
+  "max": 665,
+  "flavors": {
+    "moisture": [
+      "Dry AF",
+      "Anhydrous",
+      "Rainless",
+      "Waterless",
+      "Arid",
+      "Dehydrated",
+      "Thirsty",
+      "Juiceless",
+      "Parched",
+      "Wilted",
+      "Withered",
+      "Bone-Dry"
+    ],
+    "thickness": [
+      "Flat AF",
+      "Deflated Pancake",
+      "Feather Biscuit",
+      "Wisp",
+      "Twig Unit",
+      "Barely There",
+      "Crumble Cheek",
+      "Limp Niblet",
+      "Skeletal",
+      "Origami Booty",
+      "Zero-D Cheek",
+      "No Surface Area",
+      "2D Snack",
+      "Phantom Curve",
+      "Dustprint"
+    ]
   }
+}
+  {
+  "name": "Glimmer",
+  "min": 666,
+  "max": 868,
+  "flavors": {
+    "moisture": [
+      "Damp",
+      "Drippy",
+      "Wet",
+      "Moist",
+      "Glossed",
+      "Lightly Glazed",
+      "Glow-Slick",
+      "Soft Dew",
+      "Mid-Mist",
+      "Cheek Sheen"
+    ],
+    "thickness": [
+      "Plush",
+      "Plump",
+      "Phat",
+      "Thicc",
+      "Thiccy",
+      "Booty Buff",
+      "Soft Serve",
+      "Padded Curve",
+      "Silken Mass",
+      "Rounded Out",
+      "Biscuit Base",
+      "Tenderweight",
+      "Puff Puff"
+    ]
+  }
+}
+  {
+  "name": "Radiant",
+  "min": 869,
+  "max": 929,
+  "flavors": {
+    "moisture": [
+      "Glistening",
+      "Glossed Up",
+      "Lustrous Dew",
+      "Soaked in Light",
+      "Honeyglaze",
+      "Hydrobeam",
+      "Slick Radiance",
+      "Gleam-Drip",
+      "Liquid Glow",
+      "Misted Halo"
+    ],
+    "thickness": [
+      "Juicy",
+      "Dense",
+      "Thick",
+      "Ripened Curve",
+      "Weighted Shine",
+      "Boldly Built",
+      "Heat-Forged",
+      "Voluptuous",
+      "High Gloss Mass",
+      "Bodied by Light"
+    ]
+  }
+}
+  {
+  "name": "Mythborn",
+  "min": 928,
+  "max": 988,
+  "flavors": {
+    "moisture": [
+      "Dripping",
+      "Drenched",
+      "Super Soaker",
+      "Flooded",
+      "Wet-Wet",
+      "Eternal Ooze",
+      "Mythic Dew",
+      "Primordial Drip",
+      "Infinite Rinse",
+      "Abyssal Moisture"
+    ],
+    "thickness": [
+      "Thicc AF",
+      "Double Cheeked",
+      "Godthicc",
+      "Eclipse Loadout",
+      "Worship-Ready",
+      "Thunderstack",
+      "Legend-Laced",
+      "Sacred Volume",
+      "Booty Carved in Runes",
+      "Pantheon Curve"
+    ]
+  }
+}
+  {
+  "name": "Fated",
+  "min": 989,
+  "max": 1000,
+  "flavors": {
+    "moisture": [
+      "Liquified",
+      "Super Duper Soaker",
+      "Purely Dripping",
+      "Soul-Damp",
+      "Infinite Splash",
+      "Hyperfluid",
+      "Cosmic Dew",
+      "Heaven’s Leak",
+      "Omniwet",
+      "Chrono-Moist"
+    ],
+    "thickness": [
+      "Transcendent",
+      "Voidthicc",
+      "Astral",
+      "Thicc Beyond Sight",
+      "Metacheeks",
+      "Final Form",
+      "Multiversal Curve",
+      "Tectonic Peach",
+      "One Cheeked Truth",
+      "Omega Stack"
+    ]
+  }
+}
 ]
