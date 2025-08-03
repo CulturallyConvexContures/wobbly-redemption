@@ -25,7 +25,7 @@ function tossBones() {
   const loot = rollLoot(rarity.name);
   const perk = perks[roll];
 
-  const xpGained = loot && loot.name.includes("No XP") ? 0 : Math.ceil(roll * 100);
+  const xpGained = loot && loot.name.includes("Nothing") ? 0 : Math.ceil(roll * 100);
   currentXP += xpGained;
   localStorage.setItem("xp", currentXP); // persist XP
 
