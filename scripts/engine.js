@@ -38,6 +38,10 @@ function tossBones() {
 
   // ✅ These two lines must be INSIDE tossBones()
   document.getElementById("resultText").innerHTML = result;
+  const resultEl = document.getElementById("resultText");
+resultEl.classList.remove("flash"); // Reset the class
+void resultEl.offsetWidth;          // Trick to re-trigger animation
+resultEl.classList.add("flash");    // Apply animation class
   document.getElementById("xpTracker").innerText = `XP: ${currentXP}`;
 }
 
