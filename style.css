@@ -98,12 +98,14 @@ footer {
 }
 
 .reset-btn {
-  padding: 10px 24px;
-  font-size: 1rem;
-  border-radius: 8px;
-  background-color: #4da6ff;
-  color: #888;
+  background-color: #888888;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 6px;
   border: none;
+  font-size: 1rem;
+  opacity: 0.6; /* 0 = invisible, 1 = fully visible */
 }
 
 #xpTracker {
