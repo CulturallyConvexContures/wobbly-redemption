@@ -34,7 +34,9 @@ body {
   50% { opacity: 1; transform: scale(1.1); }
   100% { transform: scale(1); }
 }
-
+.flash {
+  animation: rollFlash 0.4s ease-in-out;
+}
 /* 🎯 PRIMARY BUTTONS */
 button {
   background-color: #4da6ff; /* Moxie Blue */
