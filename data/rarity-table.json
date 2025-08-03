@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Dusty",
+    "min": 1,
+    "max": 749,
+    "flavors": {
+      "moisture": ["Dry AF", "Anhydrous", "Rainless", "Waterless", "Dry", "Arid", "Dehydrated", "Thirsty", "Juiceless", "Parched", "Wilted", "Withered"],
+      "thickness": ["Flat AF", "Delicate", "Tiny", "Underwhelming", "Forgettable", "Unremarkable", "Unimpressed", "Deflated", "Subtle", "Feathery", "Bony", "Small", "Skinny", "Pancake", "Thin"]
+    }
+  },
+  {
+    "name": "Glimmer",
+    "min": 770,
+    "max": 899,
+    "flavors": {
+      "moisture": ["Damp", "Drippy", "Wet", "Moist", "Glossed", "Lightly Glazed"],
+      "thickness": ["Plush", "Plump", "Phat", "Phatty", "Thicc", "Thiccy", "Thicky", "Thiccness", "Thickness", "Soft", "Rounded"]
+    }
+  },
+  {
+    "name": "Radiant",
+    "min": 900,
+    "max": 969,
+    "flavors": {
+      "moisture": ["Moist", "Glazed", "Glistening", "Wet", "Glossy", "Soaked"],
+      "thickness": ["Juicy", "Dense", "Thick"]
+    }
+  },
+  {
+    "name": "Mythborn",
+    "min": 970,
+    "max": 994,
+    "flavors": {
+      "moisture": ["Slick", "Dripping", "Super Soaker", "Drenched", "Flooded", "Wet-Wet"],
+      "thickness": ["Thicc AF", "Double Cheeked", "Godthicc"]
+    }
+  },
+  {
+    "name": "Fated",
+    "min": 995,
+    "max": 1000,
+    "flavors": {
+      "moisture": ["Liquified", "Super Duper Soaker", "Purely Dripping"],
+      "thickness": ["Transcendent", "Voidthicc", "Astral"]
+    }
+  }
+]
