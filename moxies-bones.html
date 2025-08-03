@@ -1,51 +1,32 @@
- <!DOCTYPE html> 
-<!-- 🧾 Declares this is an HTML5 document — the spellbook format -->
-
-<html> 
-<!-- 🔮 Opens the sacred scroll -->
-
-<head> 
-  <meta charset="UTF-8"> 
-  <!-- ✨ Magic glyphs unlocked — lets us use emojis, symbols, smart quotes, etc. -->
-
-  <title>Moxie’s Bones™</title> 
-  <!--  Appears in your browser tab — your site’s name + vibe -->
-
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Moxie’s Bones™</title>
   <link rel="stylesheet" href="style.css">
-  <!-- 💅 Summons the external fashion scroll (your CSS) -->
 </head>
 
-<body> 
-<!-- The body of your ritual — everything visual lives here -->
+<body>
+  <h1 class="title">Moxies <span>🦴</span> Bones™️</h1>
 
-  <h1 class="title">Moxies <span>🦴</span> Bones™️</h1> 
-  <!-- 🔥 Big title with flavor, emoji, and class for styling -->
+  <button id="roll-btn" onclick="tossBones()">Toss 'em</button>
+  <p id="resultText">🎲</p>
 
-  <button onclick="tossBones()">Toss 'em</button>
-  <!-- 🎲 Main roll button — triggers the engine to chuck Moxie’s dice -->
+  <div class="reset-zone">
+    <p id="xp-display">XP: 0</p>
+    <button onclick="resetXP()" class="reset-btn">🧼 Reset XP</button>
+  </div>
 
-  <p id="resultText">🎲</p> 
-  <!-- 📜 The results of your roll appear here (rarity, XP, loot, etc.) -->
-  
- <div class="reset-zone">
-  <p id="xpTracker">XP: 0</p>
-  <button onclick="resetXP()" class="reset-btn">🧼 Reset XP</button>
-</div>
-  <!-- 💀 Start fresh — wipes all XP and cleans your scroll -->
-  
-  <footer> 
-    <!-- 🦶 Footer zone — for navigation, vibes, and exits -->
+  <!-- Optional Level Progress Bar (for future upgrade) -->
+  <div id="level-bar-container" class="level-bar">
+    <div id="level-bar-fill"></div>
+  </div>
 
-    <a href="index.html" class="back-home">← Reverse to the Verse</a> 
-    <!-- 🏕️ Click this to return to your main camp/homepage -->
-
-    <p class="back-sub">Return when you're ready…</p> 
-    <!-- 🕯️ Subtle flavor text — poetic call to come back when you’re leveled up -->
+  <footer>
+    <a href="index.html" class="back-home">← Reverse to the Verse</a>
+    <p class="back-sub">Return when you're ready…</p>
   </footer>
 
-  <script src="scripts/engine.js"></script> 
-  <!-- 🧠 Loads your Engine — all the dice logic, XP, loot, and fire lives here -->
-
-</body> 
+  <script src="scripts/engine.final.js"></script>
+</body>
 </html>
-<!-- 🔚 Scroll complete. Let the dice fall where they may. -->
