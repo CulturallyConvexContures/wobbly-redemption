@@ -40,7 +40,7 @@ function tossBones() {
 
   // ✅ These two lines must be INSIDE tossBones()
   document.getElementById("resultText").innerHTML = result;
-  document.getElementById("xpTracker").innerText = `XP: ${currentXP}`;
+  document.getElementById("xpTracker").innerText = `XP: ${currentXP.toLocaleString()}`;
 }
 
 // ==== RARITY FINDER ====
