@@ -25,7 +25,7 @@ function tossBones() {
   const loot = rollLoot(rarity.name);
   const perk = perks[roll];
 
-  const xpGained = Math.ceil(roll / 100);
+  const xpGained = loot && loot.name.includes("Nothing") ? 0 : Math.ceil(roll * 100);
   currentXP += xpGained;
   localStorage.setItem("xp", currentXP); // persist XP
 
@@ -34,6 +34,7 @@ function tossBones() {
     <b>${rarity.name}</b> ${flavor.moisture} ${flavor.thickness}<br>
     ${loot ? `💎 Loot: ${loot.name}` : '🕳️ Nothing gained'}<br>
     ${perk ? `${perk}` : ''}
+    ${xpGained === 0 ? "No XP earned🥳<br>" : ""}
   `;
 
   // ✅ These two lines must be INSIDE tossBones()
