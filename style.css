@@ -1,7 +1,7 @@
 /*This is where style is born*/
 body {
   background-color: #001f3f; /* Deep space blue */
-  color: white;
+  color: #bbb;
   font-family: monospace;    /* Clean code font for ritual vibes */
   text-align: center;
   padding-top: 20vh;         /* Vertical offset for mobile spacing */
