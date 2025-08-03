@@ -12,7 +12,6 @@ Promise.all([
   perks = flattenPerks(perkData);
   lootTable = lootData;
 });
-
 // ==== FLATTEN PERK OBJECT (grouped by theme) ====
 function flattenPerks(perkThemes) {
   return Object.values(perkThemes).reduce((acc, group) => ({ ...acc, ...group }), {});
