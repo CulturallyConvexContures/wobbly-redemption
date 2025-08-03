@@ -30,13 +30,13 @@ function tossBones() {
   localStorage.setItem("xp", currentXP); // persist XP
 
   const result = `
-    🎲 <b>${roll}</b> → 
-    <b>${rarity.name}</b> ${flavor.moisture} ${flavor.thickness}<br>
-    ${loot ? `💎 Loot: ${loot.name}<br>
-    ${perk ? `${perk}` : ''}
-    XP Gained: ${xpGained.toLocaleString()}
-    ${xpGained === 0 ? "No XP earned🥳<br>" : ""}
-  `;
+  🎲 <b>${roll}</b> → 
+  <b>${rarity.name}</b> ${flavor.moisture} ${flavor.thickness}<br>
+  💎 Loot: ${loot ? loot.name : "✨ Nothing"}<br>
+  ${perk ? `🌟 ${perk}<br>` : ""}
+  XP Gained: ${xpGained.toLocaleString()}<br>
+  ${xpGained === 0 ? "No XP earned🥳<br>" : ""}
+`;
 
   // ✅ These two lines must be INSIDE tossBones()
   document.getElementById("resultText").innerHTML = result;
