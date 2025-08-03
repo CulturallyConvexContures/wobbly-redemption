@@ -1,4 +1,10 @@
+// ==== VERSION DEBUG ====
+const ENGINE_VERSION = "1.1.3"; // ✨ update this whenever you patch
+const SHOW_VERSION_ALERT = true; // toggle to false to disable alert
 
+if (SHOW_VERSION_ALERT) {
+  alert(`🚨 Moxie Engine v${ENGINE_VERSION} loaded`);
+}
 // ==== DATA IMPORT ====
 let rarityTable, perks, lootTable;
 let currentXP = parseInt(localStorage.getItem("xp")) || 0;
