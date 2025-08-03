@@ -1,5 +1,43 @@
 {
-  "666": "🌀 Wicked Sigil Unlocked",
-  "777": "✨ Lucky Streak Activated",
-  "1000": "🧬 Fate Crystal Awarded"
+  "Bootyverse Core": {
+    "69": "🍑 Booty Buff Applied",
+    "420": "🌿 Moxie Is Blazed",
+    "777": "✨ Lucky Streak Activated",
+    "1312": "🚨 Authority Rejected (Moxie Rolls Free)",
+    "1488": "🧨 Forbidden Power Tapped",
+    "1999": "🎭 Pre-Y2K Moxie Detected",
+    "2069": "🥵 Maximum Curvature Engaged",
+    "2222": "🌀 Spiral Compression Stabilized",
+    "808": "🎧 Bass Pulse Activated"
+  },
+  "Mystical & Cosmic": {
+    "111": "🧿 Evil Eye Deflected",
+    "222": "📜 Duality Scroll Discovered",
+    "333": "🧘 Cosmic Alignment Achieved",
+    "444": "🪬 Protection Rune Triggered",
+    "555": "🌬️ Shift in the Aether",
+    "666": "🌀 Wicked Sigil Unlocked",
+    "888": "💫 Infinity Echo Detected",
+    "999": "🪞 Mirror Realm Breach",
+    "1000": "🧬 Fate Crystal Awarded",
+    "1729": "♾️ Hardy Prime Rolled (Ramanujan Blessing)"
+  },
+  "Moxie Mode / Audio Vibe": {
+    "313": "🩸 Bloodline Sigil Ignites",
+    "616": "🎵 Subharmonic Resync Achieved",
+    "7777": "🔊 Quad Echo Triggered",
+    "8080": "🔈 Bassline Sentience Detected"
+  },
+  "Occult & Forbidden": {
+    "1313": "🕯️ Shadow Double Stepped In",
+    "3333": "🔮 Void Roll Echo Detected",
+    "404": "🕳️ Glyph Not Found (Error Blessing)"
+  },
+  "Random Weird / Chaotic": {
+    "1234": "🧹 Clean Sweep Vibes",
+    "8888": "🎰 Jackpot Mirage (You Felt That, Right?)",
+    "9999": "👁️ You're Not Supposed to See This",
+    "000": "⏳ Scroll Loop Detected",
+    "7": "🦴 Bone Bonus (Moxie’s Echo)"
+  }
 }
