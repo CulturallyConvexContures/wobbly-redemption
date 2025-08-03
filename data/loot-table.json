@@ -1,7 +1,62 @@
 [
-  { "name": "Pixel Dust", "chance": 10, "minRarity": "Dusty" },
-  { "name": "Moxie's Mint Gum", "chance": 10, "minRarity": "Glimmer" },
-  { "name": "Ancient Cheek Ring", "chance": 5, "minRarity": "Mythborn" },
-  { "name": "✨ Nothing", "chance": 65, "minRarity": "Dusty" }
-{ "name": "💰 Gold x5", "chance": 10, "minRarity": "Glimmer" }
+  {
+    "name": "Pixel Dust -1 Focus",
+    "chance": 10,
+    "minRarity": "Dusty",
+    "rewards": {
+      "xp": 42,
+      "gold": 0,
+      "bones": 0
+    }
+  },
+  {
+    "name": "Moxie's Mint Gum +1 Focus",
+    "chance": 10,
+    "minRarity": "Glimmer",
+    "rewards": {
+      "xp": 69,
+      "gold": 1,
+      "bones": 0
+    }
+  },
+  {
+    "name": "Ancient Cheek Ring +1 Focus",
+    "chance": 5,
+    "minRarity": "Mythborn",
+    "rewards": {
+      "xp": 50,
+      "gold": 3,
+      "bones": 1
+    }
+  },
+  {
+    "name": "✨ Nothing",
+    "chance": 60,
+    "minRarity": "Dusty",
+    "rewards": {
+      "xp": 0,
+      "gold": 0,
+      "bones": 0
+    }
+  },
+  {
+    "name": "💰 Gold x5",
+    "chance": 10,
+    "minRarity": "Glimmer",
+    "rewards": {
+      "xp": 2,
+      "gold": 5,
+      "bones": 0
+    }
+  },
+  {
+    "name": "🦴 Bone Fragment",
+    "chance": 5,
+    "minRarity": "Radiant",
+    "rewards": {
+      "xp": 0,
+      "gold": 0,
+      "bones": 1
+    }
+  }
 ]
