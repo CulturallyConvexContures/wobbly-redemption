@@ -79,10 +79,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("xpTracker").innerText = `XP: ${currentXP.toLocaleString()}`;
 });
 // ==== RESET FUNCTION ====
-window.tossBones = tossBones;
+
 window.resetXP = function resetXP() {
   currentXP = 0;
   localStorage.setItem("xp", 0);
   document.getElementById("resultText").innerHTML = "🎲";
   document.getElementById("xpTracker").innerText = `XP: ${currentXP.toLocaleString()}`;
 };
+window.tossBones = tossBones;
