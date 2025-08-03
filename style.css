@@ -8,7 +8,7 @@ body {
   margin: 0;                 /* Remove default spacing */
 }
 
-/* Button to enter Moxies Bones DO  REMOVE */
+/* Button to enter Moxies Bones DO NOT REMOVE */
 .btn-link {
   display: inline-block;
   background-color: #4da6ff;
@@ -19,3 +19,42 @@ body {
   text-decoration: none;
   transition: background-color 0.2s ease;
 }
+
+/* Result Text Styling */
+#resultText {
+  font-size: 6vw;
+  font-family: monospace;
+  margin-top: 20px;
+  animation: rollFlash 0.3s ease-in-out;
+}
+
+/* Animation for Result Text */
+@keyframes rollFlash {
+  0% { opacity: 0.5; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Generic Button Styling */
+button {
+  background-color: #4da6ff;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 5vw;
+  font-family: monospace;
+  border: none;
+  margin: 10px;
+  transition: transform 0.1s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Optional rarity colors */
+.dusty    { color: #ccc; }
+.glimmer  { color: #b0e0e6; }
+.radiant  { color: #ffd700; }
+.mythborn { color: #dda0dd; }
+.fated    { color: #ff69b4; }
