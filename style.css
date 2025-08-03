@@ -114,3 +114,24 @@ footer {
   color: #bbbbbb;
   margin-bottom: 0.5em;
 }
+/* 📈 LEVEL BAR CONTAINER */
+#level-bar-container {
+  width: 80%;
+  max-width: 400px;
+  height: 24px;
+  background-color: #222;
+  border-radius: 12px;
+  margin: 2rem auto;
+  box-shadow: 0 0 6px #ffd70066;
+  overflow: hidden;
+}
+
+/* 🌟 BAR FILL — GROWS WITH XP */
+#level-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ffd700, #ff8c00);
+  box-shadow: 0 0 8px #ffd700cc;
+  transition: width 0.5s ease-in-out;
+  border-radius: 12px 0 0 12px;
+}
