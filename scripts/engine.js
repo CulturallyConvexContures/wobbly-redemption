@@ -31,7 +31,7 @@ function tossBones() {
 
   const result = `
     🎲 <b>${roll}</b> → 
-    ${flavor.moisture} ${flavor.thickness} <b>${rarity.name}</b><br>
+    <b>${rarity.name}</b> ${flavor.moisture} ${flavor.thickness}<br>
     ${loot ? `💎 Loot: ${loot.name}` : '🕳️ Nothing gained'}<br>
     ${perk ? `${perk}` : ''}
   `;
