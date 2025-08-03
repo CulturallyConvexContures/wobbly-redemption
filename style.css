@@ -1,1 +1,21 @@
 /*This is where style is born*/
+body {
+  background-color: #001f3f; /* Deep space blue */
+  color: white;
+  font-family: monospace;    /* Clean code font for ritual vibes */
+  text-align: center;
+  padding-top: 20vh;         /* Vertical offset for mobile spacing */
+  margin: 0;                 /* Remove default spacing */
+}
+
+/* Button to enter Moxies Bones DO  REMOVE */
+.btn-link {
+  display: inline-block;
+  background-color: #4da6ff;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 5vw;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
