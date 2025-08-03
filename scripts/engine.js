@@ -24,17 +24,21 @@ function tossBones() {
   const flavor = getFlavor(rarity);
   const loot = rollLoot(rarity.name);
   const perk = perks[roll];
-  const xpGained = Math.ceil(roll * 100); 
-currentXP += xpGained;
+
+  const xpGained = Math.ceil(roll / 100);
+  currentXP += xpGained;
+  localStorage.setItem("xp", currentXP); // persist XP
+
   const result = `
-  localStorage.setItem("xp", currentXP);
     🎲 <b>${roll}</b> → 
     ${flavor.moisture} ${flavor.thickness} <b>${rarity.name}</b><br>
     ${loot ? `💎 Loot: ${loot.name}` : '🕳️ Nothing gained'}<br>
     ${perk ? `${perk}` : ''}
   `;
 
+  // ✅ These two lines must be INSIDE tossBones()
   document.getElementById("resultText").innerHTML = result;
+  document.getElementById("xpTracker").innerText = `XP: ${currentXP}`;
 }
 
 // ==== RARITY FINDER ====
