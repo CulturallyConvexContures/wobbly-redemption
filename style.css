@@ -22,7 +22,7 @@ body {
 
 /* Result Text Styling */
 #resultText {
-  font-size: 6vw;
+  font-size: 5.5vw;
   font-family: monospace;
   margin-top: 20px;
   animation: rollFlash 0.3s ease-in-out;
@@ -35,26 +35,66 @@ body {
   100% { transform: scale(1); }
 }
 
-/* Generic Button Styling */
+/* 🎯 PRIMARY BUTTONS */
 button {
-  background-color: #4da6ff;
+  background-color: #4da6ff; /* Moxie Blue */
   color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 14px 28px;
   font-size: 5vw;
-  font-family: monospace;
   border: none;
-  margin: 10px;
-  transition: transform 0.1s ease;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-button:hover {
-  transform: scale(1.05);
+/* 🌀 Button Interaction */
+button:active,
+button:focus {
+  background-color: #4da6ff;
+  outline: none;
 }
+
 
 /* Optional rarity colors */
-.dusty    { color: #ccc; }
-.glimmer  { color: #b0e0e6; }
-.radiant  { color: #ffd700; }
+.dusty    { color: #bbb; }
+.glimmer  { color: #4c9aff; }
+.radiant  { color: #c57aff; }
 .mythborn { color: #dda0dd; }
 .fated    { color: #ff69b4; }
+/* 🧹 FOOTER NAV */
+footer {
+  margin-top: 8rem;
+}
+
+.back-home {
+  display: inline-block;
+  margin-top: 2rem;
+  text-decoration: none;
+  color: #4da6ff;
+  font-size: 4.5vw;
+  font-weight: bold;
+  transition: color 0.2s ease;
+}
+
+.back-home:hover {
+  color: #ffffff;
+}
+
+/* 💭 Subtext under "Back to Dojo" */
+.back-sub {
+  font-size: 3.5vw;
+  color: #bbbbbb;
+  margin-top: 0.5rem;
+  text-align: center;
+  font-style: italic;
+}
+
+/* 🧼 Reset Message Style */
+.xp-reset-msg {
+  font-size: 5vw;
+  color: #bbbbbb;
+  margin-top: 5rem;
+  font-style: italic;
+}
+
