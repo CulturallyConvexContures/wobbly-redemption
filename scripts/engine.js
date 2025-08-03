@@ -5,8 +5,8 @@ let rarityTable, perks, lootTable;
 // Fetch JSON data
 Promise.all([
   fetch('data/rarity-table.json').then(r => r.json()),
-  fetch('data/perk-scroll-bootyverse.json').then(r => r.json()),
-  fetch('data/bootyverse-loot-table.json').then(r => r.json())
+  fetch('data/perk-table.json').then(r => r.json()),
+  fetch('data/loot-table.json').then(r => r.json())
 ]).then(([rarities, perkData, lootData]) => {
   rarityTable = rarities;
   perks = flattenPerks(perkData);
