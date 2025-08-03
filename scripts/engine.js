@@ -1,7 +1,7 @@
 
 // ==== DATA IMPORT ====
 let rarityTable, perks, lootTable;
-let currentXP = 0;
+let currentXP = parseInt(localStorage.getItem("xp")) || 0;
 // Fetch JSON data
 Promise.all([
   fetch('data/rarity-table.json').then(r => r.json()),
@@ -24,10 +24,10 @@ function tossBones() {
   const flavor = getFlavor(rarity);
   const loot = rollLoot(rarity.name);
   const perk = perks[roll];
-// Add XP based on roll number (you can adjust this formula later)
-const xpGained = Math.ceil(roll / 100); // e.g. roll 847 = +9 XP
+  const xpGained = Math.ceil(roll * 100); 
 currentXP += xpGained;
   const result = `
+  localStorage.setItem("xp", currentXP);
     🎲 <b>${roll}</b> → 
     ${flavor.moisture} ${flavor.thickness} <b>${rarity.name}</b><br>
     ${loot ? `💎 Loot: ${loot.name}` : '🕳️ Nothing gained'}<br>
@@ -73,6 +73,7 @@ function compareRarity(min, actual) {
 window.tossBones = tossBones;
 window.resetXP = function resetXP() {
   currentXP = 0;
+  localStorage.setItem("xp", 0);
   document.getElementById("resultText").innerHTML = "🎲";
   document.getElementById("xpTracker").innerText = "XP: 0";
 };
