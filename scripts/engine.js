@@ -77,7 +77,10 @@ const rarityOrder = ["Dusty", "Glimmer", "Radiant", "Mythborn", "Fated"];
 function compareRarity(min, actual) {
   return rarityOrder.indexOf(actual) >= rarityOrder.indexOf(min);
 }
-
+// ==== ON PAGE LOAD ====
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("xpTracker").innerText = `XP: ${currentXP}`;
+});
 // ==== RESET FUNCTION ====
 window.tossBones = tossBones;
 window.resetXP = function resetXP() {
