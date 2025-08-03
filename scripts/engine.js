@@ -25,15 +25,16 @@ function tossBones() {
   const loot = rollLoot(rarity.name);
   const perk = perks[roll];
 
-  const xpGained = loot && loot.name.includes("Nothing") ? 0 : Math.ceil(roll * 100);
+  const xpGained = loot && loot.name.includes("No XP") ? 0 : Math.ceil(roll * 100);
   currentXP += xpGained;
   localStorage.setItem("xp", currentXP); // persist XP
 
   const result = `
     🎲 <b>${roll}</b> → 
     <b>${rarity.name}</b> ${flavor.moisture} ${flavor.thickness}<br>
-    ${loot ? `💎 Loot: ${loot.name}` : '🕳️ Nothing gained'}<br>
+    ${loot ? `💎 Loot: ${loot.name}<br>
     ${perk ? `${perk}` : ''}
+    XP Gained: ${xpGained.toLocaleString()}
     ${xpGained === 0 ? "No XP earned🥳<br>" : ""}
   `;
 
@@ -79,7 +80,7 @@ function compareRarity(min, actual) {
 }
 // ==== ON PAGE LOAD ====
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("xpTracker").innerText = `XP: ${currentXP}`;
+  document.getElementById("xpTracker").innerText = `XP: ${currentXP.toLocaleString()}`;
 });
 // ==== RESET FUNCTION ====
 window.tossBones = tossBones;
