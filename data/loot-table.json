@@ -4,6 +4,7 @@
     "chance": 10,
     "minRarity": "Dusty",
     "rewards": {
+      "xp": 0,
       "gold": 0,
       "bones": 0
     }
@@ -13,6 +14,7 @@
     "chance": 10,
     "minRarity": "Glimmer",
     "rewards": {
+      "xp": 0,
       "gold": 1,
       "bones": 0
     }
@@ -22,6 +24,7 @@
     "chance": 5,
     "minRarity": "Mythborn",
     "rewards": {
+      "xp": 0,
       "gold": 3,
       "bones": 1
     }
@@ -31,6 +34,7 @@
     "chance": 60,
     "minRarity": "Dusty",
     "rewards": {
+      "xp": 0,
       "gold": 0,
       "bones": 0
     }
@@ -40,6 +44,7 @@
     "chance": 10,
     "minRarity": "Glimmer",
     "rewards": {
+      "xp": 0,
       "gold": 5,
       "bones": 0
     }
@@ -49,6 +54,7 @@
     "chance": 5,
     "minRarity": "Radiant",
     "rewards": {
+      "xp": 0,
       "gold": 0,
       "bones": 1
     }
