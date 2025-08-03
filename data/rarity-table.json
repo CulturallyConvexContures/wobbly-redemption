@@ -2,7 +2,7 @@
     {
         "name": "Dusty",
         "min": 1,
-        "max": 665,
+        "max": 690,
         "flavors": {
             "moisture": [
                 "Dry AF",
@@ -39,8 +39,8 @@
     },
     {
         "name": "Glimmer",
-        "min": 666,
-        "max": 868,
+        "min": 691,
+        "max": 850,
         "flavors": {
             "moisture": [
                 "Damp",
@@ -73,8 +73,8 @@
     },
     {
         "name": "Radiant",
-        "min": 869,
-        "max": 929,
+        "min": 851,
+        "max": 940,
         "flavors": {
             "moisture": [
                 "Glistening",
@@ -104,8 +104,8 @@
     },
     {
         "name": "Mythborn",
-        "min": 928,
-        "max": 988,
+        "min": 941,
+        "max": 990,
         "flavors": {
             "moisture": [
                 "Dripping",
@@ -135,7 +135,7 @@
     },
     {
         "name": "Fated",
-        "min": 989,
+        "min": 991,
         "max": 1000,
         "flavors": {
             "moisture": [
