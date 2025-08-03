@@ -90,11 +90,20 @@ footer {
   font-style: italic;
 }
 
-/* 🧼 Reset Message Style */
-.xp-reset-msg {
-  font-size: 5vw;
-  color: #bbbbbb;
-  margin-top: 5rem;
-  font-style: italic;
+.reset-zone {
+  margin-top: 3rem;  /* Push it away from result block */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;          /* Space between XP text and button */
+}
+
+.reset-btn {
+  padding: 10px 24px;
+  font-size: 1rem;
+  border-radius: 8px;
+  background-color: #4da6ff;
+  color: white;
+  border: none;
 }
 
