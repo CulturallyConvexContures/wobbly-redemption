@@ -60,11 +60,11 @@ button:focus {
 
 
 /* Optional rarity colors */
-.dusty    { color: #bbb; }
+.dusty    { color: #bbbbbb; }
 .glimmer  { color: #4c9aff; }
 .radiant  { color: #c57aff; }
-.mythborn { color: #dda0dd; }
-.fated    { color: #ff69b4; }
+.mythborn { color: #ffd700; }
+.fated    { color: #ff0033; }
 /* 🧹 FOOTER NAV */
 footer {
   margin-top: 8rem;
@@ -78,10 +78,6 @@ footer {
   font-size: 4.5vw;
   font-weight: bold;
   transition: color 0.2s ease;
-}
-
-.back-home:hover {
-  color: #ffffff;
 }
 
 /* 💭 Subtext under "Back to Dojo" */
@@ -106,7 +102,13 @@ footer {
   font-size: 1rem;
   border-radius: 8px;
   background-color: #4da6ff;
-  color: white;
+  color: #888;
   border: none;
 }
 
+#xpTracker {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #bbbbbb;
+  margin-bottom: 0.5em;
+}
