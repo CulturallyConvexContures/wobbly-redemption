@@ -8,6 +8,16 @@ body {
   margin: 0;                 /* Remove default spacing */
 }
 
+.title {
+  font-size: 8vw;                 /* Responsive to screen size */
+  font-weight: bold;              /* Make it thicc */
+  color: #ffd700;                 /* Gold vibes */
+  text-shadow: 2px 2px #000000;  /* Dark pop for contrast */
+  letter-spacing: 1px;            /* A little breathing room */
+  margin-bottom: 20px;            /* Space from what’s below */
+  animation: titlePop 0.6s ease;  /* Optional entrance animation */
+}
+
 /* Button to enter Moxies Bones DO NOT REMOVE */
 .btn-link {
   display: inline-block;
