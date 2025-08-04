@@ -51,11 +51,12 @@ function tossBones() {
 
 function getRarity(roll) {
   const found = rarityTiers.find(r => roll >= r.min && roll <= r.max);
-  return found || { name: "❓Unknown", flavors: { moisture: ["??"], thickness: ["??"] } };
+  return found || { name: "❓Unknown", 
+     } };
 }
 
 function getFlavor(rarity) {
-  const flavorSet = curveFlavors[rarity.name] || { moisture: [], thickness: [] };
+  const flavorSet = curveFlavors[rarity.name] || { moisture: ["???"], thickness: ["???"] };
   const pick = arr => arr[Math.floor(Math.random() * arr.length)];
   return {
     moisture: pick(flavorSet.moisture),
