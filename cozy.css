@@ -1,0 +1,108 @@
+/* 🌙 Cozy Mode Styles */
+
+body {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  font-family: "Georgia", serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* 📦 Main Container */
+#mainContainer {
+  padding: 2rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+/* 🔤 Header / Title */
+h1 {
+  font-size: 2.5rem;
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+}
+
+/* 🧮 XP Tracker */
+#xpTracker,
+#boneTracker {
+  font-size: 1.2rem;
+  color: #dddddd;
+  margin: 0.5rem 0;
+}
+
+/* 🔘 Roll Button */
+button {
+  font-size: 1.2rem;
+  padding: 0.6rem 1.2rem;
+  margin: 1rem 0.5rem;
+  background: linear-gradient(90deg, #ffaa00, #ffdd55);
+  border: none;
+  border-radius: 8px;
+  color: #1a1a1a;
+  cursor: pointer;
+  box-shadow: 0 0 6px #ffaa0077;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #ffcc33, #ffe066);
+  transform: scale(1.05);
+}
+
+/* 🎲 Result Display */
+#resultText {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #eaeaea;
+  background: #2c2c2c;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 8px #444;
+}
+
+/* 📈 XP Level Bar Container */
+#level-bar-container {
+  width: 80%;
+  max-width: 400px;
+  height: 24px;
+  background-color: #333;
+  border-radius: 12px;
+  margin: 2rem auto;
+  box-shadow: 0 0 6px #ffd70066;
+  overflow: hidden;
+}
+
+/* 🌟 XP Fill */
+#level-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ffd700, #ff8c00);
+  box-shadow: 0 0 8px #ffd700cc;
+  transition: width 0.5s ease-in-out;
+  border-radius: 12px 0 0 12px;
+}
+
+/* 🧾 Footer Version Tag */
+#versionTag {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+/* 💫 Hide Button Smoothly */
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  filter: grayscale(0.4);
+}
+
+/* 🌤️ Cozy Vibes */
+.cozy-vibe {
+  font-style: italic;
+  color: #999999;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
