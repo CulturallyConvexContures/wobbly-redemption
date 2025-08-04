@@ -1,144 +1,52 @@
-let rarityTiers, curveFlavors, perks;
-let currentXP = parseInt(localStorage.getItem("xp")) || 0;
-let bones = parseInt(localStorage.getItem("bones")) || 3;
 
+// ==== DATA IMPORT ====
+let rarityTable, perks, lootTable;
+let currentXP = parseInt(localStorage.getItem("xp")) || 0;
+
+// Fetch JSON data with error handling
 Promise.all([
-  fetch("data/rarity-tiers.json").then(r => r.json()),
-  fetch("data/curve-flavors.json").then(r => r.json()),
-  fetch("data/perk-table.json").then(r => r.json())
-]).then(([tiers, flavors, perkData]) => {
-  rarityTiers = tiers;
-  curveFlavors = flavors;
+  fetch('data/rarity-table.json').then(r => r.json()),
+  fetch('data/perk-table.json').then(r => r.json()),
+  fetch('data/loot-table.json').then(r => r.json())
+]).then(([rarities, perkData, lootData]) => {
+  rarityTable = rarities;
   perks = flattenPerks(perkData);
-  updateLevelDisplay();
-  updateBoneDisplay();
+  lootTable = lootData;
+}).catch(err => {
+  console.error("Failed to load game data:", err);
 });
 
+// ==== FLATTEN PERK OBJECT ====
 function flattenPerks(perkThemes) {
   return Object.values(perkThemes).reduce((acc, group) => ({ ...acc, ...group }), {});
 }
 
+// ==== CALCULATE XP FROM ROLL ====
+function getXPFromRoll(roll, loot) {
+  return loot && loot.name.includes("Nothing") ? 0 : Math.ceil(roll * 100);
+}
+
+// ==== ROLL BONES ====
 function tossBones() {
-  if (bones <= 0) {
-    alert("🦴 You need more bones to roll!");
+  if (!rarityTable || !perks || !lootTable) {
+    console.warn("Roll attempted before data fully loaded.");
     return;
   }
 
-  bones--;
-  localStorage.setItem("bones", bones);
-  updateBoneDisplay();
-
-  const roll = Math.floor(Math.random() * 10000) + 1;
+  const roll = Math.floor(Math.random() * 1000) + 1;
   const rarity = getRarity(roll);
   const flavor = getFlavor(rarity);
+  const loot = rollLoot(rarity.name);
   const perk = perks[roll];
 
-  const xpGained = Math.ceil(roll * 3);
+  const xpGained = getXPFromRoll(roll, loot);
   currentXP += xpGained;
   localStorage.setItem("xp", currentXP);
 
-  const result = `
-    🎲 <b>${roll}</b> → 
-    <b>${rarity.name}</b> ${flavor.moisture} ${flavor.thickness}<br>
-    ${perk ? `🌟 ${perk}<br>` : ""}
-    XP Gained: ${xpGained.toLocaleString()}<br>
-  `;
-
-  document.getElementById("resultText").innerHTML = result;
-  document.getElementById("xpTracker").innerText = `XP: ${currentXP.toLocaleString()}`;
-  updateLevelDisplay();
-}
-
-function getRarity(roll) {
-  const found = rarityTiers.find(r => roll >= r.min && roll <= r.max);
-  return found || { name: "❓Unknown", 
-     } };
-}
-
-function getFlavor(rarity) {
-  const flavorSet = curveFlavors[rarity.name] || { moisture: ["???"], thickness: ["???"] };
-  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
-  return {
-    moisture: pick(flavorSet.moisture),
-    thickness: pick(flavorSet.thickness)
-  };
-}
-
-// ==== XP + LEVEL LOGIC ====
-const BASE_XP = 100;
-const GROWTH_RATE = 1.5;
-
-function getXPForLevel(level) {
-  return Math.floor(BASE_XP * Math.pow(level, GROWTH_RATE));
-}
-
-function getLevel(xp) {
-  let level = 1;
-  let xpNeeded = getXPForLevel(level);
-  while (xp >= xpNeeded) {
-    xp -= xpNeeded;
-    level++;
-    xpNeeded = getXPForLevel(level);
+  const xpDisplay = document.getElementById("xp-display");
+  if (xpDisplay) {
+    xpDisplay.textContent = `XP: ${currentXP}`;
   }
-  return level;
+
+  // Placeholder: Insert UI update logic here for roll results (rarity, flavor, loot, perk)
 }
-
-function getXPIntoCurrentLevel(xp) {
-  let level = 1;
-  let xpNeeded = getXPForLevel(level);
-  while (xp >= xpNeeded) {
-    xp -= xpNeeded;
-    level++;
-    xpNeeded = getXPForLevel(level);
-  }
-  return xp;
-}
-
-function updateLevelDisplay() {
-  const level = getLevel(currentXP);
-  const xpIntoLevel = getXPIntoCurrentLevel(currentXP);
-  const xpForThisLevel = getXPForLevel(level);
-  const percent = (xpIntoLevel / xpForThisLevel) * 100;
-
-  const bar = document.getElementById("level-bar-fill");
-  const levelDisplay = document.getElementById("level-display");
-
-  if (bar) bar.style.width = percent + "%";
-  if (levelDisplay) levelDisplay.textContent = `Level: ${level}`;
-}
-
-function updateBoneDisplay() {
-  const boneDisplay = document.getElementById("boneTracker");
-  const rollButton = document.getElementById("rollButton");
-
-  if (boneDisplay) boneDisplay.innerText = `🦴 Bones: ${bones}`;
-  if (rollButton) rollButton.style.display = bones > 0 ? "inline-block" : "none";
-}
-
-function addBones(count = 1) {
-  bones += count;
-  localStorage.setItem("bones", bones);
-  updateBoneDisplay();
-}
-
-// ==== ON LOAD ====
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("xpTracker").innerText = `XP: ${currentXP.toLocaleString()}`;
-  updateLevelDisplay();
-  updateBoneDisplay();
-});
-
-// ==== RESET ====
-window.resetXP = function resetXP() {
-  currentXP = 0;
-  bones = 0;
-  localStorage.setItem("xp", 0);
-  localStorage.setItem("bones", 0);
-  document.getElementById("resultText").innerHTML = "🎲";
-  document.getElementById("xpTracker").innerText = `XP: ${currentXP.toLocaleString()}`;
-  updateLevelDisplay();
-  updateBoneDisplay();
-};
-
-window.tossBones = tossBones;
-window.addBones = addBones;
