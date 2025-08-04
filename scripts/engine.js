@@ -50,7 +50,8 @@ function tossBones() {
 }
 
 function getRarity(roll) {
-  return rarityTiers.find(r => roll >= r.min && roll <= r.max) || rarityTiers[0];
+  const found = rarityTable.find(r => roll >= r.min && roll <= r.max);
+  return found || { name: "❓Unknown", flavors: { moisture: ["??"], thickness: ["??"] } };
 }
 
 function getFlavor(rarity) {
