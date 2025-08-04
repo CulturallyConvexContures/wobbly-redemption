@@ -1,0 +1,102 @@
+{
+  "Dustprint": {
+    "moisture": [
+      "Dry_AF",
+      "Wilted__",
+      "Bone_Dry",
+      "Thirsty_",
+      "Parched_"
+    ],
+    "thickness": [
+      "2D_Snack",
+      "Phantom_Curve",
+      "Limp_Niblet",
+      "Flat_AF",
+      "Twig_Unit"
+    ]
+  },
+  "Cheeklet": {
+    "moisture": [
+      "Damp____",
+      "Lightly_Glazed",
+      "Soft_Dew",
+      "Cheek_Sheen"
+    ],
+    "thickness": [
+      "Plush___",
+      "Rounded_Out",
+      "Puff_Puff",
+      "Tenderweight"
+    ]
+  },
+  "Softstack": {
+    "moisture": [
+      "Glossed_",
+      "Mid_Mist",
+      "Honeyglaze",
+      "Drippy__"
+    ],
+    "thickness": [
+      "Thicc___",
+      "Plump___",
+      "Juicy___",
+      "Silken_Mass"
+    ]
+  },
+  "Boldform": {
+    "moisture": [
+      "Slick_Radiance",
+      "Gleam_Drip",
+      "Hydrobeam_",
+      "Liquid_Glow"
+    ],
+    "thickness": [
+      "Dense___",
+      "Voluptuous",
+      "Heat_Forged",
+      "Weighted_Shine"
+    ]
+  },
+  "Mythmound": {
+    "moisture": [
+      "Flooded_",
+      "Eternal_Ooze",
+      "Mythic_Dew",
+      "Primordial_Drip"
+    ],
+    "thickness": [
+      "Double_Cheeked",
+      "Legend_Laced",
+      "Thunderstack",
+      "Godthicc_"
+    ]
+  },
+  "PantheonCurve": {
+    "moisture": [
+      "Omniwet_",
+      "Heaven\u2019s_Leak",
+      "Soul_Damp",
+      "Cosmic_Dew"
+    ],
+    "thickness": [
+      "Metacheeks",
+      "Final_Form",
+      "Tectonic_Peach",
+      "Transcendent"
+    ]
+  },
+  "OmniStack": {
+    "moisture": [
+      "Chrono_Moist",
+      "Hyperfluid",
+      "Infinite_Splash",
+      "Purely_Dripping"
+    ],
+    "thickness": [
+      "Omega_Stack",
+      "One_Cheeked_Truth",
+      "Voidthicc_",
+      "Multiversal_Curve"
+    ]
+  }
+}
