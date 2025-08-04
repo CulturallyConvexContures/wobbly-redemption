@@ -54,17 +54,46 @@ function getFlavor(rarity) {
   };
 }
 
-// ==== LEVEL SYSTEM ====
-const XP_PER_LEVEL = 5000;
+// ==== LEVEL SYSTEM (Exponential XP Curve) ====
+const BASE_XP = 1000;      // Starting XP requirement
+const GROWTH_RATE = 1.5;   // Exponential growth factor
+
+function getXPForLevel(level) {
+  return Math.floor(BASE_XP * Math.pow(level, GROWTH_RATE));
+}
 
 function getLevel(xp) {
-  return Math.floor(xp / XP_PER_LEVEL) + 1;
+  let level = 1;
+  let xpNeeded = getXPForLevel(level);
+
+  while (xp >= xpNeeded) {
+    xp -= xpNeeded;
+    level++;
+    xpNeeded = getXPForLevel(level);
+  }
+
+  return level;
+}
+
+function getXPIntoCurrentLevel(xp) {
+  let level = 1;
+  let xpNeeded = getXPForLevel(level);
+
+  while (xp >= xpNeeded) {
+    xp -= xpNeeded;
+    level++;
+    xpNeeded = getXPForLevel(level);
+  }
+
+  return xp;
 }
 
 function updateLevelDisplay() {
   const level = getLevel(currentXP);
-  const xpIntoLevel = currentXP % XP_PER_LEVEL;
-  const percent = (xpIntoLevel / XP_PER_LEVEL) * 100;
+  const xpIntoLevel = getXPIntoCurrentLevel(currentXP);
+  const xpForThisLevel = getXPForLevel(level);
+
+  const percent = (xpIntoLevel / xpForThisLevel) * 100;
 
   const bar = document.getElementById("level-bar-fill");
   const levelDisplay = document.getElementById("level-display");
