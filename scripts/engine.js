@@ -26,12 +26,12 @@ function tossBones() {
   localStorage.setItem("bones", bones);
   updateBoneDisplay();
 
-  const roll = Math.floor(Math.random() * 10) + 1;
+  const roll = Math.floor(Math.random() * 10000) + 1;
   const rarity = getRarity(roll);
   const flavor = getFlavor(rarity);
   const perk = perks[roll];
 
-  const xpGained = Math.ceil(roll * 100);
+  const xpGained = Math.ceil(roll * 3);
   currentXP += xpGained;
   localStorage.setItem("xp", currentXP);
 
@@ -60,7 +60,7 @@ function getFlavor(rarity) {
 }
 
 // ==== XP + LEVEL LOGIC ====
-const BASE_XP = 1000;
+const BASE_XP = 100;
 const GROWTH_RATE = 1.5;
 
 function getXPForLevel(level) {
