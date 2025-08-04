@@ -1,56 +1,62 @@
 [
-	{
-		"name": "Pixel Dust —1 Focus",
-		"chance": 10,
-		"minRarity": "Dusty",
-		"rewards": {
-			"gold": 0,
-			"bones": 0
-		}
-	},
-	{
-		"name": "Moxie’s Mint Chew +1 Focus",
-		"chance": 10,
-		"minRarity": "Glimmer",
-		"rewards": {
-			"gold": 1,
-			"bones": 0
-		}
-	},
-	{
-		"name": "Cheek Ring of Ages +1 Focus",
-		"chance": 5,
-		"minRarity": "Mythborn",
-		"rewards": {
-			"gold": 3,
-			"bones": 1
-		}
-	},
-	{
-		"name": "✨ Nothing",
-		"chance": 60,
-		"minRarity": "Dusty",
-		"rewards": {
-			"gold": 0,
-			"bones": 0
-		}
-	},
-	{
-		"name": "💰 Pocket Gold x5",
-		"chance": 10,
-		"minRarity": "Glimmer",
-		"rewards": {
-			"gold": 5,
-			"bones": 0
-		}
-	},
-	{
-		"name": "🦴 Bone Fragment (Unverified)",
-		"chance": 5,
-		"minRarity": "Radiant",
-		"rewards": {
-			"gold": 0,
-			"bones": 1
-		}
-	}
+  {
+    "name": "Pixel Dust —1 Focus",
+    "chance": 10,
+    "minRarity": "Dusty",
+    "rewards": {
+      "xp": 0,
+      "gold": 0,
+      "bones": 0
+    }
+  },
+  {
+    "name": "Moxie’s Mint Chew +1 Focus",
+    "chance": 10,
+    "minRarity": "Glimmer",
+    "rewards": {
+      "xp": 0,
+      "gold": 1,
+      "bones": 0
+    }
+  },
+  {
+    "name": "Cheek Ring of Ages +1 Focus",
+    "chance": 5,
+    "minRarity": "Mythborn",
+    "rewards": {
+      "xp": 0,
+      "gold": 3,
+      "bones": 1
+    }
+  },
+  {
+    "name": "✨ Nothing",
+    "chance": 60,
+    "minRarity": "Dusty",
+    "rewards": {
+      "xp": 0,
+      "gold": 0,
+      "bones": 0
+    }
+  },
+  {
+    "name": "💰 Pocket Gold x5",
+    "chance": 10,
+    "minRarity": "Glimmer",
+    "rewards": {
+      "xp": 0,
+      "gold": 5,
+      "bones": 0
+    }
+  },
+  {
+    "name": "🦴 Bone Fragment (Unverified)",
+    "chance": 5,
+    "minRarity": "Radiant",
+    "rewards": {
+      "xp": 0,
+      "gold": 0,
+      "bones": 1
+    }
+  }
 ]
