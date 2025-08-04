@@ -1,16 +1,18 @@
-let rarityTable, perks;
+let rarityTiers, curveFlavors, perks;
 let currentXP = parseInt(localStorage.getItem("xp")) || 0;
-let bones = parseInt(localStorage.getItem("bones")) || 3; // Start with 3 bones
+let bones = parseInt(localStorage.getItem("bones")) || 3;
 
 Promise.all([
-  fetch("data/rarity-table.json").then(r => r.json()),
+  fetch("data/rarity-tiers.json").then(r => r.json()),
+  fetch("data/curve-flavors.json").then(r => r.json()),
   fetch("data/perk-table.json").then(r => r.json())
-]).then(([rarities, perkData]) => {
-  rarityTable = rarities;
+]).then(([tiers, flavors, perkData]) => {
+  rarityTiers = tiers;
+  curveFlavors = flavors;
   perks = flattenPerks(perkData);
   updateLevelDisplay();
   updateBoneDisplay();
-});
+});});
 
 function flattenPerks(perkThemes) {
   return Object.values(perkThemes).reduce((acc, group) => ({ ...acc, ...group }), {});
@@ -48,14 +50,15 @@ function tossBones() {
 }
 
 function getRarity(roll) {
-  return rarityTable.find(r => roll >= r.min && roll <= r.max) || rarityTable[0];
+  return rarityTiers.find(r => roll >= r.min && roll <= r.max) || rarityTiers[0];
 }
 
 function getFlavor(rarity) {
+  const flavorSet = curveFlavors[rarity.name] || { moisture: [], thickness: [] };
   const pick = arr => arr[Math.floor(Math.random() * arr.length)];
   return {
-    moisture: pick(rarity.flavors.moisture),
-    thickness: pick(rarity.flavors.thickness)
+    moisture: pick(flavorSet.moisture),
+    thickness: pick(flavorSet.thickness)
   };
 }
 
