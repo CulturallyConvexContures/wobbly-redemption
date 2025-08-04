@@ -1,15 +1,8 @@
-// ==== VERSION DEBUG ====
-const ENGINE_VERSION = "1.1.3"; // ✨ update this whenever you patch
-const SHOW_VERSION_ALERT = true; // toggle to false to disable alert
 
-if (SHOW_VERSION_ALERT) {
-  alert(`🚨 Moxie Engine v${ENGINE_VERSION} loaded`);
-}
 // ==== DATA IMPORT ====
 let rarityTable, perks, lootTable;
 let currentXP = parseInt(localStorage.getItem("xp")) || 0;
-
-// Fetch JSON data with error handling
+// Fetch JSON data
 Promise.all([
   fetch('data/rarity-table.json').then(r => r.json()),
   fetch('data/perk-table.json').then(r => r.json()),
@@ -18,42 +11,79 @@ Promise.all([
   rarityTable = rarities;
   perks = flattenPerks(perkData);
   lootTable = lootData;
-}).catch(err => {
-  console.error("Failed to load game data:", err);
 });
-
-// ==== FLATTEN PERK OBJECT ====
+// ==== FLATTEN PERK OBJECT (grouped by theme) ====
 function flattenPerks(perkThemes) {
   return Object.values(perkThemes).reduce((acc, group) => ({ ...acc, ...group }), {});
 }
 
-// ==== CALCULATE XP FROM ROLL ====
-function getXPFromRoll(roll, loot) {
-  return loot && loot.name.includes("Nothing") ? 0 : Math.ceil(roll * 100);
-}
-
 // ==== ROLL BONES ====
 function tossBones() {
-  if (!rarityTable || !perks || !lootTable) {
-    console.warn("Roll attempted before data fully loaded.");
-    return;
-  }
-
   const roll = Math.floor(Math.random() * 1000) + 1;
   const rarity = getRarity(roll);
   const flavor = getFlavor(rarity);
   const loot = rollLoot(rarity.name);
   const perk = perks[roll];
 
-  const xpGained = getXPFromRoll(roll, loot);
+  const xpGained = loot && loot.name.includes("Nothing") ? 0 : Math.ceil(roll * 100);
   currentXP += xpGained;
-  localStorage.setItem("xp", currentXP);
+  localStorage.setItem("xp", currentXP); // persist XP
 
-  const xpDisplay = document.getElementById("xp-display");
-  if (xpDisplay) {
-    xpDisplay.textContent = `XP: ${currentXP}`;
-  }
+  const result = `
+  🎲 <b>${roll}</b> → 
+  <b>${rarity.name}</b> ${flavor.moisture} ${flavor.thickness}<br>
+  💎 Loot: ${loot ? loot.name : "✨ Nothing"}<br>
+  ${perk ? `🌟 ${perk}<br>` : ""}
+  XP Gained: ${xpGained.toLocaleString()}<br>
+  ${xpGained === 0 ? "No XP earned🥳<br>" : ""}
+`;
 
-  // Placeholder: Insert UI update logic here for roll results (rarity, flavor, loot, perk)
+  // ✅ These two lines must be INSIDE tossBones()
+  document.getElementById("resultText").innerHTML = result;
+  document.getElementById("xpTracker").innerText = `XP: ${currentXP.toLocaleString()}`;
 }
+
+// ==== RARITY FINDER ====
+function getRarity(roll) {
+  return rarityTable.find(r => roll >= r.min && roll <= r.max) || rarityTable[0];
+}
+
+// ==== FLAVOR COMBO ====
+function getFlavor(rarity) {
+  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+  return {
+    moisture: pick(rarity.flavors.moisture),
+    thickness: pick(rarity.flavors.thickness)
+  };
+}
+
+// ==== LOOT FUNCTION ====
+function rollLoot(rarityName) {
+  const possible = lootTable.filter(item => compareRarity(item.minRarity, rarityName));
+  const roll = Math.random() * 100;
+  let acc = 0;
+  for (let item of possible) {
+    acc += item.chance;
+    if (roll <= acc) return item;
+  }
+  return null;
+}
+
+// ==== RARITY COMPARISON LOGIC ====
+const rarityOrder = ["Dusty", "Glimmer", "Radiant", "Mythborn", "Fated"];
+function compareRarity(min, actual) {
+  return rarityOrder.indexOf(actual) >= rarityOrder.indexOf(min);
+}
+// ==== ON PAGE LOAD ====
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("xpTracker").innerText = `XP: ${currentXP.toLocaleString()}`;
+});
+// ==== RESET FUNCTION ====
+
+window.resetXP = function resetXP() {
+  currentXP = 0;
+  localStorage.setItem("xp", 0);
+  document.getElementById("resultText").innerHTML = "🎲";
+  document.getElementById("xpTracker").innerText = `XP: ${currentXP.toLocaleString()}`;
+};
 window.tossBones = tossBones;
