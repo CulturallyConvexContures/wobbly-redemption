@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Common",
+    "min": 1,
+    "max": 5000,
+    "codename": "Dustprint"
+  },
+  {
+    "name": "Uncommon",
+    "min": 5001,
+    "max": 7500,
+    "codename": "Cheeklet"
+  },
+  {
+    "name": "Rare",
+    "min": 7501,
+    "max": 9000,
+    "codename": "Softstack"
+  },
+  {
+    "name": "Epic",
+    "min": 9001,
+    "max": 9750,
+    "codename": "Boldform"
+  },
+  {
+    "name": "Legendary",
+    "min": 9751,
+    "max": 9950,
+    "codename": "Mythmound"
+  },
+  {
+    "name": "Divine",
+    "min": 9951,
+    "max": 9995,
+    "codename": "PantheonCurve"
+  },
+  {
+    "name": "Fated",
+    "min": 9996,
+    "max": 10000,
+    "codename": "OmniStack"
+  }
+]
