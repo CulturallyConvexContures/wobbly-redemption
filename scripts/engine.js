@@ -106,10 +106,12 @@ function updateLevelDisplay() {
   if (levelDisplay) levelDisplay.textContent = `Level: ${level}`;
 }
 
-// ==== BONE TRACKER ====
 function updateBoneDisplay() {
   const boneDisplay = document.getElementById("boneTracker");
+  const rollButton = document.getElementById("rollButton");
+
   if (boneDisplay) boneDisplay.innerText = `🦴 Bones: ${bones}`;
+  if (rollButton) rollButton.style.display = bones > 0 ? "inline-block" : "none";
 }
 
 function addBones(count = 1) {
