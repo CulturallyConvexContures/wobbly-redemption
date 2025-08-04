@@ -26,7 +26,7 @@ function tossBones() {
   localStorage.setItem("bones", bones);
   updateBoneDisplay();
 
-  const roll = Math.floor(Math.random() * 1000) + 1;
+  const roll = Math.floor(Math.random() * 10) + 1;
   const rarity = getRarity(roll);
   const flavor = getFlavor(rarity);
   const perk = perks[roll];
