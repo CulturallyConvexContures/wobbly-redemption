@@ -12,7 +12,7 @@ Promise.all([
   perks = flattenPerks(perkData);
   updateLevelDisplay();
   updateBoneDisplay();
-});});
+});
 
 function flattenPerks(perkThemes) {
   return Object.values(perkThemes).reduce((acc, group) => ({ ...acc, ...group }), {});
@@ -50,7 +50,7 @@ function tossBones() {
 }
 
 function getRarity(roll) {
-  const found = rarityTable.find(r => roll >= r.min && roll <= r.max);
+  const found = rarityTiers.find(r => roll >= r.min && roll <= r.max);
   return found || { name: "❓Unknown", flavors: { moisture: ["??"], thickness: ["??"] } };
 }
 
