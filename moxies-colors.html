@@ -6,8 +6,14 @@
     <title>Bootyverse</title>
  <style>
 img {
+  width: 64px;
+  height: 64px;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  -ms-interpolation-mode: nearest-neighbor;
 }
 body {
   background: #111;
@@ -59,7 +65,7 @@ body {
   <div class="swatch" style="background-color: hsl(0, 0%, 75%)"></div>
   <div class="swatch" style="background-color: hsl(0, 0%, 95%)"></div>
   <br>
-  <img src="images/p2sphere.png" alt="P2 Sphere" width="64" height="64">
+<img src="images/p2sphere.png">
 </div>
 </body>
 </html>
