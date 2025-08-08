@@ -55,16 +55,41 @@
       border-radius:10px; box-shadow:0 0 18px rgba(51,209,255,.25), inset 0 0 12px rgba(51,209,255,.06); font-size:.9rem; opacity:0; pointer-events:none; transition:opacity .45s ease; z-index:9999; }
     .toast.show{ opacity:1; }
 
-    /* Active Boost bar visuals */
-    #activeWrap{ height:10px;background:#0e1830;border:1px solid #2e3e66;border-radius:999px;overflow:hidden;position:relative; }
-    #activeBar{ height:100%;width:0%;background:linear-gradient(90deg,#33d1ff,#ffd34d);transition:width .2s ease, box-shadow .2s ease; box-shadow:0 0 6px rgba(51,209,255,.6);}
-    #activeBar.glowPulse{ animation:pulseGlow .4s ease; }
-    @keyframes pulseGlow{
-      0%{   box-shadow:0 0 8px rgba(255,211,77,.8); }
-      50%{  box-shadow:0 0 16px rgba(255,211,77,1); }
-      100%{ box-shadow:0 0 8px rgba(255,211,77,.8); }
+    /* Progress-Fill button (Active Boost visualized) */
+    .progressBtn{
+      position: relative; width: 240px; height: 44px; border-radius: 12px;
+      background: #16264a; border: 1px solid var(--edge); overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.02) inset, 0 10px 20px rgba(0,0,0,.25);
     }
-    #catchReward{ font-size:14px;color:#ffd34d;text-align:center;height:18px;line-height:18px;margin-top:.25rem; }
+    .progressBtn::before{
+      content:""; position:absolute; inset:0;
+      background: linear-gradient(90deg, #33d1ff, #ffd34d);
+      transform: translateX(calc(var(--fill, 0%) - 100%));
+      transition: transform .2s ease;
+      filter: drop-shadow(0 0 6px rgba(255,211,77,.6));
+    }
+    .progressBtn::after{ content:""; position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.1)); pointer-events:none; }
+    .progressBtn.pulse::after{ animation: btnPulse .35s ease; }
+    @keyframes btnPulse{
+      0%{ box-shadow: 0 0 0 0 rgba(255,211,77,.55) inset; }
+      50%{ box-shadow: 0 0 0 12px rgba(255,211,77,.15) inset; }
+      100%{ box-shadow: 0 0 0 0 rgba(255,211,77,0) inset; }
+    }
+
+    /* Rarity bursts + fill tints */
+    .progressBtn.rareBurst{ box-shadow: 0 0 12px 3px #33d1ff, 0 0 28px 10px rgba(51,209,255,.45); filter: saturate(1.2) brightness(1.15); }
+    .progressBtn.legendaryBurst{ box-shadow: 0 0 15px 5px gold, 0 0 40px 15px rgba(255,215,0,.65); filter: saturate(2) brightness(1.3); }
+    .progressBtn.rareFill::before{ background: linear-gradient(90deg,#6fe7ff,#33d1ff); }
+    .progressBtn.legendaryFill::before{ background: linear-gradient(90deg, gold, #ff9b2f, #ff4d4d); }
+
+    /* Fish swim inside button */
+    .progressBtn .fish{ position:absolute; top:50%; transform:translateY(-50%); font-size:1.3rem; white-space:nowrap; animation:swim 2.5s linear forwards; }
+    @keyframes swim{ 0%{left:-2rem} 100%{left:calc(100% + 2rem)} }
+
+    /* Reward text under button */
+    #catchCaption{ margin:.25rem 0 .1rem; text-align:center; }
+    #catchReward{ font-size:14px;color:#ffd34d;text-align:center;height:18px;line-height:18px;margin-bottom:.35rem; }
   </style>
 </head>
 <body>
@@ -72,7 +97,7 @@
     <div class="banner"><div id="sky"></div><div class="horizon"></div></div>
 
     <h1>BYTE & SPICE: Moxie’s Catch</h1>
-    <div class="subtitle">Pluto Observatory District • “Every bite, a byte.”</div>
+    <div class="subtitle">Pluto Observatory District🛰️</div>
 
     <div class="stats">
       <div>ThiccTokens™: <span id="coins">0</span></div>
@@ -80,21 +105,19 @@
       <div>Booty per Hour (BPH): <span id="bph">0</span></div>
       <div>Catchmastery: <span id="catch">0</span></div>
       <div>Ξ‑Sigils: <span id="sigil">0</span></div>
-      <div>Prestige Multiplier: <span id="mult">1.00×</span></div>
+      <div>Total Multiplier: <span id="mult">1.00×</span></div>
       <div>Mastery Bonus: <span id="mastery">+0.000% (0 lvls)</span></div>
       <div>Buffs: <span id="buffs">—</span></div>
-      <div>Active Boost: <span id="activePct">0% (x1.00)</span></div>
-      <div id="activeWrap"><div id="activeBar"></div></div>
-      <div id="catchReward"></div>
     </div>
 
     <div class="bar"></div>
 
-    <div class="row">
-      <span class="moxie"><span id="moxFace" class="face">🍑</span><span class="note">Moxie:</span></span>
-      <button id="catchBtn">🪝 Reel in the Thick♥️</button>
-      <small class="note">Cast your line. Rarity determines rewards.</small>
+    <div class="row" style="justify-content:center">
+      <span class="moxie"><span id="moxFace" class="face">🍑</span></span>
+      <button id="catchBtn" class="progressBtn" aria-label="Reel in the Thick"></button>
     </div>
+    <div id="catchCaption" class="note">Reel in the Thick ❤️</div>
+    <div id="catchReward"></div>
 
     <div class="row" style="margin-top:.6rem" id="upgradeRow"></div>
 
@@ -117,6 +140,12 @@
     const $ = id => document.getElementById(id);
     const fmt = n => n.toLocaleString(undefined,{maximumFractionDigits:2});
     const toast = (msg, ms=4200) => { const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), ms); };
+    function spawnFish(emoji){ const btn=$('catchBtn'); const s=document.createElement('span'); s.className='fish'; s.textContent=emoji; btn.appendChild(s); setTimeout(()=>s.remove(),2500); }
+    function addBurst(type){ const btn=$('catchBtn'); btn.classList.remove('rareBurst','legendaryBurst','rareFill','legendaryFill'); void btn.offsetWidth;
+      if (type==='rare') btn.classList.add('rareBurst','rareFill');
+      if (type==='legendary') btn.classList.add('legendaryBurst','legendaryFill');
+      setTimeout(()=>btn.classList.remove('rareBurst','legendaryBurst','rareFill','legendaryFill'),1800);
+    }
 
     /* ==== Game State ==== */
     const S = {
@@ -128,20 +157,19 @@
       lifetimeUpgrades: 0,
       // prestige & temp buff:
       sigil:0, tempMult:1, tempUntil:0,
-      // active play meter:
-      activeFill: 0, // 0..1
+      // active play meter (0..1):
+      activeFill: 0,
       lastTick:Date.now()
     };
     const saved = localStorage.getItem('moxies-catch'); if (saved) Object.assign(S, JSON.parse(saved));
 
     /* ==== Multipliers ==== */
-    // 0.001% per lifetime upgrade level
+    // 0.001% per lifetime upgrade
     const BOOST_PER_UPGRADE = 0.00001;
-
-    // Active Play meter config
-    const ACTIVE_DECAY_PER_SEC = 0.05;   // drains 5% per second
+    // Active Play config
+    const ACTIVE_DECAY_PER_SEC = 0.05;   // 5%/sec drain
     const ACTIVE_FILL_PER_CLICK = 0.12;  // +12% per click
-    const ACTIVE_MAX_MULT      = 1.50;   // up to +50% when full
+    const ACTIVE_MAX_MULT      = 1.50;   // up to +50%
 
     function totalUpgradeLevels(){ return S.lifetimeUpgrades || 0; }
     function masteryMult(){ return 1 + totalUpgradeLevels() * BOOST_PER_UPGRADE; }
@@ -187,7 +215,7 @@
       // expire temp buff
       if (S.tempMult > 1 && now >= S.tempUntil){ S.tempMult = 1; }
 
-      // drain active meter (clamp dt to 1s for stability)
+      // drain active meter
       S.activeFill = Math.max(0, S.activeFill - ACTIVE_DECAY_PER_SEC * Math.min(dt, 1));
 
       S.coins += cps() * Math.min(dt, 60);
@@ -195,7 +223,7 @@
     }
     setInterval(loop, 1000);
 
-    /* ==== Rarity (edit here) ==== */
+    /* ==== Rarity table ==== */
     const RARITY_TABLE = [
       { name:'Common',    prob:0.80, wiggle:'wiggle',        flash:false,  bph:+3,   coins:+0,   buff:null,               emoji:'🪱' },
       { name:'Uncommon',  prob:0.15, wiggle:'wiggle',        flash:false,  bph:+3,   coins:+50,  buff:null,               emoji:'🐟' },
@@ -257,8 +285,9 @@
 
       // Active Boost: fill + pulse
       S.activeFill = Math.min(1, S.activeFill + ACTIVE_FILL_PER_CLICK);
-      const bar = $('activeBar');
-      bar.classList.remove('glowPulse'); void bar.offsetWidth; bar.classList.add('glowPulse');
+      const fillPct = Math.round(Math.max(0, Math.min(1, S.activeFill)) * 100);
+      $('catchBtn').style.setProperty('--fill', fillPct + '%');
+      const btn = $('catchBtn'); btn.classList.remove('pulse'); void btn.offsetWidth; btn.classList.add('pulse');
 
       // Moxie feedback
       const face = $('moxFace');
@@ -266,7 +295,11 @@
       face.classList.add(tier.wiggle);
       if (tier.flash){ face.classList.add('flash'); setTimeout(()=>face.classList.remove('flash'), 400); }
 
-      // Reward text under bar
+      // Rarity effects
+      if (tier.name === 'Rare'){ spawnFish('🐟'); addBurst('rare'); }
+      if (tier.name === 'Legendary'){ spawnFish('🐠✨'); addBurst('legendary'); }
+
+      // Reward text under button
       const rewardBits = [
         `${tier.emoji} ${tier.name}`,
         `+${tier.bph} BPH`,
@@ -276,7 +309,7 @@
       $('catchReward').textContent = rewardBits;
       setTimeout(()=>{ $('catchReward').textContent = ''; }, 1200);
 
-      toast(`${rewardBits}`);
+      toast(rewardBits);
       render();
     };
 
@@ -288,7 +321,7 @@
       S.coins = 0; S.bph = 0; S.catch = 0; S.nets = 0; S.rods = 0; S.trawlers = 0;
       S.netPrice = 100; S.rodPrice = 250; S.trawlPrice = 400;
       S.tempMult = 1; S.tempUntil = 0;
-      S.activeFill = 0; // reset active boost on prestige
+      S.activeFill = 0; // reset button fill on prestige
       // lifetimeUpgrades persists
       save(); render(); toast(`Trade complete. ${earned} Ξ‑Sigil(s) etched into your soul.`);
     }
@@ -307,8 +340,11 @@
       $('bph').textContent   = fmt(S.bph);
       $('catch').textContent = S.catch;
       $('sigil').textContent = S.sigil;
+
+      // show total multiplier
       $('mult').textContent  = fmt(effectiveMult()) + '×';
 
+      // mastery
       const masteryPct = ( (masteryMult() - 1) * 100 );
       $('mastery').textContent = `+${masteryPct.toFixed(3)}% (${totalUpgradeLevels()} lvls)`;
 
@@ -318,12 +354,9 @@
         $('buffs').textContent = `Frenzy x${S.tempMult} (${secs}s)`;
       } else { $('buffs').textContent = '—'; }
 
-      // Active bar UI: width + brighter glow with fill
+      // button fill mirrors active meter
       const pct = Math.round(Math.max(0, Math.min(1, S.activeFill)) * 100);
-      $('activeBar').style.width = pct + '%';
-      const glowStrength = 6 + (pct / 100) * 10; // 6px -> 16px
-      $('activeBar').style.boxShadow = `0 0 ${glowStrength}px rgba(255, 211, 77, ${(pct / 100) * 0.8})`;
-      $('activePct').textContent = `${pct}% (x${fmt(activeMult())})`;
+      $('catchBtn').style.setProperty('--fill', pct + '%');
 
       renderUpgrades();
       updateSkyline();
