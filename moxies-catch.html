@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Moxie’s Catch — Pluto Outpost</title>
   <style>
-    /* ===== THEME (tweak freely) ===== */
     :root{
       --ink:#0b1220; --panel:#101a2f; --edge:#2e3e66; --cy:#6fe7ff;
       --glow:#33d1ff; --accent:#ffd34d; --muted:#9fb6d1;
@@ -18,8 +17,32 @@
     .wrap{
       max-width:620px; margin:2rem auto; padding:1.2rem 1.3rem;
       background:var(--panel); border-radius:14px;
-      box-shadow:0 0 0 1px var(--edge), 0 18px 40px rgba(0,0,0,.35);
+      box-shadow:0 0 0 1px var(--edge), 0 18px 40px rgba(0,0,0,.35); position:relative;
     }
+    /* ===== Banner / Skyline ===== */
+    .banner{
+      height:160px; margin:-1.2rem -1.3rem 1rem; border-radius:14px 14px 0 0;
+      background: radial-gradient(120% 100% at 70% 0%, rgba(51,209,255,.18), transparent 60%),
+                  linear-gradient(180deg, #0d1a34, #0c1426);
+      border-bottom:1px solid var(--edge); position:relative; overflow:hidden;
+    }
+    #sky{position:absolute; inset:0; overflow:hidden;}
+    .star,.light,.beacon{
+      position:absolute; border-radius:50%;
+      background:#9fe6ff; opacity:.8; box-shadow:0 0 8px rgba(111,231,255,.6);
+      transform:translate(-50%,-50%);
+    }
+    .star{ width:2px; height:2px; opacity:.6; box-shadow:0 0 6px rgba(111,231,255,.5); }
+    .light{ width:3px; height:3px; opacity:.9; }
+    .beacon{ width:5px; height:5px; background:#ffd34d; box-shadow:0 0 10px rgba(255,211,77,.8); }
+    .horizon{
+      position:absolute; left:0; right:0; bottom:0; height:48%;
+      background:
+        linear-gradient(0deg, #0b1020 0%, transparent 55%),
+        repeating-linear-gradient(90deg, #0f1830 0 30px, #0b1326 30px 60px);
+      opacity:.75;
+    }
+
     h1{ margin:.25rem 0 .25rem; font-size:1.8rem; color:var(--accent); letter-spacing:.4px; }
     .subtitle{ color:var(--muted); font-size:.9rem; margin-bottom:.75rem }
     .stats{ display:grid; grid-template-columns: 1fr 1fr; gap:.3rem .75rem; }
@@ -40,7 +63,25 @@
     .pill{ display:inline-block; padding:.05rem .45rem; border:1px solid var(--edge);
       border-radius:999px; color:var(--cy); margin-left:.35rem; font-size:.75rem; }
 
-    /* Toast (non-blocking notification) */
+    /* ===== Moxie Sprite ===== */
+    .moxie{
+      display:inline-flex; align-items:center; gap:.4rem; user-select:none;
+      margin-right:.25rem;
+    }
+    .moxie .face{
+      width:28px; height:28px; border-radius:6px; background:#203056; border:1px solid #2e3e66;
+      display:grid; place-items:center; box-shadow:0 0 10px rgba(51,209,255,.18) inset;
+      font-size:18px;
+    }
+    .wiggle{ animation:wiggle .45s ease; }
+    @keyframes wiggle{
+      0%,100%{ transform:translateY(0) rotate(0deg);}
+      25%{ transform:translateY(-1px) rotate(-6deg);}
+      50%{ transform:translateY(0) rotate(6deg);}
+      75%{ transform:translateY(-1px) rotate(-3deg);}
+    }
+
+    /* Toast */
     .toast{
       position:fixed; top:1rem; right:1rem; background:rgba(20,45,80,.96);
       color:#cfe6ff; padding:.75rem 1rem; border:1px solid var(--edge); border-radius:10px;
@@ -48,19 +89,14 @@
       font-size:.9rem; opacity:0; pointer-events:none; transition:opacity .45s ease; z-index:9999;
     }
     .toast.show{ opacity:1; }
-
-    /* Optional header art area (swap to your asset) */
-    .banner{
-      height:140px; margin:-1.2rem -1.3rem 1rem; border-radius:14px 14px 0 0;
-      background: radial-gradient(120% 100% at 70% 0%, rgba(51,209,255,.18), transparent 60%),
-                  linear-gradient(180deg, #0d1a34, #0c1426);
-      border-bottom:1px solid var(--edge);
-    }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="banner"></div>
+    <div class="banner">
+      <div id="sky"></div>
+      <div class="horizon"></div>
+    </div>
 
     <h1>BYTE & SPICE: Moxie’s Catch</h1>
     <div class="subtitle">Pluto Observatory District • “Every bite, a byte.”</div>
@@ -77,6 +113,7 @@
     <div class="bar"></div>
 
     <div class="row">
+      <span class="moxie"><span id="moxFace" class="face">🧑‍🚀</span><span class="note">Moxie:</span></span>
       <button id="catchBtn">🪝 Reel in the Thick (+BPH)</button>
       <small class="note">Each haul raises BPH by <strong>+3</strong>.</small>
     </div>
@@ -101,35 +138,51 @@
   <div id="toast" class="toast"></div>
 
   <script>
-    // ===== Helpers =====
+    // Helpers
     const $ = id => document.getElementById(id);
     const fmt = n => n.toLocaleString(undefined,{maximumFractionDigits:2});
     const toast = (msg, ms=4200) => { const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), ms); };
 
-    // ===== Game State =====
-    const S = {
-      coins: 0,        // ThiccTokens™
-      bph: 0,          // Booty per hour (base, pre-multiplier)
-      catch: 0,        // Catchmastery
-      nets: 0,
-      netPrice: 100,
-      sigil: 0,        // Prestige currency
-      lastTick: Date.now()
-    };
-
-    // Load
-    const saved = localStorage.getItem('moxies-catch');
-    if (saved) Object.assign(S, JSON.parse(saved));
+    // State
+    const S = { coins:0, bph:0, catch:0, nets:0, netPrice:100, sigil:0, lastTick:Date.now() };
+    const saved = localStorage.getItem('moxies-catch'); if (saved) Object.assign(S, JSON.parse(saved));
 
     // Rates
-    const prestigeMult = () => 1 + (S.sigil * 0.15);     // +15% BPH per sigil
-    const cps = () => (S.bph * prestigeMult()) / 3600;   // tokens per sec (with prestige)
+    const prestigeMult = () => 1 + (S.sigil * 0.15);
+    const cps = () => (S.bph * prestigeMult()) / 3600;
 
-    // Offline progress (toast once)
+    // Skyline generator (stars/lights scale with sigils)
+    function updateSkyline(){
+      const sky = $('sky'); sky.innerHTML = '';
+      const tier = S.sigil;
+      const stars = 40 + tier*15;   // more sigils -> more stars
+      const lights = 10 + tier*6;   // more city windows
+      const beacons = Math.floor(tier/2); // occasional ad beacons
+
+      const rand = (min,max)=>Math.random()*(max-min)+min;
+
+      for(let i=0;i<stars;i++){
+        const s=document.createElement('div'); s.className='star';
+        s.style.left = rand(2,98)+'%'; s.style.top = rand(5,55)+'%';
+        sky.appendChild(s);
+      }
+      for(let i=0;i<lights;i++){
+        const l=document.createElement('div'); l.className='light';
+        l.style.left = rand(2,98)+'%'; l.style.top = rand(55,92)+'%';
+        sky.appendChild(l);
+      }
+      for(let i=0;i<beacons;i++){
+        const b=document.createElement('div'); b.className='beacon';
+        b.style.left = rand(5,95)+'%'; b.style.top = rand(35,70)+'%';
+        sky.appendChild(b);
+      }
+    }
+
+    // Offline progress
     (function offline(){
       const now = Date.now();
       const dt = Math.max(0, (now - (S.lastTick||now)) / 1000);
-      const CAP_HOURS = 12; // keep sane
+      const CAP_HOURS = 12;
       const capped = Math.min(dt, CAP_HOURS*3600);
       const earned = cps() * capped;
       if (earned > 0.01 && capped > 0){
@@ -141,7 +194,7 @@
       S.lastTick = now;
     })();
 
-    // Loop (delta-based, robust to tab throttling)
+    // Loop
     function loop(){
       const now = Date.now();
       const dt = (now - S.lastTick) / 1000;
@@ -151,14 +204,16 @@
     }
     setInterval(loop, 1000);
 
-    // ===== Actions =====
-    $('catchBtn').onclick = () => { S.catch += 1; S.bph += 3; render(); };
+    // Actions
+    $('catchBtn').onclick = () => {
+      S.catch += 1; S.bph += 3; render();
+      // wiggle Moxie
+      const face = $('moxFace'); face.classList.remove('wiggle'); void face.offsetWidth; face.classList.add('wiggle');
+    };
 
     $('netBtn').onclick = () => {
       if (S.coins >= S.netPrice){
-        S.coins -= S.netPrice;
-        S.nets += 1;
-        S.bph += 20;
+        S.coins -= S.netPrice; S.nets += 1; S.bph += 20;
         S.netPrice = Math.ceil(S.netPrice * 1.25);
         $('netBtn').textContent = `⚓ Upgrade Curvature Lattice (${S.netPrice} TT)`;
         render();
@@ -166,25 +221,18 @@
     };
 
     function prestige(){
-      // earn 1 Ξ‑Sigil per 1000 TT (floor)
       const earned = Math.floor(S.coins / 1000);
       if (earned <= 0){ toast('Haul not big enough to impress Moxie.'); return; }
       if (!confirm(`Sell your entire haul for ${earned} Ξ‑Sigil(s)? This resets your catch and gear.`)) return;
 
       S.sigil += earned;
-      // Reset loop
-      S.coins = 0;
-      S.bph = 0;
-      S.catch = 0;
-      S.nets = 0;
-      S.netPrice = 100;
+      S.coins = 0; S.bph = 0; S.catch = 0; S.nets = 0; S.netPrice = 100;
 
-      save(); render();
-      toast(`Trade complete. ${earned} Ξ‑Sigil(s) etched into your soul.`);
+      save(); render(); toast(`Trade complete. ${earned} Ξ‑Sigil(s) etched into your soul.`);
     }
     $('prestigeBtn').onclick = prestige;
 
-    // Save / Reset
+    // Save/Reset
     function save(){ localStorage.setItem('moxies-catch', JSON.stringify(S)); }
     $('saveBtn').onclick = () => { save(); toast('Scroll sealed. Progress preserved.'); };
     $('resetBtn').onclick = () => {
@@ -193,7 +241,7 @@
     };
     setInterval(save, 15000);
 
-    // ===== Render =====
+    // Render
     function render(){
       $('coins').textContent = fmt(S.coins);
       $('cps').textContent = fmt(cps());
@@ -202,10 +250,12 @@
       $('sigil').textContent = S.sigil;
       $('mult').textContent = `${fmt(prestigeMult())}×`;
       $('netBtn').disabled = S.coins < S.netPrice;
+      updateSkyline();
     }
 
     // Init
     $('netBtn').textContent = `⚓ Upgrade Curvature Lattice (${S.netPrice} TT)`;
+    updateSkyline();
     render();
   </script>
 </body>
