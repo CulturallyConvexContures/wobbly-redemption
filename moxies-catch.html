@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Pluto Fishing Co-op</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background:#0b1220; color:#bdf; margin:0; }
+    .wrap { max-width: 520px; margin: 2rem auto; padding: 1rem; background:#111a2e; border-radius:12px; }
+    h1 { margin: 0 0 .5rem; }
+    .stats div { margin:.25rem 0; }
+    button { background:#1c2b4a; color:#bdf; border:1px solid #355; padding:.6rem .9rem; border-radius:10px; cursor:pointer; }
+    button:disabled { opacity:.5; cursor:default; }
+    .row { display:flex; gap:.75rem; align-items:center; flex-wrap:wrap; }
+
+    /* Toast styling */
+    .toast {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(20, 40, 80, 0.95);
+      color: #bdf;
+      padding: .75rem 1rem;
+      border: 1px solid #355;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      z-index: 9999;
+    }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Pluto Fishing Co-op</h1>
+    <div class="stats">
+      <div>Coins: <span id="coins">0</span></div>
+      <div>Coins / sec: <span id="cps">0</span></div>
+      <div>Gold per hour: <span id="gph">0</span></div>
+      <div>Fish skill: <span id="fishSkill">0</span></div>
+    </div>
+    <hr/>
+    <div class="row">
+      <button id="catchFishBtn">🎣 Catch Fish (+GPH)</button>
+      <small>Each catch raises GPH by 3.</small>
+    </div>
+    <div class="row" style="margin-top:.5rem">
+      <button id="buyNetBtn">🪢 Buy Better Net (100 coins)</button>
+      <small>+20 GPH per net. Price scales x1.25</small>
+    </div>
+    <div class="row" style="margin-top:.5rem">
+      <button id="saveBtn">💾 Save</button>
+      <button id="resetBtn">♻️ Reset</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const el = id => document.getElementById(id);
+    const fmt = n => n.toLocaleString(undefined,{maximumFractionDigits:2});
+
+    const state = {
+      coins: 0,
+      gph: 0,
+      fishSkill: 0,
+      nets: 0,
+      netPrice: 100,
+      lastTick: Date.now()
+    };
+
+    // Load saved
+    const saved = localStorage.getItem('pluto-idle');
+    if (saved) Object.assign(state, JSON.parse(saved));
+
+    function cps() { return state.gph / 3600; }
+
+    // Toast helper
+    function showToast(msg) {
+      const toast = el('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000); // fade out
+    }
+
+    // ---- OFFLINE PROGRESS (toast once) ----
+    (function grantOfflineProgressOnce(){
+      const now = Date.now();
+      const dt = Math.max(0, (now - (state.lastTick||now)) / 1000);
+      const CAP_HOURS = 12;
+      const capped = Math.min(dt, CAP_HOURS*3600);
+      const earned = cps() * capped;
+      if (earned > 0.01 && capped > 0) {
+        state.coins += earned;
+        setTimeout(() => {
+          showToast(`While you were away (${fmt(capped/3600)}h), your co-op earned ${fmt(earned)} coins.`);
+        }, 200);
+      }
+      state.lastTick = now;
+    })();
+    // ---------------------------------------
+
+    function tick(dtSec) { state.coins += cps() * dtSec; }
+
+    function gameLoop() {
+      const now = Date.now();
+      const dt = (now - state.lastTick) / 1000;
+      state.lastTick = now;
+      tick(Math.min(dt, 60));
+      render();
+    }
+    setInterval(gameLoop, 1000);
+
+    function render() {
+      el('coins').textContent = fmt(state.coins);
+      el('cps').textContent = fmt(cps());
+      el('gph').textContent = fmt(state.gph);
+      el('fishSkill').textContent = state.fishSkill;
+      el('buyNetBtn').disabled = state.coins < state.netPrice;
+    }
+
+    // Actions
+    el('catchFishBtn').onclick = () => {
+      state.fishSkill += 1;
+      state.gph += 3;
+      render();
+    };
+
+    el('buyNetBtn').onclick = () => {
+      if (state.coins >= state.netPrice) {
+        state.coins -= state.netPrice;
+        state.nets += 1;
+        state.gph += 20;
+        state.netPrice = Math.ceil(state.netPrice * 1.25);
+        el('buyNetBtn').textContent = `🪢 Buy Better Net (${state.netPrice} coins)`;
+        render();
+      }
+    };
+
+    // Save/Reset
+    function save(){ localStorage.setItem('pluto-idle', JSON.stringify(state)); }
+    el('saveBtn').onclick = () => { save(); showToast('Progress saved.'); };
+    el('resetBtn').onclick = () => {
+      if (!confirm('Reset progress?')) return;
+      localStorage.removeItem('pluto-idle'); location.reload();
+    };
+
+    // Init
+    el('buyNetBtn').textContent = `🪢 Buy Better Net (${state.netPrice} coins)`;
+    render();
+    setInterval(save, 15000);
+  </script>
+</body>
+</html>
