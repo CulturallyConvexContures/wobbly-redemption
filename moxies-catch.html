@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Moxie’s Catch — Pluto Outpost</title>
   <style>
     :root{
@@ -54,6 +54,17 @@
     .toast{ position:fixed; top:1rem; right:1rem; background:rgba(20,45,80,.96); color:#cfe6ff; padding:.75rem 1rem; border:1px solid var(--edge);
       border-radius:10px; box-shadow:0 0 18px rgba(51,209,255,.25), inset 0 0 12px rgba(51,209,255,.06); font-size:.9rem; opacity:0; pointer-events:none; transition:opacity .45s ease; z-index:9999; }
     .toast.show{ opacity:1; }
+
+    /* Active Boost bar visuals */
+    #activeWrap{ height:10px;background:#0e1830;border:1px solid #2e3e66;border-radius:999px;overflow:hidden;position:relative; }
+    #activeBar{ height:100%;width:0%;background:linear-gradient(90deg,#33d1ff,#ffd34d);transition:width .2s ease, box-shadow .2s ease; box-shadow:0 0 6px rgba(51,209,255,.6);}
+    #activeBar.glowPulse{ animation:pulseGlow .4s ease; }
+    @keyframes pulseGlow{
+      0%{   box-shadow:0 0 8px rgba(255,211,77,.8); }
+      50%{  box-shadow:0 0 16px rgba(255,211,77,1); }
+      100%{ box-shadow:0 0 8px rgba(255,211,77,.8); }
+    }
+    #catchReward{ font-size:14px;color:#ffd34d;text-align:center;height:18px;line-height:18px;margin-top:.25rem; }
   </style>
 </head>
 <body>
@@ -72,6 +83,9 @@
       <div>Prestige Multiplier: <span id="mult">1.00×</span></div>
       <div>Mastery Bonus: <span id="mastery">+0.000% (0 lvls)</span></div>
       <div>Buffs: <span id="buffs">—</span></div>
+      <div>Active Boost: <span id="activePct">0% (x1.00)</span></div>
+      <div id="activeWrap"><div id="activeBar"></div></div>
+      <div id="catchReward"></div>
     </div>
 
     <div class="bar"></div>
@@ -114,6 +128,8 @@
       lifetimeUpgrades: 0,
       // prestige & temp buff:
       sigil:0, tempMult:1, tempUntil:0,
+      // active play meter:
+      activeFill: 0, // 0..1
       lastTick:Date.now()
     };
     const saved = localStorage.getItem('moxies-catch'); if (saved) Object.assign(S, JSON.parse(saved));
@@ -122,10 +138,16 @@
     // 0.001% per lifetime upgrade level
     const BOOST_PER_UPGRADE = 0.00001;
 
+    // Active Play meter config
+    const ACTIVE_DECAY_PER_SEC = 0.05;   // drains 5% per second
+    const ACTIVE_FILL_PER_CLICK = 0.12;  // +12% per click
+    const ACTIVE_MAX_MULT      = 1.50;   // up to +50% when full
+
     function totalUpgradeLevels(){ return S.lifetimeUpgrades || 0; }
     function masteryMult(){ return 1 + totalUpgradeLevels() * BOOST_PER_UPGRADE; }
     const prestigeMult  = () => 1 + (S.sigil * 0.15);
-    const effectiveMult = () => prestigeMult() * S.tempMult * masteryMult();
+    function activeMult(){ return 1 + (ACTIVE_MAX_MULT - 1) * Math.max(0, Math.min(1, S.activeFill)); }
+    const effectiveMult = () => prestigeMult() * S.tempMult * masteryMult() * activeMult();
     const cps           = () => (S.bph * effectiveMult()) / 3600;
 
     /* ==== Skyline ==== */
@@ -162,13 +184,18 @@
       const dt = (now - S.lastTick) / 1000;
       S.lastTick = now;
 
-      if (S.tempMult > 1 && now >= S.tempUntil){ S.tempMult = 1; } // expire buff
+      // expire temp buff
+      if (S.tempMult > 1 && now >= S.tempUntil){ S.tempMult = 1; }
+
+      // drain active meter (clamp dt to 1s for stability)
+      S.activeFill = Math.max(0, S.activeFill - ACTIVE_DECAY_PER_SEC * Math.min(dt, 1));
+
       S.coins += cps() * Math.min(dt, 60);
       render();
     }
     setInterval(loop, 1000);
 
-    /* ==== Rarity (edit probabilities/rewards here) ==== */
+    /* ==== Rarity (edit here) ==== */
     const RARITY_TABLE = [
       { name:'Common',    prob:0.80, wiggle:'wiggle',        flash:false,  bph:+3,   coins:+0,   buff:null,               emoji:'🪱' },
       { name:'Uncommon',  prob:0.15, wiggle:'wiggle',        flash:false,  bph:+3,   coins:+50,  buff:null,               emoji:'🐟' },
@@ -195,7 +222,7 @@
       {
         key:'rods', id:'rodBtn', name:'🎣 Cosmic Rod',
         get price(){ return S.rodPrice; },
-        canBuy: () => S.nets >= 3 && S.coins >= S.rodPrice,   // prerequisite (doesn't consume)
+        canBuy: () => S.nets >= 3 && S.coins >= S.rodPrice,
         buy: () => { S.coins -= S.rodPrice; S.rods++; S.lifetimeUpgrades++; S.bph += 50; S.rodPrice = Math.ceil(S.rodPrice * 1.35); },
         label: () => `🎣 Cosmic Rod (${S.rodPrice} TT)`,
         note:'Requires 3 Curvature Lattices. +50 BPH. Price scales ×1.35'
@@ -203,7 +230,7 @@
       {
         key:'trawlers', id:'trawlBtn', name:'🛠️ Quantum Trawler',
         get price(){ return S.trawlPrice; },
-        canBuy: () => S.nets >= 2 && S.coins >= S.trawlPrice, // consumes prior
+        canBuy: () => S.nets >= 2 && S.coins >= S.trawlPrice,
         buy: () => { S.coins -= S.trawlPrice; S.nets -= 2; S.trawlers++; S.lifetimeUpgrades++; S.bph += 120; S.trawlPrice = Math.ceil(S.trawlPrice * 1.40); },
         label: () => `🛠️ Quantum Trawler (${S.trawlPrice} TT)`,
         note:'Consumes 2 Curvature Lattices. +120 BPH. Price scales ×1.40'
@@ -228,13 +255,28 @@
       S.catch += 1; S.bph += tier.bph; S.coins += tier.coins;
       if (tier.buff) startFrenzy(tier.buff.mult, tier.buff.secs);
 
+      // Active Boost: fill + pulse
+      S.activeFill = Math.min(1, S.activeFill + ACTIVE_FILL_PER_CLICK);
+      const bar = $('activeBar');
+      bar.classList.remove('glowPulse'); void bar.offsetWidth; bar.classList.add('glowPulse');
+
       // Moxie feedback
       const face = $('moxFace');
       face.classList.remove('wiggle','wiggle-epic','wiggle-legend','flash'); void face.offsetWidth;
       face.classList.add(tier.wiggle);
       if (tier.flash){ face.classList.add('flash'); setTimeout(()=>face.classList.remove('flash'), 400); }
 
-      toast(`${tier.emoji} ${tier.name} catch! +${tier.bph} BPH${tier.coins?` • +${fmt(tier.coins)} TT`:''}${tier.buff?` • Frenzy x${tier.buff.mult} ${tier.buff.secs}s`:''}`);
+      // Reward text under bar
+      const rewardBits = [
+        `${tier.emoji} ${tier.name}`,
+        `+${tier.bph} BPH`,
+        tier.coins ? `+${fmt(tier.coins)} TT` : null,
+        tier.buff ? `Frenzy x${tier.buff.mult} ${tier.buff.secs}s` : null
+      ].filter(Boolean).join(' • ');
+      $('catchReward').textContent = rewardBits;
+      setTimeout(()=>{ $('catchReward').textContent = ''; }, 1200);
+
+      toast(`${rewardBits}`);
       render();
     };
 
@@ -246,7 +288,8 @@
       S.coins = 0; S.bph = 0; S.catch = 0; S.nets = 0; S.rods = 0; S.trawlers = 0;
       S.netPrice = 100; S.rodPrice = 250; S.trawlPrice = 400;
       S.tempMult = 1; S.tempUntil = 0;
-      // NOTE: lifetimeUpgrades stays as-is (permanent)
+      S.activeFill = 0; // reset active boost on prestige
+      // lifetimeUpgrades persists
       save(); render(); toast(`Trade complete. ${earned} Ξ‑Sigil(s) etched into your soul.`);
     }
     $('prestigeBtn').onclick = prestige;
@@ -274,6 +317,13 @@
         const secs = Math.max(0, Math.ceil((S.tempUntil - Date.now())/1000));
         $('buffs').textContent = `Frenzy x${S.tempMult} (${secs}s)`;
       } else { $('buffs').textContent = '—'; }
+
+      // Active bar UI: width + brighter glow with fill
+      const pct = Math.round(Math.max(0, Math.min(1, S.activeFill)) * 100);
+      $('activeBar').style.width = pct + '%';
+      const glowStrength = 6 + (pct / 100) * 10; // 6px -> 16px
+      $('activeBar').style.boxShadow = `0 0 ${glowStrength}px rgba(255, 211, 77, ${(pct / 100) * 0.8})`;
+      $('activePct').textContent = `${pct}% (x${fmt(activeMult())})`;
 
       renderUpgrades();
       updateSkyline();
