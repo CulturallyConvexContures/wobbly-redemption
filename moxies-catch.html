@@ -9,94 +9,57 @@
       --ink:#0b1220; --panel:#101a2f; --edge:#2e3e66; --cy:#6fe7ff;
       --glow:#33d1ff; --accent:#ffd34d; --muted:#9fb6d1;
     }
-    body{
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background:linear-gradient(180deg,#0a1222,#0a1428 40%,#0c152b);
-      color:#cfe6ff; margin:0;
-    }
-    .wrap{
-      max-width:620px; margin:2rem auto; padding:1.2rem 1.3rem;
-      background:var(--panel); border-radius:14px;
-      box-shadow:0 0 0 1px var(--edge), 0 18px 40px rgba(0,0,0,.35); position:relative;
-    }
-    /* ===== Banner / Skyline ===== */
-    .banner{
-      height:160px; margin:-1.2rem -1.3rem 1rem; border-radius:14px 14px 0 0;
-      background: radial-gradient(120% 100% at 70% 0%, rgba(51,209,255,.18), transparent 60%),
-                  linear-gradient(180deg, #0d1a34, #0c1426);
-      border-bottom:1px solid var(--edge); position:relative; overflow:hidden;
-    }
+    body{ font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background:linear-gradient(180deg,#0a1222,#0a1428 40%,#0c152b); color:#cfe6ff; margin:0;}
+    .wrap{ max-width:620px; margin:2rem auto; padding:1.2rem 1.3rem; background:var(--panel);
+      border-radius:14px; box-shadow:0 0 0 1px var(--edge), 0 18px 40px rgba(0,0,0,.35); position:relative;}
+    /* ==== Banner / Skyline ==== */
+    .banner{ height:160px; margin:-1.2rem -1.3rem 1rem; border-radius:14px 14px 0 0;
+      background: radial-gradient(120% 100% at 70% 0%, rgba(51,209,255,.18), transparent 60%), linear-gradient(180deg, #0d1a34, #0c1426);
+      border-bottom:1px solid var(--edge); position:relative; overflow:hidden;}
     #sky{position:absolute; inset:0; overflow:hidden;}
-    .star,.light,.beacon{
-      position:absolute; border-radius:50%;
-      background:#9fe6ff; opacity:.8; box-shadow:0 0 8px rgba(111,231,255,.6);
-      transform:translate(-50%,-50%);
-    }
-    .star{ width:2px; height:2px; opacity:.6; box-shadow:0 0 6px rgba(111,231,255,.5); }
-    .light{ width:3px; height:3px; opacity:.9; }
+    .star,.light,.beacon{ position:absolute; border-radius:50%; transform:translate(-50%,-50%); }
+    .star{ width:2px; height:2px; background:#9fe6ff; opacity:.6; box-shadow:0 0 6px rgba(111,231,255,.5); }
+    .light{ width:3px; height:3px; background:#9fe6ff; opacity:.9; box-shadow:0 0 8px rgba(111,231,255,.6); }
     .beacon{ width:5px; height:5px; background:#ffd34d; box-shadow:0 0 10px rgba(255,211,77,.8); }
-    .horizon{
-      position:absolute; left:0; right:0; bottom:0; height:48%;
-      background:
-        linear-gradient(0deg, #0b1020 0%, transparent 55%),
-        repeating-linear-gradient(90deg, #0f1830 0 30px, #0b1326 30px 60px);
-      opacity:.75;
-    }
+    .horizon{ position:absolute; left:0; right:0; bottom:0; height:48%;
+      background: linear-gradient(0deg, #0b1020 0%, transparent 55%), repeating-linear-gradient(90deg, #0f1830 0 30px, #0b1326 30px 60px);
+      opacity:.75; }
 
     h1{ margin:.25rem 0 .25rem; font-size:1.8rem; color:var(--accent); letter-spacing:.4px; }
     .subtitle{ color:var(--muted); font-size:.9rem; margin-bottom:.75rem }
+
     .stats{ display:grid; grid-template-columns: 1fr 1fr; gap:.3rem .75rem; }
-    .stats div{ margin:.1rem 0; }
-    .bar{ height:1px; background:linear-gradient(90deg,transparent,var(--edge),transparent);
-      margin:.8rem 0 1.1rem; }
+    .bar{ height:1px; background:linear-gradient(90deg,transparent,var(--edge),transparent); margin:.8rem 0 1.1rem; }
     .row{ display:flex; gap:.75rem; align-items:center; flex-wrap:wrap; }
     .note{ color:var(--muted); font-size:.85rem }
 
-    button{
-      background:#16264a; color:#cfe6ff; border:1px solid var(--edge);
-      padding:.6rem .9rem; border-radius:10px; cursor:pointer; transition:transform .02s ease, filter .15s ease;
-      box-shadow:0 0 0 1px rgba(255,255,255,.02) inset, 0 10px 20px rgba(0,0,0,.25);
-    }
-    button:hover{ filter:brightness(1.05); }
-    button:active{ transform:translateY(1px); }
-    button:disabled{ opacity:.5; cursor:default; }
-    .pill{ display:inline-block; padding:.05rem .45rem; border:1px solid var(--edge);
-      border-radius:999px; color:var(--cy); margin-left:.35rem; font-size:.75rem; }
+    button{ background:#16264a; color:#cfe6ff; border:1px solid var(--edge); padding:.6rem .9rem; border-radius:10px;
+      cursor:pointer; transition:transform .02s ease, filter .15s ease; box-shadow:0 0 0 1px rgba(255,255,255,.02) inset, 0 10px 20px rgba(0,0,0,.25);}
+    button:hover{ filter:brightness(1.05); } button:active{ transform:translateY(1px);} button:disabled{ opacity:.5; cursor:default;}
+    .pill{ display:inline-block; padding:.05rem .45rem; border:1px solid var(--edge); border-radius:999px; color:var(--cy); margin-left:.35rem; font-size:.75rem; }
 
-    /* ===== Moxie Sprite ===== */
-    .moxie{
-      display:inline-flex; align-items:center; gap:.4rem; user-select:none;
-      margin-right:.25rem;
-    }
-    .moxie .face{
-      width:28px; height:28px; border-radius:6px; background:#203056; border:1px solid #2e3e66;
-      display:grid; place-items:center; box-shadow:0 0 10px rgba(51,209,255,.18) inset;
-      font-size:18px;
-    }
+    /* Moxie wiggles */
+    .moxie{ display:inline-flex; align-items:center; gap:.4rem; user-select:none; margin-right:.25rem; }
+    .moxie .face{ width:28px; height:28px; border-radius:6px; background:#203056; border:1px solid #2e3e66;
+      display:grid; place-items:center; box-shadow:0 0 10px rgba(51,209,255,.18) inset; font-size:18px; }
     .wiggle{ animation:wiggle .45s ease; }
-    @keyframes wiggle{
-      0%,100%{ transform:translateY(0) rotate(0deg);}
-      25%{ transform:translateY(-1px) rotate(-6deg);}
-      50%{ transform:translateY(0) rotate(6deg);}
-      75%{ transform:translateY(-1px) rotate(-3deg);}
-    }
+    .wiggle-epic{ animation:wiggleEpic .7s ease; }
+    .wiggle-legend{ animation:wiggleLegend 1s ease; }
+    .flash{ box-shadow:0 0 18px rgba(51,209,255,.65), 0 0 30px rgba(255,211,77,.55) inset; transition:box-shadow .35s ease; }
+    @keyframes wiggle{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-1px) rotate(-6deg)}50%{transform:translateY(0) rotate(6deg)}75%{transform:translateY(-1px) rotate(-3deg)}}
+    @keyframes wiggleEpic{0%,100%{transform:translateY(0) rotate(0)}20%{transform:translateY(-2px) rotate(-10deg)}50%{transform:translateY(1px) rotate(8deg)}80%{transform:translateY(-1px) rotate(-6deg)}}
+    @keyframes wiggleLegend{0%,100%{transform:translateY(0) rotate(0)}15%{transform:translateY(-3px) rotate(-14deg)}45%{transform:translateY(2px) rotate(12deg)}75%{transform:translateY(-2px) rotate(-10deg)}}
 
     /* Toast */
-    .toast{
-      position:fixed; top:1rem; right:1rem; background:rgba(20,45,80,.96);
-      color:#cfe6ff; padding:.75rem 1rem; border:1px solid var(--edge); border-radius:10px;
-      box-shadow:0 0 18px rgba(51,209,255,.25), inset 0 0 12px rgba(51,209,255,.06);
-      font-size:.9rem; opacity:0; pointer-events:none; transition:opacity .45s ease; z-index:9999;
-    }
+    .toast{ position:fixed; top:1rem; right:1rem; background:rgba(20,45,80,.96); color:#cfe6ff; padding:.75rem 1rem; border:1px solid var(--edge);
+      border-radius:10px; box-shadow:0 0 18px rgba(51,209,255,.25), inset 0 0 12px rgba(51,209,255,.06); font-size:.9rem; opacity:0; pointer-events:none; transition:opacity .45s ease; z-index:9999; }
     .toast.show{ opacity:1; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="banner">
-      <div id="sky"></div>
-      <div class="horizon"></div>
-    </div>
+    <div class="banner"><div id="sky"></div><div class="horizon"></div></div>
 
     <h1>BYTE & SPICE: Moxie’s Catch</h1>
     <div class="subtitle">Pluto Observatory District • “Every bite, a byte.”</div>
@@ -108,20 +71,18 @@
       <div>Catchmastery: <span id="catch">0</span></div>
       <div>Ξ‑Sigils: <span id="sigil">0</span></div>
       <div>Prestige Multiplier: <span id="mult">1.00×</span></div>
+      <div>Buffs: <span id="buffs">—</span></div>
     </div>
 
     <div class="bar"></div>
 
     <div class="row">
-      <span class="moxie"><span id="moxFace" class="face">🧑‍🚀</span><span class="note">Moxie:</span></span>
-      <button id="catchBtn">🪝 Reel in the Thick (+BPH)</button>
-      <small class="note">Each haul raises BPH by <strong>+3</strong>.</small>
+      <span class="moxie"><span id="moxFace" class="face">🍑</span><span class="note">Moxie:</span></span>
+      <button id="catchBtn">🪝 Reel in the Thick</button>
+      <small class="note">Cast your line. Rarity determines rewards.</small>
     </div>
 
-    <div class="row" style="margin-top:.6rem">
-      <button id="netBtn">⚓ Upgrade Curvature Lattice (100 TT)</button>
-      <small class="note">+20 BPH per upgrade. Price scales ×1.25</small>
-    </div>
+    <div class="row" style="margin-top:.6rem" id="upgradeRow"></div>
 
     <div class="row" style="margin-top:.6rem">
       <button id="prestigeBtn">💠 Sell the Haul</button>
@@ -138,47 +99,43 @@
   <div id="toast" class="toast"></div>
 
   <script>
-    // Helpers
+    /* ==== Helpers ==== */
     const $ = id => document.getElementById(id);
     const fmt = n => n.toLocaleString(undefined,{maximumFractionDigits:2});
     const toast = (msg, ms=4200) => { const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), ms); };
 
-    // State
-    const S = { coins:0, bph:0, catch:0, nets:0, netPrice:100, sigil:0, lastTick:Date.now() };
+    /* ==== Game State ==== */
+    const S = {
+      coins:0, bph:0, catch:0,
+      // upgrades:
+      nets:0, rods:0, trawlers:0,
+      netPrice:100, rodPrice:250, trawlPrice:400,
+      // prestige & temp buff:
+      sigil:0, tempMult:1, tempUntil:0,
+      lastTick:Date.now()
+    };
     const saved = localStorage.getItem('moxies-catch'); if (saved) Object.assign(S, JSON.parse(saved));
 
-    // Rates
+    /* ==== Rates ==== */
     const prestigeMult = () => 1 + (S.sigil * 0.15);
-    const cps = () => (S.bph * prestigeMult()) / 3600;
+    const effectiveMult = () => prestigeMult() * S.tempMult;
+    const cps = () => (S.bph * effectiveMult()) / 3600;
 
-    // Skyline generator (stars/lights scale with sigils)
+    /* ==== Skyline ==== */
     function updateSkyline(){
       const sky = $('sky'); sky.innerHTML = '';
       const tier = S.sigil;
-      const stars = 40 + tier*15;   // more sigils -> more stars
-      const lights = 10 + tier*6;   // more city windows
-      const beacons = Math.floor(tier/2); // occasional ad beacons
-
+      const stars = 40 + tier*15, lights = 10 + tier*6, beacons = Math.floor(tier/2);
       const rand = (min,max)=>Math.random()*(max-min)+min;
-
-      for(let i=0;i<stars;i++){
-        const s=document.createElement('div'); s.className='star';
-        s.style.left = rand(2,98)+'%'; s.style.top = rand(5,55)+'%';
-        sky.appendChild(s);
-      }
-      for(let i=0;i<lights;i++){
-        const l=document.createElement('div'); l.className='light';
-        l.style.left = rand(2,98)+'%'; l.style.top = rand(55,92)+'%';
-        sky.appendChild(l);
-      }
-      for(let i=0;i<beacons;i++){
-        const b=document.createElement('div'); b.className='beacon';
-        b.style.left = rand(5,95)+'%'; b.style.top = rand(35,70)+'%';
-        sky.appendChild(b);
-      }
+      for(let i=0;i<stars;i++){ const s=document.createElement('div'); s.className='star';
+        s.style.left = rand(2,98)+'%'; s.style.top = rand(5,55)+'%'; sky.appendChild(s); }
+      for(let i=0;i<lights;i++){ const l=document.createElement('div'); l.className='light';
+        l.style.left = rand(2,98)+'%'; l.style.top = rand(55,92)+'%'; sky.appendChild(l); }
+      for(let i=0;i<beacons;i++){ const b=document.createElement('div'); b.className='beacon';
+        b.style.left = rand(5,95)+'%'; b.style.top = rand(35,70)+'%'; sky.appendChild(b); }
     }
 
-    // Offline progress
+    /* ==== Offline Progress ==== */
     (function offline(){
       const now = Date.now();
       const dt = Math.max(0, (now - (S.lastTick||now)) / 1000);
@@ -187,74 +144,152 @@
       const earned = cps() * capped;
       if (earned > 0.01 && capped > 0){
         S.coins += earned;
-        setTimeout(() => {
-          toast(`While you drifted among Pluto’s moons (${fmt(capped/3600)}h), Moxie’s crew hauled ${fmt(earned)} ThiccTokens™ from the currents.`);
-        }, 180);
+        setTimeout(() => toast(`While you drifted among Pluto’s moons (${fmt(capped/3600)}h), Moxie’s crew hauled ${fmt(earned)} ThiccTokens™ from the currents.`), 180);
       }
       S.lastTick = now;
     })();
 
-    // Loop
+    /* ==== Loop ==== */
     function loop(){
       const now = Date.now();
       const dt = (now - S.lastTick) / 1000;
       S.lastTick = now;
+
+      // expire temporary buff
+      if (S.tempMult > 1 && now >= S.tempUntil){ S.tempMult = 1; }
+
       S.coins += cps() * Math.min(dt, 60);
       render();
     }
     setInterval(loop, 1000);
 
-    // Actions
-    $('catchBtn').onclick = () => {
-      S.catch += 1; S.bph += 3; render();
-      // wiggle Moxie
-      const face = $('moxFace'); face.classList.remove('wiggle'); void face.offsetWidth; face.classList.add('wiggle');
-    };
-
-    $('netBtn').onclick = () => {
-      if (S.coins >= S.netPrice){
-        S.coins -= S.netPrice; S.nets += 1; S.bph += 20;
-        S.netPrice = Math.ceil(S.netPrice * 1.25);
-        $('netBtn').textContent = `⚓ Upgrade Curvature Lattice (${S.netPrice} TT)`;
-        render();
+    /* ==== Rarity system (edit me) ==== */
+    const RARITY_TABLE = [
+      { name:'Common',    prob:0.80, wiggle:'wiggle',        flash:false,  bph:+3,   coins:+0,   buff:null,    emoji:'🪱' },
+      { name:'Uncommon',  prob:0.15, wiggle:'wiggle',        flash:false,  bph:+3,   coins:+50,  buff:null,    emoji:'🐟' },
+      { name:'Rare',      prob:0.04, wiggle:'wiggle-epic',   flash:true,   bph:+10,  coins:+250, buff:null,    emoji:'🐠' },
+      { name:'Legendary', prob:0.01, wiggle:'wiggle-legend', flash:true,   bph:+25,  coins:+1000,buff:{mult:1.5, secs:60}, emoji:'🐉' }
+    ];
+    function rollRarity(){
+      const r = Math.random();
+      let acc = 0;
+      for (const tier of RARITY_TABLE){
+        acc += tier.prob;
+        if (r <= acc) return tier;
       }
+      return RARITY_TABLE[0];
+    }
+    function startFrenzy(mult, secs){
+      const now = Date.now();
+      S.tempMult = mult;
+      S.tempUntil = now + (secs*1000);
+      render(); // to show buff immediately
+    }
+
+    /* ==== Upgrades (array-driven) ==== */
+    const upgrades = [
+      {
+        key:'nets', id:'netBtn', name:'⚓ Curvature Lattice',
+        get price(){ return S.netPrice; },
+        canBuy: () => S.coins >= S.netPrice,
+        buy: () => { S.coins -= S.netPrice; S.nets++; S.bph += 20; S.netPrice = Math.ceil(S.netPrice * 1.25); },
+        label: () => `⚓ Curvature Lattice (${S.netPrice} TT)`,
+        note:'+20 BPH per upgrade. Price scales ×1.25'
+      },
+      {
+        key:'rods', id:'rodBtn', name:'🎣 Cosmic Rod',
+        get price(){ return S.rodPrice; },
+        canBuy: () => S.nets >= 3 && S.coins >= S.rodPrice,   // prerequisite (doesn't consume)
+        buy: () => { S.coins -= S.rodPrice; S.rods++; S.bph += 50; S.rodPrice = Math.ceil(S.rodPrice * 1.35); },
+        label: () => `🎣 Cosmic Rod (${S.rodPrice} TT)`,
+        note:'Requires 3 Curvature Lattices. +50 BPH. Price scales ×1.35'
+      },
+      {
+        key:'trawlers', id:'trawlBtn', name:'🛠️ Quantum Trawler',
+        get price(){ return S.trawlPrice; },
+        canBuy: () => S.nets >= 2 && S.coins >= S.trawlPrice, // consumes prior
+        buy: () => { S.coins -= S.trawlPrice; S.nets -= 2; S.trawlers++; S.bph += 120; S.trawlPrice = Math.ceil(S.trawlPrice * 1.40); },
+        label: () => `🛠️ Quantum Trawler (${S.trawlPrice} TT)`,
+        note:'Consumes 2 Curvature Lattices. +120 BPH. Price scales ×1.40'
+      }
+    ];
+
+    function renderUpgrades(){
+      const row = $('upgradeRow'); row.innerHTML = '';
+      upgrades.forEach(u => {
+        const btn = document.createElement('button');
+        btn.id = u.id; btn.textContent = u.label(); btn.disabled = !u.canBuy();
+        btn.onclick = () => { if (!u.canBuy()) { toast('Requirements not met.'); return; } u.buy(); save(); render(); };
+        const info = document.createElement('small'); info.className='note'; info.textContent = u.note;
+        const wrap = document.createElement('div'); wrap.className='row'; wrap.style.marginTop='.4rem';
+        wrap.appendChild(btn); wrap.appendChild(info); row.appendChild(wrap);
+      });
+    }
+
+    /* ==== Actions ==== */
+    $('catchBtn').onclick = () => {
+      const tier = rollRarity();
+
+      // apply rewards
+      S.catch += 1;
+      S.bph += tier.bph;
+      S.coins += tier.coins;
+      if (tier.buff) startFrenzy(tier.buff.mult, tier.buff.secs);
+
+      // feedback
+      const face = $('moxFace');
+      face.classList.remove('wiggle','wiggle-epic','wiggle-legend','flash'); void face.offsetWidth;
+      face.classList.add(tier.wiggle);
+      if (tier.flash){ face.classList.add('flash'); setTimeout(()=>face.classList.remove('flash'), 400); }
+
+      toast(`${tier.emoji} ${tier.name} catch! +${tier.bph} BPH${tier.coins?` • +${fmt(tier.coins)} TT`:''}${tier.buff?` • Frenzy x${tier.buff.mult} ${tier.buff.secs}s`:''}`);
+
+      render();
     };
 
     function prestige(){
       const earned = Math.floor(S.coins / 1000);
       if (earned <= 0){ toast('Haul not big enough to impress Moxie.'); return; }
       if (!confirm(`Sell your entire haul for ${earned} Ξ‑Sigil(s)? This resets your catch and gear.`)) return;
-
       S.sigil += earned;
-      S.coins = 0; S.bph = 0; S.catch = 0; S.nets = 0; S.netPrice = 100;
-
+      S.coins = 0; S.bph = 0; S.catch = 0; S.nets = 0; S.rods = 0; S.trawlers = 0;
+      S.netPrice = 100; S.rodPrice = 250; S.trawlPrice = 400;
+      S.tempMult = 1; S.tempUntil = 0;
       save(); render(); toast(`Trade complete. ${earned} Ξ‑Sigil(s) etched into your soul.`);
     }
     $('prestigeBtn').onclick = prestige;
 
-    // Save/Reset
+    /* ==== Save / Reset ==== */
     function save(){ localStorage.setItem('moxies-catch', JSON.stringify(S)); }
     $('saveBtn').onclick = () => { save(); toast('Scroll sealed. Progress preserved.'); };
-    $('resetBtn').onclick = () => {
-      if (!confirm('Banish all progress to the depths?')) return;
-      localStorage.removeItem('moxies-catch'); location.reload();
-    };
+    $('resetBtn').onclick = () => { if (!confirm('Banish all progress to the depths?')) return; localStorage.removeItem('moxies-catch'); location.reload(); };
     setInterval(save, 15000);
 
-    // Render
+    /* ==== Render ==== */
     function render(){
       $('coins').textContent = fmt(S.coins);
-      $('cps').textContent = fmt(cps());
-      $('bph').textContent = fmt(S.bph);
+      $('cps').textContent   = fmt(cps());
+      $('bph').textContent   = fmt(S.bph);
       $('catch').textContent = S.catch;
       $('sigil').textContent = S.sigil;
-      $('mult').textContent = `${fmt(prestigeMult())}×`;
-      $('netBtn').disabled = S.coins < S.netPrice;
+      $('mult').textContent  = fmt(effectiveMult()) + '×';
+
+      // Buff display
+      if (S.tempMult > 1){
+        const secs = Math.max(0, Math.ceil((S.tempUntil - Date.now())/1000));
+        $('buffs').textContent = `Frenzy x${S.tempMult} (${secs}s)`;
+      } else {
+        $('buffs').textContent = '—';
+      }
+
+      renderUpgrades();
       updateSkyline();
+
+      // enable/disable upgrade buttons
+      upgrades.forEach(u => { const b=$(u.id); if (b) b.disabled = !u.canBuy(); });
     }
 
     // Init
-    $('netBtn').textContent = `⚓ Upgrade Curvature Lattice (${S.netPrice} TT)`;
     updateSkyline();
     render();
   </script>
