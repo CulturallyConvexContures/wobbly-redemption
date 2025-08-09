@@ -9,17 +9,7 @@
 body, button, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
   font-family: monospace !important;
 }
-.stat-row {
-  display: flex;
-  align-items: center;
-  gap: 4px; /* space between items */
-  margin-top: 2px; /* match other stat lines */
-}
 
-.stat-row .divider {
-  opacity: 0.6; /* subtle like your other separators */
-  padding: 0 4px; /* space around the pipe */
-}
 /* Center-align text globally */
 body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
   text-align: center;
@@ -85,7 +75,7 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
     @keyframes swim{ 0%{left:-2rem} 100%{left:calc(100% + 2rem)} }
 
     #catchReward{
-  font-size:14px;
+  font-size:20px;
   text-align:center;
   height:18px; line-height:18px;
   margin-bottom:.35rem;
@@ -137,7 +127,17 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
     #devPanel .row{ justify-content:space-between; }
     #devPanel .btns{ display:flex; gap:.5rem; margin-top:.5rem; }
     .stats { justify-items: center; }
-    
+    /* tie image + gear/ancients to the same responsive width */
+:root{
+  --stack: clamp(120px, 44vw, 200px); /* min … mobile … max */
+}
+.centered-stack{ display:flex; flex-direction:column; align-items:center; gap:.6rem; }
+.centered-stack .face{ width:var(--stack); height:var(--stack); }
+.stack-width{ width:var(--stack); margin:0 auto; text-align:center; }
+
+/* make buttons inside the narrow stacks fill that width cleanly */
+.stack-width button{ width:100%; }
+.stack-width .row{ justify-content:center; }
   </style>
 </head>
 <body>
@@ -163,13 +163,30 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
 
     <div class="bar"></div>
 
-    <div class="row" style="justify-content:center">
-      <span class="moxie"><span id="moxFace" class="face"><img src="images/IMG_8795.jpeg" alt="Peach" class="icon-img"></span></span>
-      <button id="catchBtn" class="progressBtn" aria-label="Reel in the Thick"></button>
-    </div>
-    <div id="catchReward"></div>
+    <div class="centered-stack">
+  <!-- image + button -->
+  <span class="moxie"><span id="moxFace" class="face">
+    <img src="images/IMG_8795.jpeg" alt="Peach" class="icon-img">
+  </span></span>
 
-    <div class="row" style="margin-top:.6rem" id="upgradeRow"></div>
+  <button id="catchBtn" class="progressBtn" aria-label="Reel in the Thick"></button>
+
+  <!-- loot line constrained to the same width -->
+  <div id="catchReward" class="stack-width"></div>
+
+  <!-- gear, same width as the image -->
+  <div class="stack-width">
+    <div id="upgradeRow"></div>
+  </div>
+
+  <!-- ancients, same width as the image -->
+  <div class="stack-width">
+    <div class="bar"></div>
+    <h3 style="margin:.2rem 0 .4rem;color:#ffd34d">Ancients</h3>
+    <div class="note" style="margin-bottom:.4rem">Spend ΞSigils on permanent, exponential buffs.</div>
+    <div id="ancientRow"></div>
+  </div>
+</div>
 
     <div class="bar"></div>
     <h3 style="margin:.2rem 0 .4rem;color:#ffd34d">Ancients</h3>
