@@ -85,6 +85,28 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
   will-change: opacity, transform;
 }
 
+/* 🩵 Rare - sparkle sweep */
+#catchReward.rareSweep {
+  animation: rareSparkle 0.8s ease-in-out;
+}
+@keyframes rareSparkle {
+  0%   { text-shadow: 0 0 10px rgba(51, 209, 255, .6); }
+  25%  { text-shadow: 0 0 16px rgba(111, 231, 255, .8), 0 0 30px rgba(51, 209, 255, .5); }
+  50%  { text-shadow: 0 0 22px rgba(51, 209, 255, 1), 0 0 40px rgba(111, 231, 255, .8); }
+  75%  { text-shadow: 0 0 16px rgba(111, 231, 255, .8), 0 0 30px rgba(51, 209, 255, .5); }
+  100% { text-shadow: 0 0 10px rgba(51, 209, 255, .6); }
+}
+
+/* 💜 Legendary - gentle pulse (if you want it too) */
+#catchReward.legendaryPulse {
+  animation: legendaryPulse 1s ease-in-out;
+}
+@keyframes legendaryPulse {
+  0%   { text-shadow: 0 0 12px rgba(255,211,77,.6); }
+  50%  { text-shadow: 0 0 18px rgba(255,211,77,.9), 0 0 28px rgba(255,155,47,.5); }
+  100% { text-shadow: 0 0 12px rgba(255,211,77,.6); }
+}
+
 /* show/hide */
 #catchReward.show{ opacity:1; transform:translateY(0); }
 
@@ -102,6 +124,7 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
     #devPanel input{ width:110px; background:#0e1a34; color:#cfe6ff; border:1px solid var(--edge); border-radius:8px; padding:.25rem .35rem; }
     #devPanel .row{ justify-content:space-between; }
     #devPanel .btns{ display:flex; gap:.5rem; margin-top:.5rem; }
+    .stats { justify-items: center; }
   </style>
 </head>
 <body>
@@ -342,10 +365,10 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
     function regenerateRarity(){
       const R = TUNE.rarity, W = TUNE.rewards;
       BASE_RARITY = [
-        { name:'Common',    prob:R.common,    wiggle:'wiggle',        flash:false,  bph:+W.common.bph,    coins:+W.common.coins,    buff:null,               emoji:'🪱' },
-        { name:'Uncommon',  prob:R.uncommon,  wiggle:'wiggle',        flash:false,  bph:+W.uncommon.bph,  coins:+W.uncommon.coins,  buff:null,               emoji:'🐟' },
-        { name:'Rare',      prob:R.rare,      wiggle:'wiggle-epic',   flash:true,   bph:+W.rare.bph,      coins:+W.rare.coins,      buff:null,               emoji:'🐠' },
-        { name:'Legendary', prob:R.legendary, wiggle:'wiggle-legend', flash:true,   bph:+W.legendary.bph, coins:+W.legendary.coins, buff:W.legendary.buff,   emoji:'🐉' }
+        { name:'Common',    prob:R.common,    wiggle:'wiggle',        flash:false,  bph:+W.common.bph,    coins:+W.common.coins,    buff:null,               emoji:'🤍' },
+        { name:'Uncommon',  prob:R.uncommon,  wiggle:'wiggle',        flash:false,  bph:+W.uncommon.bph,  coins:+W.uncommon.coins,  buff:null,               emoji:'💚' },
+        { name:'Rare',      prob:R.rare,      wiggle:'wiggle-epic',   flash:true,   bph:+W.rare.bph,      coins:+W.rare.coins,      buff:null,               emoji:'🩵' },
+        { name:'Legendary', prob:R.legendary, wiggle:'wiggle-legend', flash:true,   bph:+W.legendary.bph, coins:+W.legendary.coins, buff:W.legendary.buff,   emoji:'💜' }
       ];
     }
     regenerateRarity();
@@ -511,7 +534,12 @@ function nextBphGainFor(key){
       if(tier.name==='Rare'){ spawnFish('🐟'); addBurst('rare'); }
       if(tier.name==='Legendary'){ spawnFish('🐠✨'); addBurst('legendary'); }
 
-      const rewardBits=[ `${tier.emoji} ${tier.name}`, `+${tier.bph} BPH`, tier.coins?`+${fmt(tier.coins)} TT`:null, tier.buff?`Frenzy x${tier.buff.mult} ${tier.buff.secs}s`:null ].filter(Boolean).join(' • ');
+      const rewardBits = [
+  `${tier.emoji}`,
+  `+${tier.bph} BPH`,
+  tier.coins ? `+${fmt(tier.coins)} TT` : null,
+  tier.buff ? `Frenzy x${tier.buff.mult} ${tier.buff.secs}s` : null
+].filter(Boolean).join(' • ');
       const rewardEl = $('catchReward');
 
 // rarity → class + linger time
@@ -532,6 +560,10 @@ const durationByRarity = {
 rewardEl.textContent = rewardBits;
 rewardEl.className = ''; // clear any previous rarity/show classes
 rewardEl.classList.add(classByRarity[tier.name] || 'r-common', 'show');
+// trigger one-off animations by rarity
+rewardEl.classList.remove('rareSweep','legendaryPulse'); // reset any previous
+if (tier.name === 'Rare')       rewardEl.classList.add('rareSweep');
+if (tier.name === 'Legendary')  rewardEl.classList.add('legendaryPulse');
 
 // handle linger + fade-out
 clearTimeout(rewardEl._hideTimer);
