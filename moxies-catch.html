@@ -183,7 +183,7 @@
        ========================= */
     const TUNE_DEFAULTS = {
       prestigeDivisor: 1000,
-      prestigeBphPerSigil: 0.15,
+      prestigeBphPerSigil: 0.05,
       sharkPerLevel: 0.05,       // +5% per level (compounding)
       activeClickFill: 0.12,
       activeDrainPerSec: 0.05,
@@ -328,26 +328,103 @@
     }
     function rollRarity(){ const table = adjustedRarity(); const r = Math.random(); let acc = 0; for (const t of table){ acc += t.prob; if (r <= acc) return t; } return table[0]; }
 
+// ---- Gear gains & milestones (tweak here)
+const TUNE_GEAR = {
+  yields: { net: 50, rod: 100, trawl: 300 }, // base +BPH per purchase
+  milestones: [
+    { at: 10,  mult: 1.5 },
+    { at: 25,  mult: 2.0 },
+    { at: 50,  mult: 3.0 },
+    { at: 100, mult: 5.0 },
+    { at: 111, mult: 1.11 },
+    { at: 222, mult: 2.22 },
+    { at: 333, mult: 3.33 },
+    { at: 500, mult: 6.0 },
+    { at: 555, mult: 5.55 },
+    { at: 666, mult: 6.66 },
+  ],
+};
+
+// next-level milestone multiplier (1 if none)
+function nextMilestoneMult(nextLevel){
+  const m = TUNE_GEAR.milestones.find(ms => ms.at === nextLevel);
+  return m ? m.mult : 1;
+}
+
+// pretty suffix used in the note
+function milestoneSuffix(nextLevel){
+  const m = TUNE_GEAR.milestones.find(ms => ms.at === nextLevel);
+  return m ? ` — 🎉 Milestone ×${m.mult}` : '';
+}
+
+// compute +BPH the *next* purchase will grant for a given gear key
+function nextBphGainFor(key){
+  let base, nextLevel;
+  if (key === 'nets'){ base = TUNE_GEAR.yields.net; nextLevel = S.nets + 1; }
+  else if (key === 'rods'){ base = TUNE_GEAR.yields.rod; nextLevel = S.rods + 1; }
+  else { base = TUNE_GEAR.yields.trawl; nextLevel = S.trawlers + 1; }
+  return Math.round(base * nextMilestoneMult(nextLevel));
+}
+
     /* =========================
        UPGRADES
        ========================= */
     const upgrades = [
-      { key:'nets', id:'netBtn', name:'⚓ Curvature Lattice', get price(){ return S.netPrice; }, canBuy:()=>S.coins>=S.netPrice,
-        buy:()=>{ S.coins-=S.netPrice; S.nets++; S.lifetimeUpgrades++; S.bph+=50; S.netPrice=Math.ceil(S.netPrice*TUNE.scale.net); },
-        label:()=>`⚓ Curvature Lattice (${S.netPrice} TT)`, note:'+50 BPH per upgrade.' },
-      { key:'rods', id:'rodBtn', name:'🎣 Cosmic Rod', get price(){ return S.rodPrice; }, canBuy:()=>S.nets>=3 && S.coins>=S.rodPrice,
-        buy:()=>{ S.coins-=S.rodPrice; S.rods++; S.lifetimeUpgrades++; S.bph+=100; S.rodPrice=Math.ceil(S.rodPrice*TUNE.scale.rod); },
-        label:()=>`🎣 Cosmic Rod (${S.rodPrice} TT)`, note:'Requires 3 Curvature Lattices. +100 BPH.' },
-      { key:'trawlers', id:'trawlBtn', name:'🛠️ Quantum Trawler', get price(){ return S.trawlPrice; }, canBuy:()=>S.nets>=2 && S.coins>=S.trawlPrice,
-        buy:()=>{ S.coins-=S.trawlPrice; S.nets-=2; S.trawlers++; S.lifetimeUpgrades++; S.bph+=300; S.trawlPrice=Math.ceil(S.trawlPrice*TUNE.scale.trawl); },
-        label:()=>`🛠️ Quantum Trawler (${S.trawlPrice} TT)`, note:'Consumes 2 Curvature Lattices. +300 BPH.' }
-    ];
+  {
+    key:'nets', id:'netBtn', name:'⚓ Curvature Lattice',
+    get price(){ return S.netPrice; },
+    canBuy:()=> S.coins >= S.netPrice,
+    buy:()=>{
+      const gain = nextBphGainFor('nets');
+      S.coins -= S.netPrice;
+      S.nets += 1;
+      S.lifetimeUpgrades += 1;
+      S.bph += gain;
+      S.netPrice = Math.ceil(S.netPrice * TUNE.scale.net);
+    },
+    label:()=>`⚓ Curvature Lattice (${S.netPrice} TT)`,
+    note:()=>`Level ${S.nets} — next: +${nextBphGainFor('nets')} BPH${milestoneSuffix(S.nets+1)}`
+  },
+
+  {
+    key:'rods', id:'rodBtn', name:'🎣 Cosmic Rod',
+    get price(){ return S.rodPrice; },
+    canBuy:()=> S.nets >= 3 && S.coins >= S.rodPrice,
+    buy:()=>{
+      const gain = nextBphGainFor('rods');
+      S.coins -= S.rodPrice;
+      S.rods += 1;
+      S.lifetimeUpgrades += 1;
+      S.bph += gain;
+      S.rodPrice = Math.ceil(S.rodPrice * TUNE.scale.rod);
+    },
+    label:()=>`🎣 Cosmic Rod (${S.rodPrice} TT)`,
+    note:()=>`Level ${S.rods} — next: +${nextBphGainFor('rods')} BPH${milestoneSuffix(S.rods+1)}`
+  },
+
+  {
+    key:'trawlers', id:'trawlBtn', name:'🛠️ Quantum Trawler',
+    get price(){ return S.trawlPrice; },
+    canBuy:()=> S.nets >= 2 && S.coins >= S.trawlPrice,
+    buy:()=>{
+      const gain = nextBphGainFor('trawlers');
+      S.coins -= S.trawlPrice;
+      S.nets -= 2;
+      S.trawlers += 1;
+      S.lifetimeUpgrades += 1;
+      S.bph += gain;
+      S.trawlPrice = Math.ceil(S.trawlPrice * TUNE.scale.trawl);
+    },
+    label:()=>`🛠️ Quantum Trawler (${S.trawlPrice} TT)`,
+    note:()=>`Level ${S.trawlers} — next: +${nextBphGainFor('trawlers')} BPH${milestoneSuffix(S.trawlers+1)}`
+  }
+];
     function renderUpgrades(){
       const row=$('upgradeRow'); row.innerHTML='';
       upgrades.forEach(u=>{
         const btn=document.createElement('button'); btn.id=u.id; btn.textContent=u.label(); btn.disabled=!u.canBuy();
         btn.onclick=()=>{ if(!u.canBuy()) return toast('Requirements not met.'); u.buy(); save(); render(); };
-        const info=document.createElement('small'); info.className='note'; info.textContent=u.note;
+        const info=document.createElement('small'); info.className='note'; info.textContent = (typeof u.note === 'function') ? u.note() : u.note;
         const wrap=document.createElement('div'); wrap.className='row'; wrap.style.marginTop='.4rem';
         wrap.appendChild(btn); wrap.appendChild(info); row.appendChild(wrap);
       });
