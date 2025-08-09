@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>💋Moxie’s Catch — Pluto Outpost</title>
+  <title>💋Moxie’s Catch — Pluto Outpost (DEV)</title>
   <style>
     :root{ --ink:#0b1220; --panel:#101a2f; --edge:#2e3e66; --cy:#6fe7ff; --glow:#33d1ff; --accent:#ffd34d; --muted:#9fb6d1; }
     body{ font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:linear-gradient(180deg,#0a1222,#0a1428 40%,#0c152b); color:#cfe6ff; margin:0;}
@@ -15,8 +15,7 @@
     .light{ width:3px; height:3px; background:#9fe6ff; opacity:.9; box-shadow:0 0 8px rgba(111,231,255,.6); }
     .beacon{ width:5px; height:5px; background:#ffd34d; box-shadow:0 0 10px rgba(255,211,77,.8); }
     .horizon{ position:absolute; left:0; right:0; bottom:0; height:48%;
-      background: linear-gradient(0deg,#0b1020 0%, transparent 55%), repeating-linear-gradient(90deg,#0f1830 0 30px,#0b1326 30px 60px);
-      opacity:.75; }
+      background: linear-gradient(0deg,#0b1020 0%, transparent 55%), repeating-linear-gradient(90deg,#0f1830 0 30px,#0b1326 30px 60px); opacity:.75; }
 
     h1{ margin:.25rem 0 .25rem; font-size:1.8rem; color:var(--accent); letter-spacing:.4px; }
     .subtitle{ color:var(--muted); font-size:.9rem; margin-bottom:.75rem }
@@ -30,10 +29,9 @@
     button:hover{ filter:brightness(1.05); } button:active{ transform:translateY(1px);} button:disabled{ opacity:.5; cursor:default;}
     .pill{ display:inline-block; padding:.05rem .45rem; border:1px solid var(--edge); border-radius:999px; color:#6fe7ff; margin-left:.35rem; font-size:.75rem; }
 
-    /* Moxie wiggle */
+    /* Moxie */
     .moxie{ display:inline-flex; align-items:center; gap:.4rem; user-select:none; margin-right:.25rem; }
-    .moxie .face{ width:28px; height:28px; border-radius:6px; background:#203056; border:1px solid #2e3e66;
-      display:grid; place-items:center; box-shadow:0 0 10px rgba(51,209,255,.18) inset; font-size:18px; }
+    .moxie .face{ width:28px; height:28px; border-radius:6px; background:#203056; border:1px solid #2e3e66; display:grid; place-items:center; box-shadow:0 0 10px rgba(51,209,255,.18) inset; font-size:18px; }
     .wiggle{ animation:wiggle .45s ease; } .wiggle-epic{ animation:wiggleEpic .7s ease; } .wiggle-legend{ animation:wiggleLegend 1s ease; }
     .flash{ box-shadow:0 0 18px rgba(51,209,255,.65), 0 0 30px rgba(255,211,77,.55) inset; transition:box-shadow .35s ease; }
     @keyframes wiggle{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-1px) rotate(-6deg)}50%{transform:translateY(0) rotate(6deg)}75%{transform:translateY(-1px) rotate(-3deg)}}
@@ -41,9 +39,7 @@
     @keyframes wiggleLegend{0%,100%{transform:translateY(0) rotate(0)}15%{transform:translateY(-3px) rotate(-14deg)}45%{transform:translateY(2px) rotate(12deg)}75%{transform:translateY(-2px) rotate(-10deg)}}
 
     /* Toast */
-    .toast{ position:fixed; top:1rem; right:1rem; background:rgba(20,45,80,.96); color:#cfe6ff; padding:.75rem 1rem;
-      border:1px solid var(--edge); border-radius:10px; box-shadow:0 0 18px rgba(51,209,255,.25), inset 0 0 12px rgba(51,209,255,.06);
-      font-size:.9rem; opacity:0; pointer-events:none; transition:opacity .45s ease; z-index:9999; }
+    .toast{ position:fixed; top:1rem; right:1rem; background:rgba(20,45,80,.96); color:#cfe6ff; padding:.75rem 1rem; border:1px solid var(--edge); border-radius:10px; box-shadow:0 0 18px rgba(51,209,255,.25), inset 0 0 12px rgba(51,209,255,.06); font-size:.9rem; opacity:0; pointer-events:none; transition:opacity .45s ease; z-index:9999; }
     .toast.show{ opacity:1; }
 
     /* Active-Boost-as-Button-Fill */
@@ -64,6 +60,15 @@
 
     #catchCaption{ margin:.25rem 0 .1rem; text-align:center; }
     #catchReward{ font-size:14px; color:#ffd34d; text-align:center; height:18px; line-height:18px; margin-bottom:.35rem; }
+
+    /* DEV PANEL */
+    #devToggle{ position:fixed; bottom:16px; right:16px; z-index:10000; border-radius:12px; padding:.6rem .8rem; }
+    #devPanel{ position:fixed; bottom:70px; right:16px; width:320px; max-height:75vh; overflow:auto; background:rgba(16,26,47,.98); border:1px solid var(--edge); border-radius:14px; box-shadow:0 12px 30px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.04) inset; padding:.8rem; z-index:9999; display:none; }
+    #devPanel h4{ margin:.2rem 0 .4rem; color:var(--accent); }
+    #devPanel label{ display:flex; justify-content:space-between; gap:.5rem; font-size:.85rem; margin:.35rem 0; }
+    #devPanel input{ width:110px; background:#0e1a34; color:#cfe6ff; border:1px solid var(--edge); border-radius:8px; padding:.25rem .35rem; }
+    #devPanel .row{ justify-content:space-between; }
+    #devPanel .btns{ display:flex; gap:.5rem; margin-top:.5rem; }
   </style>
 </head>
 <body>
@@ -116,22 +121,113 @@
 
   <div id="toast" class="toast"></div>
 
+  <!-- DEV PANEL -->
+  <button id="devToggle">🛠️ Dev</button>
+  <div id="devPanel">
+    <h4>Dev Tuning Hub</h4>
+    <div class="section">
+      <strong>Prestige</strong>
+      <label>Divisor (TT per Ξ) <input id="t_prestigeDivisor" type="number" step="1"></label>
+      <label>BPH per Ξ (0.15=15%) <input id="t_prestigeBphPerSigil" type="number" step="0.01"></label>
+      <label>Shark +% per lvl <input id="t_sharkPerLevel" type="number" step="0.001"></label>
+    </div>
+    <div class="section">
+      <strong>Active Boost</strong>
+      <label>Base Cap <input id="t_sparkBase" type="number" step="0.01"></label>
+      <label>Cap / Spark lvl <input id="t_sparkPerLevel" type="number" step="0.01"></label>
+      <label>Click Fill (0‑1) <input id="t_activeClickFill" type="number" step="0.01" min="0" max="1"></label>
+      <label>Drain / sec (0‑1) <input id="t_activeDrainPerSec" type="number" step="0.01" min="0" max="1"></label>
+    </div>
+    <div class="section">
+      <strong>Netmother</strong>
+      <label>+BPH per Net/lvl <input id="t_netmotherPerNetPerLevel" type="number" step="1"></label>
+    </div>
+    <div class="section">
+      <strong>Gear Prices</strong>
+      <label>Net Start <input id="t_priceNet" type="number" step="1"></label>
+      <label>Rod Start <input id="t_priceRod" type="number" step="1"></label>
+      <label>Trawler Start <input id="t_priceTrawl" type="number" step="1"></label>
+      <label>Net Scale <input id="t_scaleNet" type="number" step="0.01"></label>
+      <label>Rod Scale <input id="t_scaleRod" type="number" step="0.01"></label>
+      <label>Trawler Scale <input id="t_scaleTrawl" type="number" step="0.01"></label>
+    </div>
+    <div class="section">
+      <strong>Rarity (sum ≈ 1)</strong>
+      <label>Common <input id="t_r_common" type="number" step="0.01" min="0" max="1"></label>
+      <label>Uncommon <input id="t_r_uncommon" type="number" step="0.01" min="0" max="1"></label>
+      <label>Rare <input id="t_r_rare" type="number" step="0.001" min="0" max="1"></label>
+      <label>Legendary <input id="t_r_legendary" type="number" step="0.001" min="0" max="1"></label>
+    </div>
+    <div class="section">
+      <strong>Rewards</strong>
+      <label>Common BPH <input id="t_rw_c_bph" type="number" step="1"></label>
+      <label>Common TT <input id="t_rw_c_tt" type="number" step="1"></label>
+      <label>Rare BPH <input id="t_rw_r_bph" type="number" step="1"></label>
+      <label>Rare TT <input id="t_rw_r_tt" type="number" step="1"></label>
+      <label>Legendary BPH <input id="t_rw_l_bph" type="number" step="1"></label>
+      <label>Legendary TT <input id="t_rw_l_tt" type="number" step="1"></label>
+      <label>Legendary Frenzy x <input id="t_rw_l_mult" type="number" step="0.1"></label>
+      <label>Legendary Frenzy s <input id="t_rw_l_secs" type="number" step="1"></label>
+    </div>
+    <div class="btns">
+      <button id="t_save">💾 Save TUNE</button>
+      <button id="t_reset">🧽 Defaults</button>
+      <button id="t_close">Close</button>
+    </div>
+    <small class="note">Tip: Press ⌘/Ctrl + ` to toggle panel.</small>
+  </div>
+
   <script>
-    /* ===== helpers ===== */
+    /* =========================
+       DEV TUNE STORAGE / DEFAULTS
+       ========================= */
+    const TUNE_DEFAULTS = {
+      prestigeDivisor: 1000,
+      prestigeBphPerSigil: 0.15,
+      sharkPerLevel: 0.05,       // +5% per level (compounding)
+      activeClickFill: 0.12,
+      activeDrainPerSec: 0.05,
+      sparkBase: 1.50,
+      sparkPerLevel: 0.05,
+      netmotherPerNetPerLevel: 2,
+      startPrice: { net:100, rod:250, trawl:400 },
+      scale: { net:1.25, rod:1.35, trawl:1.40 },
+      rarity: { common:0.80, uncommon:0.15, rare:0.04, legendary:0.01 },
+      rewards: {
+        common:    { bph:3,  coins:0 },
+        uncommon:  { bph:3,  coins:50 },
+        rare:      { bph:10, coins:250 },
+        legendary: { bph:25, coins:1000, buff:{mult:1.5, secs:60} }
+      }
+    };
+    function deepClone(o){ return JSON.parse(JSON.stringify(o)); }
+    function loadTune(){ const raw = localStorage.getItem('moxies-tune'); if(!raw) return deepClone(TUNE_DEFAULTS); try{ const got=JSON.parse(raw); return Object.assign(deepClone(TUNE_DEFAULTS), got); }catch{ return deepClone(TUNE_DEFAULTS); } }
+    function saveTune(){ localStorage.setItem('moxies-tune', JSON.stringify(TUNE)); }
+    function resetTune(){ TUNE = deepClone(TUNE_DEFAULTS); saveTune(); applyTuneToUI(); regenerateRarity(); render(); toast('TUNE reset to defaults.'); }
+
+    // live TUNE
+    let TUNE = loadTune();
+
+    /* =========================
+       HELPERS
+       ========================= */
     const $ = id => document.getElementById(id);
     const fmt = n => n.toLocaleString(undefined,{maximumFractionDigits:2});
-    const toast = (msg, ms=4200) => { const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), ms); };
+    const toast = (msg, ms=3200) => { const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), ms); };
+
     function spawnFish(emoji){ const btn=$('catchBtn'); const s=document.createElement('span'); s.className='fish'; s.textContent=emoji; btn.appendChild(s); setTimeout(()=>s.remove(),2500); }
     function addBurst(type){ const btn=$('catchBtn'); btn.classList.remove('rareBurst','legendaryBurst','rareFill','legendaryFill'); void btn.offsetWidth;
       if (type==='rare') btn.classList.add('rareBurst','rareFill'); if (type==='legendary') btn.classList.add('legendaryBurst','legendaryFill');
       setTimeout(()=>btn.classList.remove('rareBurst','legendaryBurst','rareFill','legendaryFill'),1800);
     }
 
-    /* ===== state ===== */
+    /* =========================
+       STATE
+       ========================= */
     const S = {
       coins:0, bph:0, catch:0,
       nets:0, rods:0, trawlers:0,
-      netPrice:100, rodPrice:250, trawlPrice:400,
+      netPrice:TUNE.startPrice.net, rodPrice:TUNE.startPrice.rod, trawlPrice:TUNE.startPrice.trawl,
       lifetimeUpgrades:0,
       sigil:0, tempMult:1, tempUntil:0,
       activeFill:0,
@@ -140,7 +236,9 @@
     };
     const saved = localStorage.getItem('moxies-catch'); if (saved) Object.assign(S, JSON.parse(saved));
 
-    /* ===== ancients config ===== */
+    /* =========================
+       ANCients
+       ========================= */
     const ANCIENTS = [
       { key:'tide', name:'Tidecaller', desc:'Global production multiplier (exponential).', baseCost:5, scale:2.0, effectMult:lvl => Math.pow(1.15, lvl) },
       { key:'spark', name:'Spark of Moxie', desc:'Raises Active Boost cap by +0.05× per level.', baseCost:3, scale:2.5 },
@@ -152,24 +250,28 @@
     const ancientCost = a => Math.ceil(a.baseCost * Math.pow(a.scale, ancientLevel(a.key)));
     const ancientsMult = () => ANCIENTS.reduce((m,a)=> a.effectMult ? m * a.effectMult(ancientLevel(a.key)) : m, 1);
 
-    /* ===== multipliers ===== */
-    const BOOST_PER_UPGRADE = 0.00001; // +0.001% per lifetime upgrade
+    /* =========================
+       MULTIPLIERS (from TUNE)
+       ========================= */
+    const BOOST_PER_UPGRADE = 0.00001; // you can add this to TUNE later if you want
     function totalUpgradeLevels(){ return S.lifetimeUpgrades || 0; }
     function masteryMult(){ return 1 + totalUpgradeLevels() * BOOST_PER_UPGRADE; }
-    const prestigeMult  = () => 1 + (S.sigil * 0.15);
+    const prestigeMult  = () => 1 + (S.sigil * TUNE.prestigeBphPerSigil);
 
-    function activeMaxMult(){ return 1.50 + 0.05 * ancientLevel('spark'); }
+    function activeMaxMult(){ return TUNE.sparkBase + TUNE.sparkPerLevel * ancientLevel('spark'); }
     function activeMult(){ return 1 + (activeMaxMult() - 1) * Math.max(0, Math.min(1, S.activeFill)); }
-    function netmotherBPH(){ return 2 * ancientLevel('netmother') * S.nets; }
+    function netmotherBPH(){ return TUNE.netmotherPerNetPerLevel * ancientLevel('netmother') * S.nets; }
 
     function ancientsGlobalMult(){ return ancientsMult(); }
     function effectiveMult(){ return prestigeMult() * S.tempMult * masteryMult() * ancientsGlobalMult() * activeMult(); }
     function cps(){ const base = S.bph + netmotherBPH(); return (base * effectiveMult()) / 3600; }
 
-    /* Ledger Shark — compounding */
-    function sigilGainMult(){ return Math.pow(1.05, ancientLevel('shark')); }
+    /* Ledger Shark — compounding using TUNE */
+    function sigilGainMult(){ return Math.pow(1 + TUNE.sharkPerLevel, ancientLevel('shark')); }
 
-    /* ===== skyline ===== */
+    /* =========================
+       SKYLINE
+       ========================= */
     function updateSkyline(){
       const sky = $('sky'); sky.innerHTML = '';
       const tier = S.sigil; const stars = 40 + tier*15, lights = 10 + tier*6, beacons = Math.floor(tier/2);
@@ -179,33 +281,46 @@
       for(let i=0;i<beacons;i++){ const b=document.createElement('div'); b.className='beacon'; b.style.left=rand(5,95)+'%'; b.style.top=rand(35,70)+'%'; sky.appendChild(b); }
     }
 
-    /* ===== offline ===== */
+    /* =========================
+       OFFLINE PROGRESS
+       ========================= */
     (function offline(){
       const now = Date.now(); const dt = Math.max(0, (now - (S.lastTick||now)) / 1000);
       const CAP_HOURS = 12; const capped = Math.min(dt, CAP_HOURS*3600); const earned = cps() * capped;
-      if (earned > 0.01 && capped > 0){ S.coins += earned; setTimeout(()=>toast(`While you drifted among Pluto’s moons (${fmt(capped/3600)}h), Moxie’s crew hauled ${fmt(earned)} ThiccTokens™ from the currents.`), 180); }
+      if (earned > 0.01 && capped > 0){ S.coins += earned; setTimeout(()=>toast(`While you drifted among Pluto’s moons (${fmt(capped/3600)}h), Moxie’s crew hauled ${fmt(earned)} ThiccTokens™ from the currents.`), 120); }
       S.lastTick = now;
     })();
 
-    /* ===== loop ===== */
+    /* =========================
+       LOOP
+       ========================= */
     function loop(){
       const now = Date.now(); const dt = (now - S.lastTick) / 1000; S.lastTick = now;
       if (S.tempMult > 1 && now >= S.tempUntil){ S.tempMult = 1; }
-      S.activeFill = Math.max(0, S.activeFill - 0.05 * Math.min(dt, 1)); // 5%/sec drain
+      S.activeFill = Math.max(0, S.activeFill - TUNE.activeDrainPerSec * Math.min(dt, 1));
       S.coins += cps() * Math.min(dt, 60);
       render();
     }
     setInterval(loop, 1000);
 
-    /* ===== rarity (Lucky-aware) ===== */
-    const BASE_RARITY = [
-      { name:'Common',    prob:0.80, wiggle:'wiggle',        flash:false,  bph:+3,   coins:+0,    buff:null,               emoji:'🪱' },
-      { name:'Uncommon',  prob:0.15, wiggle:'wiggle',        flash:false,  bph:+3,   coins:+50,   buff:null,               emoji:'🐟' },
-      { name:'Rare',      prob:0.04, wiggle:'wiggle-epic',   flash:true,   bph:+10,  coins:+250,  buff:null,               emoji:'🐠' },
-      { name:'Legendary', prob:0.01, wiggle:'wiggle-legend', flash:true,   bph:+25,  coins:+1000, buff:{mult:1.5,secs:60}, emoji:'🐉' }
-    ];
+    /* =========================
+       RARITY + REWARDS (from TUNE)
+       ========================= */
+    let BASE_RARITY = [];
+    function regenerateRarity(){
+      const R = TUNE.rarity, W = TUNE.rewards;
+      BASE_RARITY = [
+        { name:'Common',    prob:R.common,    wiggle:'wiggle',        flash:false,  bph:+W.common.bph,    coins:+W.common.coins,    buff:null,               emoji:'🪱' },
+        { name:'Uncommon',  prob:R.uncommon,  wiggle:'wiggle',        flash:false,  bph:+W.uncommon.bph,  coins:+W.uncommon.coins,  buff:null,               emoji:'🐟' },
+        { name:'Rare',      prob:R.rare,      wiggle:'wiggle-epic',   flash:true,   bph:+W.rare.bph,      coins:+W.rare.coins,      buff:null,               emoji:'🐠' },
+        { name:'Legendary', prob:R.legendary, wiggle:'wiggle-legend', flash:true,   bph:+W.legendary.bph, coins:+W.legendary.coins, buff:W.legendary.buff,   emoji:'🐉' }
+      ];
+    }
+    regenerateRarity();
+
     function adjustedRarity(){
       const L = ancientLevel('lucky'); if (!L) return BASE_RARITY;
+      // boosts toward higher rarities; mild nerf to common via inverse
       const mults = { Common: 1/(1+0.15*L), Uncommon: 1+0.08*L, Rare: 1+0.20*L, Legendary: 1+0.35*L };
       const raw = BASE_RARITY.map(t => ({...t, prob: t.prob * (mults[t.name] || 1)}));
       const sum = raw.reduce((a,t)=>a+t.prob,0);
@@ -213,17 +328,19 @@
     }
     function rollRarity(){ const table = adjustedRarity(); const r = Math.random(); let acc = 0; for (const t of table){ acc += t.prob; if (r <= acc) return t; } return table[0]; }
 
-    /* ===== upgrades ===== */
+    /* =========================
+       UPGRADES
+       ========================= */
     const upgrades = [
       { key:'nets', id:'netBtn', name:'⚓ Curvature Lattice', get price(){ return S.netPrice; }, canBuy:()=>S.coins>=S.netPrice,
-        buy:()=>{ S.coins-=S.netPrice; S.nets++; S.lifetimeUpgrades++; S.bph+=20; S.netPrice=Math.ceil(S.netPrice*1.25); },
-        label:()=>`⚓ Curvature Lattice (${S.netPrice} TT)`, note:'+20 BPH per upgrade. Price scales ×1.25' },
+        buy:()=>{ S.coins-=S.netPrice; S.nets++; S.lifetimeUpgrades++; S.bph+=20; S.netPrice=Math.ceil(S.netPrice*TUNE.scale.net); },
+        label:()=>`⚓ Curvature Lattice (${S.netPrice} TT)`, note:'+20 BPH per upgrade.' },
       { key:'rods', id:'rodBtn', name:'🎣 Cosmic Rod', get price(){ return S.rodPrice; }, canBuy:()=>S.nets>=3 && S.coins>=S.rodPrice,
-        buy:()=>{ S.coins-=S.rodPrice; S.rods++; S.lifetimeUpgrades++; S.bph+=50; S.rodPrice=Math.ceil(S.rodPrice*1.35); },
-        label:()=>`🎣 Cosmic Rod (${S.rodPrice} TT)`, note:'Requires 3 Curvature Lattices. +50 BPH. Price scales ×1.35' },
+        buy:()=>{ S.coins-=S.rodPrice; S.rods++; S.lifetimeUpgrades++; S.bph+=50; S.rodPrice=Math.ceil(S.rodPrice*TUNE.scale.rod); },
+        label:()=>`🎣 Cosmic Rod (${S.rodPrice} TT)`, note:'Requires 3 Curvature Lattices. +50 BPH.' },
       { key:'trawlers', id:'trawlBtn', name:'🛠️ Quantum Trawler', get price(){ return S.trawlPrice; }, canBuy:()=>S.nets>=2 && S.coins>=S.trawlPrice,
-        buy:()=>{ S.coins-=S.trawlPrice; S.nets-=2; S.trawlers++; S.lifetimeUpgrades++; S.bph+=120; S.trawlPrice=Math.ceil(S.trawlPrice*1.40); },
-        label:()=>`🛠️ Quantum Trawler (${S.trawlPrice} TT)`, note:'Consumes 2 Curvature Lattices. +120 BPH. Price scales ×1.40' }
+        buy:()=>{ S.coins-=S.trawlPrice; S.nets-=2; S.trawlers++; S.lifetimeUpgrades++; S.bph+=120; S.trawlPrice=Math.ceil(S.trawlPrice*TUNE.scale.trawl); },
+        label:()=>`🛠️ Quantum Trawler (${S.trawlPrice} TT)`, note:'Consumes 2 Curvature Lattices. +120 BPH.' }
     ];
     function renderUpgrades(){
       const row=$('upgradeRow'); row.innerHTML='';
@@ -236,7 +353,9 @@
       });
     }
 
-    /* ===== ancients UI ===== */
+    /* =========================
+       ANCIENTS UI
+       ========================= */
     function renderAncients(){
       const wrap=$('ancientRow'); wrap.innerHTML='';
       ANCIENTS.forEach(a=>{
@@ -251,7 +370,7 @@
         const info=document.createElement('small'); info.className='note';
         let effectText=a.desc;
         if(a.key==='spark'){ effectText+=` Current cap: x${activeMaxMult().toFixed(2)} (lvl ${lvl})`; }
-        else if(a.key==='netmother'){ effectText+=` Current bonus: +${(2*lvl)} BPH per Net (lvl ${lvl})`; }
+        else if(a.key==='netmother'){ effectText+=` Current bonus: +${(TUNE.netmotherPerNetPerLevel*lvl)} BPH per Net (lvl ${lvl})`; }
         else if(a.key==='tide'){ effectText+=` Current: ×${(a.effectMult?a.effectMult(lvl):1).toFixed(3)} (lvl ${lvl})`; }
         else if(a.key==='lucky'){ effectText+=` Lvl ${lvl} (rarer catches more likely)`; }
         else if(a.key==='shark'){ const bonusPct=(sigilGainMult()-1)*100; effectText+=` Current bonus: +${bonusPct.toFixed(2)}% sigils (lvl ${lvl})`; }
@@ -261,14 +380,16 @@
       });
     }
 
-    /* ===== actions ===== */
+    /* =========================
+       ACTIONS
+       ========================= */
     $('catchBtn').onclick=()=>{
       const tier=rollRarity();
       S.catch+=1; S.bph+=tier.bph; S.coins+=tier.coins;
       if(tier.buff){ const {mult,secs}=tier.buff; S.tempMult=mult; S.tempUntil=Date.now()+secs*1000; }
 
       // active fill + pulse
-      S.activeFill=Math.min(1,S.activeFill+0.12);
+      S.activeFill=Math.min(1,S.activeFill+TUNE.activeClickFill);
       const pct=Math.round(Math.max(0,Math.min(1,S.activeFill))*100);
       $('catchBtn').style.setProperty('--fill', pct+'%');
       const btn=$('catchBtn'); btn.classList.remove('pulse'); void btn.offsetWidth; btn.classList.add('pulse');
@@ -283,36 +404,37 @@
 
       const rewardBits=[ `${tier.emoji} ${tier.name}`, `+${tier.bph} BPH`, tier.coins?`+${fmt(tier.coins)} TT`:null, tier.buff?`Frenzy x${tier.buff.mult} ${tier.buff.secs}s`:null ].filter(Boolean).join(' • ');
       $('catchReward').textContent=rewardBits; setTimeout(()=>{$('catchReward').textContent='';},1200);
-      //toast(rewardBits);// 👻 ghost: optional UI display for rarity popup
+      // toast(rewardBits); // 👻 optional toast
       render();
     };
 
-    /* ===== prestige ===== */
+    function updatePrestigePreview(){
+      const baseSigils = S.coins / TUNE.prestigeDivisor;
+      const preview = Math.floor(baseSigils * sigilGainMult());
+      $('prestigeBtn').textContent = `💠 Sell the Haul (+${fmt(preview)} Ξ)`;
+    }
+
     function prestige(){
-      const baseSigils = S.coins / 1000;
+      const baseSigils = S.coins / TUNE.prestigeDivisor;
       const earned = Math.floor(baseSigils * sigilGainMult());
       if(earned<=0) return toast('Haul not big enough to impress Moxie.');
       if(!confirm(`Sell your entire haul for ${earned} Ξ‑Sigil(s)? This resets your catch and gear.`)) return;
       S.sigil += earned;
+      // reset gear/baselines to TUNE starts
       S.coins=0; S.bph=0; S.catch=0; S.nets=0; S.rods=0; S.trawlers=0;
-      S.netPrice=100; S.rodPrice=250; S.trawlPrice=400;
-      S.tempMult=1; S.tempUntil=0; S.activeFill=0; // ancients + lifetime persist
+      S.netPrice=TUNE.startPrice.net; S.rodPrice=TUNE.startPrice.rod; S.trawlPrice=TUNE.startPrice.trawl;
+      S.tempMult=1; S.tempUntil=0; S.activeFill=0;
       save(); render(); toast(`Trade complete. ${earned} Ξ‑Sigil(s) etched into your soul.`);
     }
     $('prestigeBtn').onclick=prestige;
 
-    /* ===== save/reset/render ===== */
+    /* =========================
+       SAVE / RESET / RENDER
+       ========================= */
     function save(){ localStorage.setItem('moxies-catch', JSON.stringify(S)); }
     $('saveBtn').onclick=()=>{ save(); toast('Scroll sealed. Progress preserved.'); };
     $('resetBtn').onclick=()=>{ if(!confirm('Banish all progress to the depths?')) return; localStorage.removeItem('moxies-catch'); location.reload(); };
     setInterval(save,15000);
-
-    /* prestige preview on button */
-    function updatePrestigePreview(){
-      const baseSigils = S.coins / 1000;
-      const preview = Math.floor(baseSigils * sigilGainMult());
-      $('prestigeBtn').textContent = `💠 Sell the Haul (+${fmt(preview)} Ξ)`;
-    }
 
     function render(){
       $('coins').textContent = fmt(S.coins);
@@ -334,12 +456,111 @@
       renderUpgrades();
       renderAncients();
       updateSkyline();
-      updatePrestigePreview(); /* <- preview wired */
+      updatePrestigePreview();
 
       upgrades.forEach(u=>{ const b=$(u.id); if(b) b.disabled=!u.canBuy(); });
     }
 
     updateSkyline(); render();
+
+    /* =========================
+       DEV PANEL WIRING
+       ========================= */
+    function applyTuneToUI(){
+      $('t_prestigeDivisor').value = TUNE.prestigeDivisor;
+      $('t_prestigeBphPerSigil').value = TUNE.prestigeBphPerSigil;
+      $('t_sharkPerLevel').value = TUNE.sharkPerLevel;
+
+      $('t_sparkBase').value = TUNE.sparkBase;
+      $('t_sparkPerLevel').value = TUNE.sparkPerLevel;
+      $('t_activeClickFill').value = TUNE.activeClickFill;
+      $('t_activeDrainPerSec').value = TUNE.activeDrainPerSec;
+
+      $('t_netmotherPerNetPerLevel').value = TUNE.netmotherPerNetPerLevel;
+
+      $('t_priceNet').value = TUNE.startPrice.net;
+      $('t_priceRod').value = TUNE.startPrice.rod;
+      $('t_priceTrawl').value = TUNE.startPrice.trawl;
+      $('t_scaleNet').value = TUNE.scale.net;
+      $('t_scaleRod').value = TUNE.scale.rod;
+      $('t_scaleTrawl').value = TUNE.scale.trawl;
+
+      $('t_r_common').value = TUNE.rarity.common;
+      $('t_r_uncommon').value = TUNE.rarity.uncommon;
+      $('t_r_rare').value = TUNE.rarity.rare;
+      $('t_r_legendary').value = TUNE.rarity.legendary;
+
+      $('t_rw_c_bph').value = TUNE.rewards.common.bph;
+      $('t_rw_c_tt').value = TUNE.rewards.common.coins;
+      $('t_rw_r_bph').value = TUNE.rewards.rare.bph;
+      $('t_rw_r_tt').value = TUNE.rewards.rare.coins;
+      $('t_rw_l_bph').value = TUNE.rewards.legendary.bph;
+      $('t_rw_l_tt').value = TUNE.rewards.legendary.coins;
+      $('t_rw_l_mult').value = TUNE.rewards.legendary.buff.mult;
+      $('t_rw_l_secs').value = TUNE.rewards.legendary.buff.secs;
+    }
+    function pullUIToTune(){
+      TUNE.prestigeDivisor = +$('t_prestigeDivisor').value;
+      TUNE.prestigeBphPerSigil = +$('t_prestigeBphPerSigil').value;
+      TUNE.sharkPerLevel = +$('t_sharkPerLevel').value;
+
+      TUNE.sparkBase = +$('t_sparkBase').value;
+      TUNE.sparkPerLevel = +$('t_sparkPerLevel').value;
+      TUNE.activeClickFill = +$('t_activeClickFill').value;
+      TUNE.activeDrainPerSec = +$('t_activeDrainPerSec').value;
+
+      TUNE.netmotherPerNetPerLevel = +$('t_netmotherPerNetPerLevel').value;
+
+      TUNE.startPrice.net = +$('t_priceNet').value;
+      TUNE.startPrice.rod = +$('t_priceRod').value;
+      TUNE.startPrice.trawl = +$('t_priceTrawl').value;
+      TUNE.scale.net = +$('t_scaleNet').value;
+      TUNE.scale.rod = +$('t_scaleRod').value;
+      TUNE.scale.trawl = +$('t_scaleTrawl').value;
+
+      TUNE.rarity.common = +$('t_r_common').value;
+      TUNE.rarity.uncommon = +$('t_r_uncommon').value;
+      TUNE.rarity.rare = +$('t_r_rare').value;
+      TUNE.rarity.legendary = +$('t_r_legendary').value;
+
+      TUNE.rewards.common.bph = +$('t_rw_c_bph').value;
+      TUNE.rewards.common.coins = +$('t_rw_c_tt').value;
+      TUNE.rewards.rare.bph = +$('t_rw_r_bph').value;
+      TUNE.rewards.rare.coins = +$('t_rw_r_tt').value;
+      TUNE.rewards.legendary.bph = +$('t_rw_l_bph').value;
+      TUNE.rewards.legendary.coins = +$('t_rw_l_tt').value;
+      TUNE.rewards.legendary.buff.mult = +$('t_rw_l_mult').value;
+      TUNE.rewards.legendary.buff.secs = +$('t_rw_l_secs').value;
+    }
+
+    function applyTuneLive(){
+      // update dependent runtime values
+      regenerateRarity();
+      // If prices changed, only apply on fresh runs or manual prestige; we keep current prices as-is.
+      updatePrestigePreview();
+      render();
+    }
+
+    // Dev panel events
+    $('t_save').onclick = () => { pullUIToTune(); saveTune(); applyTuneLive(); toast('TUNE saved.'); };
+    $('t_reset').onclick = () => { if(confirm('Reset all TUNE values to defaults?')) resetTune(); };
+    $('t_close').onclick = () => { $('devPanel').style.display = 'none'; };
+
+    $('devToggle').onclick = () => {
+      const p = $('devPanel');
+      p.style.display = (p.style.display === 'none' || !p.style.display) ? 'block' : 'none';
+      if (p.style.display === 'block') applyTuneToUI();
+    };
+    // Keyboard toggle: Ctrl/⌘ + `
+    document.addEventListener('keydown', (e)=>{
+      if ((e.ctrlKey || e.metaKey) && e.key === '`'){
+        $('devToggle').click();
+        e.preventDefault();
+      }
+    });
+
+    // init UI with current TUNE
+    applyTuneToUI();
   </script>
 </body>
 </html>
