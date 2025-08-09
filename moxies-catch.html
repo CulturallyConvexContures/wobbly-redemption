@@ -196,18 +196,18 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
     <div class="bar"></div>
 
     <div class="row" style="margin-top:.6rem">
-      <button id="prestigeBtn">💠 Sell the Haul</button>
-      <small class="note">Prestige for Ξ‑Sigils (permanent +5% BPH each)</small>
+      <button id="prestigeBtn">💠</button>
+    <small class="note">Prestige for ΞSigils</small>
     </div>
 
     <div class="row" style="margin-top:.6rem">
       <button id="saveBtn">📜 Seal the Scroll</button>
       <button id="resetBtn">🔄 Banish to the Depths</button>
-      <span class="pill">auto‑save</span>
+      <span class="pill">v0.69</span>
     </div>
   </div>
-
-  <div id="toast" class="toast"></div>
+<!--
+  <div id="toast" class="toast"></div>-->
 
   <!-- DEV PANEL -->
   <button id="devToggle">🛠️ Dev</button>
@@ -386,7 +386,8 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
     const BOOST_PER_UPGRADE = 0.00001; // you can add this to TUNE later if you want
     function totalUpgradeLevels(){ return S.lifetimeUpgrades || 0; }
     function masteryMult(){ return 1 + totalUpgradeLevels() * BOOST_PER_UPGRADE; }
-    const prestigeMult  = () => 1 + (S.sigil * TUNE.prestigeBphPerSigil);
+    // Compounding +5% per sigil
+const prestigeMult = () => Math.pow(1 + TUNE.prestigeBphPerSigil, S.sigil);
 
     function activeMaxMult(){ return TUNE.sparkBase + TUNE.sparkPerLevel * ancientLevel('spark'); }
     function activeMult(){ return 1 + (activeMaxMult() - 1) * Math.max(0, Math.min(1, S.activeFill)); }
