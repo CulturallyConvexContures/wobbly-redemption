@@ -58,8 +58,25 @@
     .progressBtn .fish{ position:absolute; top:50%; transform:translateY(-50%); font-size:1.3rem; white-space:nowrap; animation:swim 2.5s linear forwards; }
     @keyframes swim{ 0%{left:-2rem} 100%{left:calc(100% + 2rem)} }
 
-    #catchCaption{ margin:.25rem 0 .1rem; text-align:center; }
-    #catchReward{ font-size:14px; color:#ffd34d; text-align:center; height:18px; line-height:18px; margin-bottom:.35rem; }
+    #catchReward{
+  font-size:14px;
+  text-align:center;
+  height:18px; line-height:18px;
+  margin-bottom:.35rem;
+
+  opacity:0; transform:translateY(4px);
+  transition:opacity .25s ease, transform .25s ease;
+  will-change: opacity, transform;
+}
+
+/* show/hide */
+#catchReward.show{ opacity:1; transform:translateY(0); }
+
+/* tint by rarity */
+#catchReward.r-common    { color:#9fb6d1; } /* muted blue */
+#catchReward.r-uncommon  { color:#6fe7ff; } /* cyan */
+#catchReward.r-rare      { color:#33d1ff; text-shadow:0 0 10px rgba(51,209,255,.6); }
+#catchReward.r-legendary { color:#ffd34d; text-shadow:0 0 14px rgba(255,211,77,.7), 0 0 22px rgba(255,155,47,.45); }
 
     /* DEV PANEL */
     #devToggle{ position:fixed; bottom:16px; right:16px; z-index:10000; border-radius:12px; padding:.6rem .8rem; }
@@ -480,8 +497,33 @@ function nextBphGainFor(key){
       if(tier.name==='Legendary'){ spawnFish('🐠✨'); addBurst('legendary'); }
 
       const rewardBits=[ `${tier.emoji} ${tier.name}`, `+${tier.bph} BPH`, tier.coins?`+${fmt(tier.coins)} TT`:null, tier.buff?`Frenzy x${tier.buff.mult} ${tier.buff.secs}s`:null ].filter(Boolean).join(' • ');
-      $('catchReward').textContent=rewardBits; setTimeout(()=>{$('catchReward').textContent='';},1200);
-      // toast(rewardBits); // 👻 optional toast
+      const rewardEl = $('catchReward');
+
+// rarity → class + linger time
+const classByRarity = {
+  Common: 'r-common',
+  Uncommon: 'r-uncommon',
+  Rare: 'r-rare',
+  Legendary: 'r-legendary'
+};
+const durationByRarity = {
+  Common: 1600,
+  Uncommon: 2000,
+  Rare: 2600,
+  Legendary: 3200
+};
+
+// apply text + rarity styling
+rewardEl.textContent = rewardBits;
+rewardEl.className = ''; // clear any previous rarity/show classes
+rewardEl.classList.add(classByRarity[tier.name] || 'r-common', 'show');
+
+// handle linger + fade-out
+clearTimeout(rewardEl._hideTimer);
+rewardEl._hideTimer = setTimeout(()=>{
+  rewardEl.classList.remove('show');           // start fade
+  setTimeout(()=>{ rewardEl.textContent=''; }, 300); // clear after fade
+}, durationByRarity[tier.name] || 1800);
       render();
     };
 
