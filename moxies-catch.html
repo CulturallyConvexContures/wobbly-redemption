@@ -168,6 +168,7 @@
       <label>Legendary TT <input id="t_rw_l_tt" type="number" step="1"></label>
       <label>Legendary Frenzy x <input id="t_rw_l_mult" type="number" step="0.1"></label>
       <label>Legendary Frenzy s <input id="t_rw_l_secs" type="number" step="1"></label>
+      <label for="t_trawlerBPH">Trawler BPH</label><input id="t_trawlerBPH" type="number">
     </div>
     <div class="btns">
       <button id="t_save">💾 Save TUNE</button>
@@ -339,8 +340,10 @@
         buy:()=>{ S.coins-=S.rodPrice; S.rods++; S.lifetimeUpgrades++; S.bph+=50; S.rodPrice=Math.ceil(S.rodPrice*TUNE.scale.rod); },
         label:()=>`🎣 Cosmic Rod (${S.rodPrice} TT)`, note:'Requires 3 Curvature Lattices. +50 BPH.' },
       { key:'trawlers', id:'trawlBtn', name:'🛠️ Quantum Trawler', get price(){ return S.trawlPrice; }, canBuy:()=>S.nets>=2 && S.coins>=S.trawlPrice,
-        buy:()=>{ S.coins-=S.trawlPrice; S.nets-=2; S.trawlers++; S.lifetimeUpgrades++; S.bph+=120; S.trawlPrice=Math.ceil(S.trawlPrice*TUNE.scale.trawl); },
-        label:()=>`🛠️ Quantum Trawler (${S.trawlPrice} TT)`, note:'Consumes 2 Curvature Lattices. +120 BPH.' }
+        buy:()=>{ S.coins-=S.trawlPrice; S.nets-=2; S.trawlers++; S.lifetimeUpgrades++; S.bph += S.bph += TUNE.trawlerBPH;
+S.trawlPrice=Math.ceil(S.trawlPrice*TUNE.scale.trawl); },
+        label: () => `⚒ Quantum Trawler (${S.trawlPrice} TT)`,
+note: `Consumes 2 Curvature Lattices. +${TUNE.trawlerBPH} BPH.`' }
     ];
     function renderUpgrades(){
       const row=$('upgradeRow'); row.innerHTML='';
@@ -498,6 +501,8 @@
       $('t_rw_l_tt').value = TUNE.rewards.legendary.coins;
       $('t_rw_l_mult').value = TUNE.rewards.legendary.buff.mult;
       $('t_rw_l_secs').value = TUNE.rewards.legendary.buff.secs;
+      trawlerBPH: 300,
+      $('#t_trawlerBPH').value = TUNE.trawlerBPH;
     }
     function pullUIToTune(){
       TUNE.prestigeDivisor = +$('t_prestigeDivisor').value;
@@ -531,6 +536,7 @@
       TUNE.rewards.legendary.coins = +$('t_rw_l_tt').value;
       TUNE.rewards.legendary.buff.mult = +$('t_rw_l_mult').value;
       TUNE.rewards.legendary.buff.secs = +$('t_rw_l_secs').value;
+      TUNE.trawlerBPH = +$('#t_trawlerBPH').value;
     }
 
     function applyTuneLive(){
