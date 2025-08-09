@@ -283,7 +283,7 @@
 
       const rewardBits=[ `${tier.emoji} ${tier.name}`, `+${tier.bph} BPH`, tier.coins?`+${fmt(tier.coins)} TT`:null, tier.buff?`Frenzy x${tier.buff.mult} ${tier.buff.secs}s`:null ].filter(Boolean).join(' • ');
       $('catchReward').textContent=rewardBits; setTimeout(()=>{$('catchReward').textContent='';},1200);
-      toast(rewardBits);
+      //toast(rewardBits);
       render();
     };
 
