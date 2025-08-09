@@ -63,44 +63,50 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
     .toast{ position:fixed; top:1rem; right:1rem; background:rgba(20,45,80,.96); color:#cfe6ff; padding:.75rem 1rem; border:1px solid var(--edge); border-radius:10px; box-shadow:0 0 18px rgba(51,209,255,.25), inset 0 0 12px rgba(51,209,255,.06); font-size:.9rem; opacity:0; pointer-events:none; transition:opacity .45s ease; z-index:9999; }
     .toast.show{ opacity:1; }
 
+
     /* Active-Boost-as-Button-Fill */
-    /* Active Boost Bar — black while filling; dark gold when full */
-.progressBtn::before{
-  content:"";
-  position:absolute; inset:0;
-  background:linear-gradient(90deg,#000000,#000000); /* default: black */
-  transform:translateX(calc(var(--fill,0%) - 100%));
-  transition:transform .2s ease, background .4s ease;
-  filter:drop-shadow(0 0 6px rgba(255,211,77,.25));
+.progressBtn {
+  position: relative;
+  width: 240px;
+  height: 44px;
+  border-radius: 12px;
+  background: #16264a; /* bar body */
+  border: 1px solid var(--edge);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.02) inset,
+              0 10px 20px rgba(0,0,0,.25);
 }
 
-/* becomes dark-gold when full */
-.progressBtn.full::before{
-  background:linear-gradient(90deg,#3a2e00,#8f7400); /* deep → rich gold */
+/* the moving fill */
+.progressBtn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  transform: translateX(calc(var(--fill, 0%) - 100%));
+  transition: transform .2s ease;
+  /* black → blue → gold ripple */
+  background:
+    radial-gradient(100% 100% at 10% 50%, rgba(0,0,0,.9), rgba(0,0,0,0) 60%),
+    linear-gradient(90deg, #000 0%, #0b0b12 12%, #142444 30%, #2a76b9 52%, #2a76b9 62%, #443600 78%, #b08d00 90%, #ffd34d 100%);
+  filter: drop-shadow(0 0 6px rgba(17,95,189,.6));
 }
 
-/* Pulse animation (click ripple) — black→gold vibe */
-.progressBtn.pulse::after{
-  content:"";
-  position:absolute; inset:0;
-  pointer-events:none;
-  animation:btnPulse .35s ease;
+/* glossy topcoat */
+.progressBtn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.1));
+  pointer-events: none;
 }
 
-@keyframes btnPulse{
-  0%   { box-shadow:0 0 0 0 rgba(0,0,0,0) inset, 0 0 0 0 rgba(179,143,0,0); }
-  50%  { box-shadow:0 0 0 12px rgba(179,143,0,.18) inset, 0 0 18px 8px rgba(179,143,0,.22); }
-  100% { box-shadow:0 0 0 0 rgba(179,143,0,0) inset, 0 0 0 0 rgba(179,143,0,0); }
-}
-
-/* Slightly juicier pulse when bar is full & gold */
-.progressBtn.full.pulse::after{
-  animation:btnPulseGold .45s ease;
-}
-@keyframes btnPulseGold{
-  0%   { box-shadow:0 0 0 0 rgba(77,59,0,0) inset, 0 0 0 0 rgba(255,215,0,0); }
-  50%  { box-shadow:0 0 0 16px rgba(255,215,0,.22) inset, 0 0 24px 10px rgba(255,215,0,.30); }
-  100% { box-shadow:0 0 0 0 rgba(255,215,0,0) inset, 0 0 0 0 rgba(255,215,0,0); }
+/* when full */
+.progressBtn.full::before {
+  background:
+    radial-gradient(120% 100% at 15% 50%, rgba(0,0,0,.85), rgba(0,0,0,0) 65%),
+    linear-gradient(90deg, #0a0a0a 0%, #1a1a1a 28%, #3b2f00 55%, #6e5700 72%, #b08d00 88%, #ffd34d 100%);
 }
   /* 🌟 LEGENDARY & RARE CLICK EFFECTS — Synced Sweeps */
 
