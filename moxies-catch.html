@@ -9,7 +9,17 @@
 body, button, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
   font-family: monospace !important;
 }
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 4px; /* space between items */
+  margin-top: 2px; /* match other stat lines */
+}
 
+.stat-row .divider {
+  opacity: 0.6; /* subtle like your other separators */
+  padding: 0 4px; /* space around the pipe */
+}
 /* Center-align text globally */
 body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
   text-align: center;
@@ -145,9 +155,11 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
       <div>ΞSigils: <span id="sigil">0</span></div>
       <div>Total Multiplier: <span id="mult">1.00×</span></div>
       <div>Mastery Bonus: <span id="mastery">+0.000% (0 lvls)</span></div>
-      <div>Buffs: <span id="buffs">—</span></div>
-      <div id="playtime" style="margin-top:6px;">00:00:00</div>
-    </div>
+   <div class="stat-row">
+  Buffs: <span id="buffs"></span>
+  <span class="divider">|</span>
+  <span id="playtime">00:00:00</span>
+</div>
 
     <div class="bar"></div>
 
