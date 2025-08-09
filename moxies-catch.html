@@ -5,259 +5,153 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>💋Moxie’sCatch(DEV)</title>
   <style>
-  /* Force monospace everywhere */
+/* Force monospace everywhere */
 body, button, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
   font-family: monospace !important;
 }
-
 /* Center-align text globally */
-body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
-  text-align: center;
-}
-  .icon-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;  /* keeps the right proportions */
-  border-radius: 10px;   /* matches your .face rounding */
-  display: block;       /* removes inline gap */
-}
-    :root{ --ink:#0b1220; --panel:#101a2f; --edge:#2e3e66; --cy:#6fe7ff; --glow:#33d1ff; --accent:#ffd34d; --muted:#9fb6d1; }
-    body{ font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:linear-gradient(180deg,#0a1222,#0a1428 40%,#0c152b); color:#cfe6ff; margin:0;}
-    .wrap{ max-width:620px; margin:2rem auto; padding:1.2rem 1.3rem; background:var(--panel); border-radius:14px; box-shadow:0 0 0 1px var(--edge),0 18px 40px rgba(0,0,0,.35); position:relative;}
-    .banner{ height:160px; margin:-1.2rem -1.3rem 1rem; border-radius:14px 14px 0 0; background: radial-gradient(120% 100% at 70% 0%, rgba(51,209,255,.18), transparent 60%), linear-gradient(180deg,#0d1a34,#0c1426); border-bottom:1px solid var(--edge); position:relative; overflow:hidden;}
-    #sky{position:absolute; inset:0; overflow:hidden;}
-    .star,.light,.beacon{ position:absolute; border-radius:50%; transform:translate(-50%,-50%); }
-    .star{ width:2px; height:2px; background:#9fe6ff; opacity:.6; box-shadow:0 0 6px rgba(111,231,255,.5); }
-    .light{ width:3px; height:3px; background:#9fe6ff; opacity:.9; box-shadow:0 0 8px rgba(111,231,255,.6); }
-    .beacon{ width:5px; height:5px; background:#ffd34d; box-shadow:0 0 10px rgba(255,211,77,.8); }
-    .horizon{ position:absolute; left:0; right:0; bottom:0; height:48%;
-      background: linear-gradient(0deg,#0b1020 0%, transparent 55%), repeating-linear-gradient(90deg,#0f1830 0 30px,#0b1326 30px 60px); opacity:.75; }
+body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note { text-align: center; }
 
-    h1{ margin:.25rem 0 .25rem; font-size:1.8rem; color:var(--accent); letter-spacing:.4px; }
-    .subtitle{ color:var(--muted); font-size:.9rem; margin-bottom:.75rem }
-    .stats{ display:grid; grid-template-columns: 1fr 1fr; gap:.3rem .75rem; }
-    .bar{ height:1px; background:linear-gradient(90deg,transparent,var(--edge),transparent); margin:.8rem 0 1.1rem; }
-    .row{ display:flex; gap:.75rem; align-items:center; flex-wrap:wrap; }
-    .note{ color:var(--muted); font-size:.85rem }
+.icon-img{ width:100%; height:100%; object-fit:contain; border-radius:10px; display:block; }
 
-    button{ background:#16264a; color:#cfe6ff; border:1px solid var(--edge); padding:.6rem .9rem; border-radius:10px;
-      cursor:pointer; transition:transform .02s ease, filter .15s ease; box-shadow:0 0 0 1px rgba(255,255,255,.02) inset, 0 10px 20px rgba(0,0,0,.25);}
-    button:hover{ filter:brightness(1.05); } button:active{ transform:translateY(1px);} button:disabled{ opacity:.5; cursor:default;}
-    .pill{ display:inline-block; padding:.05rem .45rem; border:1px solid var(--edge); border-radius:999px; color:#6fe7ff; margin-left:.35rem; font-size:.75rem; }
+:root{ --ink:#0b1220; --panel:#101a2f; --edge:#2e3e66; --cy:#6fe7ff; --glow:#33d1ff; --accent:#ffd34d; --muted:#9fb6d1; }
 
-    /* Moxie */
-    .moxie{ display:inline-flex; align-items:center; gap:.4rem; user-select:none; margin-right:.25rem; }
-    .moxie .face{ width:100px; height:100px; border-radius:10px; background-color: #0b0b0f; border:1px solid #999999; display:grid; place-items:center; box-shadow:0 0 10px rgba(51,209,255,.18) inset; font-size:18px; }
-    .wiggle{ animation:wiggle .45s ease; } .wiggle-epic{ animation:wiggleEpic .7s ease; } .wiggle-legend{ animation:wiggleLegend 1s ease; }
-    .flash{ box-shadow:0 0 18px rgba(51,209,255,.65), 0 0 30px rgba(255,211,77,.55) inset; transition:box-shadow .35s ease; }
-    @keyframes wiggle {
-  0%, 100% { transform: translateY(0) rotate(0) }
-  25% { transform: translateY(-0.25px) rotate(-1deg) }
-  50% { transform: translateY(0) rotate(1deg) }
-  75% { transform: translateY(-0.25px) rotate(-1deg) }
-}
-    @keyframes wiggleEpic{0%,100%{transform:translateY(0) rotate(0)}20%{transform:translateY(-2px) rotate(-10deg)}50%{transform:translateY(1px) rotate(8deg)}80%{transform:translateY(-1px) rotate(-6deg)}}
-    @keyframes wiggleLegend{0%,100%{transform:translateY(0) rotate(0)}15%{transform:translateY(-3px) rotate(-14deg)}45%{transform:translateY(2px) rotate(12deg)}75%{transform:translateY(-2px) rotate(-10deg)}}
+body{ font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:linear-gradient(180deg,#0a1222,#0a1428 40%,#0c152b); color:#cfe6ff; margin:0; }
+.wrap{ max-width:620px; margin:2rem auto; padding:1.2rem 1.3rem; background:var(--panel); border-radius:14px; box-shadow:0 0 0 1px var(--edge),0 18px 40px rgba(0,0,0,.35); position:relative; }
 
-    /* Toast */
-    .toast{ position:fixed; top:1rem; right:1rem; background:rgba(20,45,80,.96); color:#cfe6ff; padding:.75rem 1rem; border:1px solid var(--edge); border-radius:10px; box-shadow:0 0 18px rgba(51,209,255,.25), inset 0 0 12px rgba(51,209,255,.06); font-size:.9rem; opacity:0; pointer-events:none; transition:opacity .45s ease; z-index:9999; }
-    .toast.show{ opacity:1; }
-
-
-    /* Active-Boost-as-Button-Fill */
-.progressBtn {
-  position: relative;
-  width: 240px;
-  height: 44px;
-  border-radius: 12px;
-  background: #16264a; /* bar body */
-  border: 1px solid var(--edge);
-  overflow: hidden;
-  box-shadow: 0 0 0 1px rgba(255,255,255,.02) inset,
-              0 10px 20px rgba(0,0,0,.25);
+/* simple header (skyline removed) */
+.banner{ height:160px; margin:-1.2rem -1.3rem 1rem; border-radius:14px 14px 0 0;
+  background:linear-gradient(180deg,#0d1a34,#0c1426);
+  border-bottom:1px solid var(--edge); position:relative; overflow:hidden;
 }
 
-/* the moving fill */
-.progressBtn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  transform: translateX(calc(var(--fill, 0%) - 100%));
-  transition: transform .2s ease;
-  /* black → blue → gold ripple */
+h1{ margin:.25rem 0 .25rem; font-size:1.8rem; color:var(--accent); letter-spacing:.4px; }
+.subtitle{ color:var(--muted); font-size:.9rem; margin-bottom:.75rem }
+.stats{ display:grid; grid-template-columns:1fr 1fr; gap:.3rem .75rem; }
+.bar{ height:1px; background:linear-gradient(90deg,transparent,var(--edge),transparent); margin:.8rem 0 1.1rem; }
+.row{ display:flex; gap:.75rem; align-items:center; flex-wrap:wrap; }
+.note{ color:var(--muted); font-size:.85rem }
+
+button{
+  background:#16264a; color:#cfe6ff; border:1px solid var(--edge); padding:.6rem .9rem; border-radius:10px;
+  cursor:pointer; transition:transform .02s ease, filter .15s ease;
+  box-shadow:0 0 0 1px rgba(255,255,255,.02) inset, 0 10px 20px rgba(0,0,0,.25);
+}
+button:hover{ filter:brightness(1.05); }
+button:active{ transform:translateY(1px); }
+button:disabled{ opacity:.5; cursor:default; }
+.pill{ display:inline-block; padding:.05rem .45rem; border:1px solid var(--edge); border-radius:999px; color:#6fe7ff; margin-left:.35rem; font-size:.75rem; }
+
+/* Moxie */
+.moxie{ display:inline-flex; align-items:center; gap:.4rem; user-select:none; margin-right:.25rem; }
+.moxie .face{ width:100px; height:100px; border-radius:10px; background:#0b0b0f; border:1px solid #999; display:grid; place-items:center; box-shadow:0 0 10px rgba(51,209,255,.18) inset; font-size:18px; }
+.wiggle{ animation:wiggle .45s ease; } .wiggle-epic{ animation:wiggleEpic .7s ease; } .wiggle-legend{ animation:wiggleLegend 1s ease; }
+.flash{ box-shadow:0 0 18px rgba(51,209,255,.65), 0 0 30px rgba(255,211,77,.55) inset; transition:box-shadow .35s ease; }
+@keyframes wiggle { 0%,100%{transform:translateY(0) rotate(0)} 25%{transform:translateY(-.25px) rotate(-1deg)} 50%{transform:translateY(0) rotate(1deg)} 75%{transform:translateY(-.25px) rotate(-1deg)} }
+@keyframes wiggleEpic{0%,100%{transform:translateY(0) rotate(0)}20%{transform:translateY(-2px) rotate(-10deg)}50%{transform:translateY(1px) rotate(8deg)}80%{transform:translateY(-1px) rotate(-6deg)}}
+@keyframes wiggleLegend{0%,100%{transform:translateY(0) rotate(0)}15%{transform:translateY(-3px) rotate(-14deg)}45%{transform:translateY(2px) rotate(12deg)}75%{transform:translateY(-2px) rotate(-10deg)}}
+
+/* Toast */
+.toast{ position:fixed; top:1rem; right:1rem; background:rgba(20,45,80,.96); color:#cfe6ff; padding:.75rem 1rem; border:1px solid var(--edge); border-radius:10px; box-shadow:0 0 18px rgba(51,209,255,.25), inset 0 0 12px rgba(51,209,255,.06); font-size:.9rem; opacity:0; pointer-events:none; transition:opacity .45s ease; z-index:9999; }
+.toast.show{ opacity:1; }
+
+/* === Progress Button === */
+.progressBtn{
+  position:relative; width:240px; height:44px; border-radius:12px;
+  background:#16264a; border:1px solid var(--edge); overflow:hidden;
+  box-shadow:0 0 0 1px rgba(255,255,255,.02) inset, 0 10px 20px rgba(0,0,0,.25);
+}
+/* moving fill (driven by --fill 0–100%) */
+.progressBtn::before{
+  content:""; position:absolute; inset:0; border-radius:inherit;
+  transform:translateX(calc(var(--fill,0%) - 100%));
+  transition:transform .2s ease;
   background:
     radial-gradient(100% 100% at 10% 50%, rgba(0,0,0,.9), rgba(0,0,0,0) 60%),
-    linear-gradient(90deg, #000 0%, #0b0b12 12%, #142444 30%, #2a76b9 52%, #2a76b9 62%, #443600 78%, #b08d00 90%, #ffd34d 100%);
-  filter: drop-shadow(0 0 6px rgba(17,95,189,.6));
+    linear-gradient(90deg,#000 0%,#0b0b12 12%,#142444 30%,#2a76b9 52%,#2a76b9 62%,#443600 78%,#b08d00 90%,#ffd34d 100%);
 }
-
 /* glossy topcoat */
-.progressBtn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.1));
-  pointer-events: none;
+.progressBtn::after{
+  content:""; position:absolute; inset:0; border-radius:inherit;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.1));
+  pointer-events:none;
 }
-
-/* when full */
-.progressBtn.full::before {
+/* full bar state */
+.progressBtn.full::before{
   background:
     radial-gradient(120% 100% at 15% 50%, rgba(0,0,0,.85), rgba(0,0,0,0) 65%),
-    linear-gradient(90deg, #0a0a0a 0%, #1a1a1a 28%, #3b2f00 55%, #6e5700 72%, #b08d00 88%, #ffd34d 100%);
-}
-  /* 🌟 LEGENDARY & RARE CLICK EFFECTS — Synced Sweeps */
-
-/* LEGENDARY: Black → Gold shimmer */
-.progressBtn.legendaryBurst {
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 0 14px 4px #ffd34d, 0 0 32px 12px rgba(255, 211, 77, .5);
-  filter: saturate(1.25) brightness(1.2);
-  animation: burstPulse 2.8s ease-in-out infinite;
+    linear-gradient(90deg,#0a0a0a 0%,#1a1a1a 28%,#3b2f00 55%,#6e5700 72%,#b08d00 88%,#ffd34d 100%);
 }
 
-.progressBtn.legendaryBurst::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -50%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(255, 215, 0, 0.45) 50%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  animation: sweepSync 3s infinite;
+/* Click flair (matches JS .burst + tier) */
+.progressBtn.burst{
+  position:relative; overflow:hidden;
+  filter:saturate(1.25) brightness(1.2);
+  animation:burstPulse 2.2s ease-in-out;
 }
-
-/* RARE: Black → Blue ripple */
-.progressBtn.rareBurst {
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 0 12px 3px #33d1ff, 0 0 28px 10px rgba(51, 209, 255, .45);
-  filter: saturate(1.2) brightness(1.15);
-  animation: burstPulse 2.8s ease-in-out infinite;
+.progressBtn.burst::after{
+  content:""; position:absolute; top:0; left:-50%; width:50%; height:100%;
+  background:linear-gradient(120deg, rgba(0,0,0,0) 0%, var(--burst-color, rgba(255,215,0,.45)) 50%, rgba(0,0,0,0) 100%);
+  animation:sweepSync 1.2s ease-out forwards;
 }
+.progressBtn.burst.rare      { --burst-color: rgba(102,239,255,.40); box-shadow:0 0 12px 3px #33d1ff, 0 0 28px 10px rgba(51,209,255,.45); }
+.progressBtn.burst.legendary { --burst-color: rgba(255,215,0,.45);  box-shadow:0 0 14px 4px #ffd34d, 0 0 32px 12px rgba(255,211,77,.5); }
+@keyframes burstPulse { 0%,100%{filter:saturate(1.2) brightness(1.15)} 50%{filter:saturate(1.35) brightness(1.25)} }
+@keyframes sweepSync { from{ left:-50% } to{ left:120% } }
 
-.progressBtn.rareBurst::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -50%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(102, 239, 255, 0.4) 50%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  animation: sweepSync 3s infinite;
-}
+/* optional fish emoji that swims across the bar */
+.progressBtn .fish{ position:absolute; top:50%; transform:translateY(-50%); font-size:1.3rem; white-space:nowrap; animation:swim 2.5s linear forwards; }
+@keyframes swim{ from{left:-2rem} to{left:calc(100% + 2rem)} }
 
-/* Shared breathing glow */
-@keyframes burstPulse {
-  0%, 100% {
-    filter: saturate(1.2) brightness(1.15);
-  }
-  50% {
-    filter: saturate(1.4) brightness(1.25);
-  }
-}
-
-/* Synced shimmer/ripple sweep */
-@keyframes sweepSync {
-  0% { left: -50%; }
-  100% { left: 120%; }
-}background: linear-gradient(
-  90deg,
-  #000000 0%,
-  #4d3b00 15%,
-  #b8860b 30%,
-  #ffd700 50%,
-  #ffec8b 65%,
-  #ffd700 80%,
-  #b8860b 90%,
-  #000000 100%
-);
-
-    .progressBtn .fish{ position:absolute; top:50%; transform:translateY(-50%); font-size:1.3rem; white-space:nowrap; animation:swim 2.5s linear forwards; }
-    @keyframes swim{ 0%{left:-2rem} 100%{left:calc(100% + 2rem)} }
-
-    #catchReward{
-  font-size:20px;
-  text-align:center;
-  height:18px; line-height:18px;
-  margin-bottom:.35rem;
-/* Reward line spacing */
-  margin: .5rem 0 .35rem;
-  padding: 0 .4rem;
+/* Reward line */
+#catchReward{
+  font-size:20px; text-align:center; height:18px; line-height:18px;
+  margin:.5rem 0 .35rem; padding:0 .4rem;
   opacity:0; transform:translateY(4px);
-  transition:opacity .25s ease, transform .25s ease;
-  will-change: opacity, transform;
+  transition:opacity .25s ease, transform .25s ease; will-change:opacity, transform;
 }
-
-/* 🩵 Rare - sparkle sweep */
-#catchReward.rareSweep {
-  animation: rareSparkle 0.8s ease-in-out;
+/* Rare sparkle + Legendary pulse */
+#catchReward.rareSweep{ animation:rareSparkle .8s ease-in-out; }
+@keyframes rareSparkle{
+  0%{text-shadow:0 0 10px rgba(51,209,255,.6)}
+  25%{text-shadow:0 0 16px rgba(111,231,255,.8),0 0 30px rgba(51,209,255,.5)}
+  50%{text-shadow:0 0 22px rgba(51,209,255,1),0 0 40px rgba(111,231,255,.8)}
+  75%{text-shadow:0 0 16px rgba(111,231,255,.8),0 0 30px rgba(51,209,255,.5)}
+  100%{text-shadow:0 0 10px rgba(51,209,255,.6)}
 }
-@keyframes rareSparkle {
-  0%   { text-shadow: 0 0 10px rgba(51, 209, 255, .6); }
-  25%  { text-shadow: 0 0 16px rgba(111, 231, 255, .8), 0 0 30px rgba(51, 209, 255, .5); }
-  50%  { text-shadow: 0 0 22px rgba(51, 209, 255, 1), 0 0 40px rgba(111, 231, 255, .8); }
-  75%  { text-shadow: 0 0 16px rgba(111, 231, 255, .8), 0 0 30px rgba(51, 209, 255, .5); }
-  100% { text-shadow: 0 0 10px rgba(51, 209, 255, .6); }
+#catchReward.legendaryPulse{ animation:legendaryPulse 1s ease-in-out; }
+@keyframes legendaryPulse{
+  0%{text-shadow:0 0 12px rgba(255,211,77,.6)}
+  50%{text-shadow:0 0 18px rgba(255,211,77,.9),0 0 28px rgba(255,155,47,.5)}
+  100%{text-shadow:0 0 12px rgba(255,211,77,.6)}
 }
-
-/* 💜 Legendary - gentle pulse (if you want it too) */
-#catchReward.legendaryPulse {
-  animation: legendaryPulse 1s ease-in-out;
-}
-@keyframes legendaryPulse {
-  0%   { text-shadow: 0 0 12px rgba(255,211,77,.6); }
-  50%  { text-shadow: 0 0 18px rgba(255,211,77,.9), 0 0 28px rgba(255,155,47,.5); }
-  100% { text-shadow: 0 0 12px rgba(255,211,77,.6); }
-}
-
-/* show/hide */
 #catchReward.show{ opacity:1; transform:translateY(0); }
+#catchReward.r-common{ color:#9fb6d1; }
+#catchReward.r-uncommon{ color:#6fe7ff; }
+#catchReward.r-rare{ color:#33d1ff; text-shadow:0 0 10px rgba(51,209,255,.6); }
+#catchReward.r-legendary{ color:#ffd34d; text-shadow:0 0 14px rgba(255,211,77,.7),0 0 22px rgba(255,155,47,.45); }
 
-/* tint by rarity */
-#catchReward.r-common    { color:#9fb6d1; } /* muted blue */
-#catchReward.r-uncommon  { color:#6fe7ff; } /* cyan */
-#catchReward.r-rare      { color:#33d1ff; text-shadow:0 0 10px rgba(51,209,255,.6); }
-#catchReward.r-legendary { color:#ffd34d; text-shadow:0 0 14px rgba(255,211,77,.7), 0 0 22px rgba(255,155,47,.45); }
+/* Dev panel + responsive stack */
+#devToggle{ position:fixed; bottom:16px; right:16px; z-index:10000; border-radius:12px; padding:.6rem .8rem; }
+#devPanel{ position:fixed; bottom:70px; right:16px; width:320px; max-height:75vh; overflow:auto; background:rgba(16,26,47,.98); border:1px solid var(--edge); border-radius:14px; box-shadow:0 12px 30px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.04) inset; padding:.8rem; z-index:9999; display:none; }
+#devPanel h4{ margin:.2rem 0 .4rem; color:var(--accent); }
+#devPanel label{ display:flex; justify-content:space-between; gap:.5rem; font-size:.85rem; margin:.35rem 0; }
+#devPanel input{ width:110px; background:#0e1a34; color:#cfe6ff; border:1px solid var(--edge); border-radius:8px; padding:.25rem .35rem; }
+#devPanel .row{ justify-content:space-between; }
+#devPanel .btns{ display:flex; gap:.5rem; margin-top:.5rem; }
+.stats{ justify-items:center; }
 
-    /* DEV PANEL */
-    #devToggle{ position:fixed; bottom:16px; right:16px; z-index:10000; border-radius:12px; padding:.6rem .8rem; }
-    #devPanel{ position:fixed; bottom:70px; right:16px; width:320px; max-height:75vh; overflow:auto; background:rgba(16,26,47,.98); border:1px solid var(--edge); border-radius:14px; box-shadow:0 12px 30px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.04) inset; padding:.8rem; z-index:9999; display:none; }
-    #devPanel h4{ margin:.2rem 0 .4rem; color:var(--accent); }
-    #devPanel label{ display:flex; justify-content:space-between; gap:.5rem; font-size:.85rem; margin:.35rem 0; }
-    #devPanel input{ width:110px; background:#0e1a34; color:#cfe6ff; border:1px solid var(--edge); border-radius:8px; padding:.25rem .35rem; }
-    #devPanel .row{ justify-content:space-between; }
-    #devPanel .btns{ display:flex; gap:.5rem; margin-top:.5rem; }
-    .stats { justify-items: center; }
-    /* tie image + gear/ancients to the same responsive width */
-:root{
-  --stack: clamp(120px, 44vw, 200px); /* min … mobile … max */
-}
+:root{ --stack: clamp(120px, 44vw, 200px); }
 .centered-stack{ display:flex; flex-direction:column; align-items:center; gap:.6rem; }
 .centered-stack .face{ width:var(--stack); height:var(--stack); }
 .stack-width{ width:var(--stack); margin:0 auto; text-align:center; }
-
-/* make buttons inside the narrow stacks fill that width cleanly */
 .stack-width button{ width:100%; }
 .stack-width .row{ justify-content:center; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="banner"><div id="sky"></div><div class="horizon"></div></div>
+    <div class="banner"></div>
 
     <h1>Moxie’s☠️Catch</h1>
     <div class="subtitle">Pluto Observatory District</div>
@@ -317,8 +211,8 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
       <span class="pill">v0.69</span>
     </div>
   </div>
-<!--
-  <div id="toast" class="toast"></div>-->
+
+  <div id="toast" class="toast"></div>
 
   <!-- DEV PANEL -->
   <button id="devToggle">🛠️ Dev</button>
@@ -415,10 +309,15 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
     const toast = (msg, ms=3200) => { const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), ms); };
 
     function spawnFish(emoji){ const btn=$('catchBtn'); const s=document.createElement('span'); s.className='fish'; s.textContent=emoji; btn.appendChild(s); setTimeout(()=>s.remove(),2500); }
-    function addBurst(type){ const btn=$('catchBtn'); btn.classList.remove('rareBurst','legendaryBurst','rareFill','legendaryFill'); void btn.offsetWidth;
-      if (type==='rare') btn.classList.add('rareBurst','rareFill'); if (type==='legendary') btn.classList.add('legendaryBurst','legendaryFill');
-      setTimeout(()=>btn.classList.remove('rareBurst','legendaryBurst','rareFill','legendaryFill'),1800);
-    }
+function addBurst(kind) { // kind = 'rare' | 'legendary'
+  const btn = $('catchBtn'); // assuming $('id') gets the element
+  btn.classList.remove('burst', 'rare', 'legendary'); // clear old burst styles
+  void btn.offsetWidth; // force reflow to restart animation
+  btn.classList.add('burst', kind); // add the new burst type
+  btn.addEventListener('animationend', () => {
+    btn.classList.remove('burst', 'rare', 'legendary'); // clean up after animation
+  }, { once: true });
+}
 
     /* =========================
        STATE
@@ -511,19 +410,7 @@ const prestigeMult = () => Math.pow(1 + TUNE.prestigeBphPerSigil, S.sigil);
     /* Ledger Shark — compounding using TUNE */
     function sigilGainMult(){ return Math.pow(1 + TUNE.sharkPerLevel, ancientLevel('shark')); }
 
-    /* =========================
-       SKYLINE
-       ========================= */
-    function updateSkyline(){
-      const sky = $('sky'); sky.innerHTML = '';
-      const tier = S.sigil; const stars = 40 + tier*15, lights = 10 + tier*6, beacons = Math.floor(tier/2);
-      const rand = (min,max)=>Math.random()*(max-min)+min;
-      for(let i=0;i<stars;i++){ const s=document.createElement('div'); s.className='star'; s.style.left=rand(2,98)+'%'; s.style.top=rand(5,55)+'%'; sky.appendChild(s); }
-      for(let i=0;i<lights;i++){ const l=document.createElement('div'); l.className='light'; l.style.left=rand(2,98)+'%'; l.style.top=rand(55,92)+'%'; sky.appendChild(l); }
-      for(let i=0;i<beacons;i++){ const b=document.createElement('div'); b.className='beacon'; b.style.left=rand(5,95)+'%'; b.style.top=rand(35,70)+'%'; sky.appendChild(b); }
-    }
-
-    /* =========================
+   /* =========================
        OFFLINE PROGRESS
        ========================= */
     (function offline(){
@@ -809,13 +696,10 @@ rewardEl._hideTimer = setTimeout(()=>{
 
       renderUpgrades();
       renderAncients();
-      updateSkyline();
       updatePrestigePreview();
 
       upgrades.forEach(u=>{ const b=$(u.id); if(b) b.disabled=!u.canBuy(); });
     }
-
-    updateSkyline(); render();
 
     /* =========================
        DEV PANEL WIRING
