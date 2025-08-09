@@ -7,7 +7,8 @@
   <style>
   /* Force monospace everywhere */
 body, button, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
-  
+  font-family: monospace !important;
+}
 
 /* Center-align text globally */
 body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
@@ -78,7 +79,9 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
   text-align:center;
   height:18px; line-height:18px;
   margin-bottom:.35rem;
-
+/* Reward line spacing */
+  margin: .5rem 0 .35rem;
+  padding: 0 .4rem;
   opacity:0; transform:translateY(4px);
   transition:opacity .25s ease, transform .25s ease;
   will-change: opacity, transform;
@@ -124,8 +127,7 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
     #devPanel .row{ justify-content:space-between; }
     #devPanel .btns{ display:flex; gap:.5rem; margin-top:.5rem; }
     .stats { justify-items: center; }
-    font-family: monospace !important;
-}
+    
   </style>
 </head>
 <body>
