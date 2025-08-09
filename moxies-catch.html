@@ -3,31 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Moxie’s Catch — Pluto Outpost</title>
+  <title>💋Moxie’s Catch — Pluto Outpost</title>
   <style>
-    :root{
-      --ink:#0b1220; --panel:#101a2f; --edge:#2e3e66; --cy:#6fe7ff;
-      --glow:#33d1ff; --accent:#ffd34d; --muted:#9fb6d1;
-    }
-    body{ font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background:linear-gradient(180deg,#0a1222,#0a1428 40%,#0c152b); color:#cfe6ff; margin:0;}
-    .wrap{ max-width:620px; margin:2rem auto; padding:1.2rem 1.3rem; background:var(--panel);
-      border-radius:14px; box-shadow:0 0 0 1px var(--edge), 0 18px 40px rgba(0,0,0,.35); position:relative;}
-    .banner{ height:160px; margin:-1.2rem -1.3rem 1rem; border-radius:14px 14px 0 0;
-      background: radial-gradient(120% 100% at 70% 0%, rgba(51,209,255,.18), transparent 60%), linear-gradient(180deg, #0d1a34, #0c1426);
-      border-bottom:1px solid var(--edge); position:relative; overflow:hidden;}
+    :root{ --ink:#0b1220; --panel:#101a2f; --edge:#2e3e66; --cy:#6fe7ff; --glow:#33d1ff; --accent:#ffd34d; --muted:#9fb6d1; }
+    body{ font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:linear-gradient(180deg,#0a1222,#0a1428 40%,#0c152b); color:#cfe6ff; margin:0;}
+    .wrap{ max-width:620px; margin:2rem auto; padding:1.2rem 1.3rem; background:var(--panel); border-radius:14px; box-shadow:0 0 0 1px var(--edge),0 18px 40px rgba(0,0,0,.35); position:relative;}
+    .banner{ height:160px; margin:-1.2rem -1.3rem 1rem; border-radius:14px 14px 0 0; background: radial-gradient(120% 100% at 70% 0%, rgba(51,209,255,.18), transparent 60%), linear-gradient(180deg,#0d1a34,#0c1426); border-bottom:1px solid var(--edge); position:relative; overflow:hidden;}
     #sky{position:absolute; inset:0; overflow:hidden;}
     .star,.light,.beacon{ position:absolute; border-radius:50%; transform:translate(-50%,-50%); }
     .star{ width:2px; height:2px; background:#9fe6ff; opacity:.6; box-shadow:0 0 6px rgba(111,231,255,.5); }
     .light{ width:3px; height:3px; background:#9fe6ff; opacity:.9; box-shadow:0 0 8px rgba(111,231,255,.6); }
     .beacon{ width:5px; height:5px; background:#ffd34d; box-shadow:0 0 10px rgba(255,211,77,.8); }
     .horizon{ position:absolute; left:0; right:0; bottom:0; height:48%;
-      background: linear-gradient(0deg, #0b1020 0%, transparent 55%), repeating-linear-gradient(90deg, #0f1830 0 30px, #0b1326 30px 60px);
+      background: linear-gradient(0deg,#0b1020 0%, transparent 55%), repeating-linear-gradient(90deg,#0f1830 0 30px,#0b1326 30px 60px);
       opacity:.75; }
 
     h1{ margin:.25rem 0 .25rem; font-size:1.8rem; color:var(--accent); letter-spacing:.4px; }
     .subtitle{ color:var(--muted); font-size:.9rem; margin-bottom:.75rem }
-
     .stats{ display:grid; grid-template-columns: 1fr 1fr; gap:.3rem .75rem; }
     .bar{ height:1px; background:linear-gradient(90deg,transparent,var(--edge),transparent); margin:.8rem 0 1.1rem; }
     .row{ display:flex; gap:.75rem; align-items:center; flex-wrap:wrap; }
@@ -38,58 +30,40 @@
     button:hover{ filter:brightness(1.05); } button:active{ transform:translateY(1px);} button:disabled{ opacity:.5; cursor:default;}
     .pill{ display:inline-block; padding:.05rem .45rem; border:1px solid var(--edge); border-radius:999px; color:#6fe7ff; margin-left:.35rem; font-size:.75rem; }
 
-    /* Moxie wiggles */
+    /* Moxie wiggle */
     .moxie{ display:inline-flex; align-items:center; gap:.4rem; user-select:none; margin-right:.25rem; }
     .moxie .face{ width:28px; height:28px; border-radius:6px; background:#203056; border:1px solid #2e3e66;
       display:grid; place-items:center; box-shadow:0 0 10px rgba(51,209,255,.18) inset; font-size:18px; }
-    .wiggle{ animation:wiggle .45s ease; }
-    .wiggle-epic{ animation:wiggleEpic .7s ease; }
-    .wiggle-legend{ animation:wiggleLegend 1s ease; }
+    .wiggle{ animation:wiggle .45s ease; } .wiggle-epic{ animation:wiggleEpic .7s ease; } .wiggle-legend{ animation:wiggleLegend 1s ease; }
     .flash{ box-shadow:0 0 18px rgba(51,209,255,.65), 0 0 30px rgba(255,211,77,.55) inset; transition:box-shadow .35s ease; }
     @keyframes wiggle{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-1px) rotate(-6deg)}50%{transform:translateY(0) rotate(6deg)}75%{transform:translateY(-1px) rotate(-3deg)}}
     @keyframes wiggleEpic{0%,100%{transform:translateY(0) rotate(0)}20%{transform:translateY(-2px) rotate(-10deg)}50%{transform:translateY(1px) rotate(8deg)}80%{transform:translateY(-1px) rotate(-6deg)}}
     @keyframes wiggleLegend{0%,100%{transform:translateY(0) rotate(0)}15%{transform:translateY(-3px) rotate(-14deg)}45%{transform:translateY(2px) rotate(12deg)}75%{transform:translateY(-2px) rotate(-10deg)}}
 
     /* Toast */
-    .toast{ position:fixed; top:1rem; right:1rem; background:rgba(20,45,80,.96); color:#cfe6ff; padding:.75rem 1rem; border:1px solid var(--edge);
-      border-radius:10px; box-shadow:0 0 18px rgba(51,209,255,.25), inset 0 0 12px rgba(51,209,255,.06); font-size:.9rem; opacity:0; pointer-events:none; transition:opacity .45s ease; z-index:9999; }
+    .toast{ position:fixed; top:1rem; right:1rem; background:rgba(20,45,80,.96); color:#cfe6ff; padding:.75rem 1rem;
+      border:1px solid var(--edge); border-radius:10px; box-shadow:0 0 18px rgba(51,209,255,.25), inset 0 0 12px rgba(51,209,255,.06);
+      font-size:.9rem; opacity:0; pointer-events:none; transition:opacity .45s ease; z-index:9999; }
     .toast.show{ opacity:1; }
 
-    /* Progress-Fill button (Active Boost visualized) */
-    .progressBtn{
-      position: relative; width: 240px; height: 44px; border-radius: 12px;
-      background: #16264a; border: 1px solid var(--edge); overflow: hidden;
-      box-shadow: 0 0 0 1px rgba(255,255,255,.02) inset, 0 10px 20px rgba(0,0,0,.25);
-    }
-    .progressBtn::before{
-      content:""; position:absolute; inset:0;
-      background: linear-gradient(90deg, #33d1ff, #ffd34d);
-      transform: translateX(calc(var(--fill, 0%) - 100%));
-      transition: transform .2s ease;
-      filter: drop-shadow(0 0 6px rgba(255,211,77,.6));
-    }
-    .progressBtn::after{ content:""; position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.1)); pointer-events:none; }
-    .progressBtn.pulse::after{ animation: btnPulse .35s ease; }
-    @keyframes btnPulse{
-      0%{ box-shadow: 0 0 0 0 rgba(255,211,77,.55) inset; }
-      50%{ box-shadow: 0 0 0 12px rgba(255,211,77,.15) inset; }
-      100%{ box-shadow: 0 0 0 0 rgba(255,211,77,0) inset; }
-    }
+    /* Active-Boost-as-Button-Fill */
+    .progressBtn{ position:relative; width:240px; height:44px; border-radius:12px; background:#16264a; border:1px solid var(--edge);
+      overflow:hidden; box-shadow:0 0 0 1px rgba(255,255,255,.02) inset, 0 10px 20px rgba(0,0,0,.25); }
+    .progressBtn::before{ content:""; position:absolute; inset:0; background:linear-gradient(90deg,#33d1ff,#ffd34d);
+      transform:translateX(calc(var(--fill,0%) - 100%)); transition:transform .2s ease; filter:drop-shadow(0 0 6px rgba(255,211,77,.6)); }
+    .progressBtn::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.1)); pointer-events:none; }
+    .progressBtn.pulse::after{ animation:btnPulse .35s ease; }
+    @keyframes btnPulse{ 0%{box-shadow:0 0 0 0 rgba(255,211,77,.55) inset} 50%{box-shadow:0 0 0 12px rgba(255,211,77,.15) inset} 100%{box-shadow:0 0 0 0 rgba(255,211,77,0) inset} }
+    .progressBtn.rareBurst{ box-shadow:0 0 12px 3px #33d1ff,0 0 28px 10px rgba(51,209,255,.45); filter:saturate(1.2) brightness(1.15); }
+    .progressBtn.legendaryBurst{ box-shadow:0 0 15px 5px gold,0 0 40px 15px rgba(255,215,0,.65); filter:saturate(2) brightness(1.3); }
+    .progressBtn.rareFill::before{ background:linear-gradient(90deg,#6fe7ff,#33d1ff); }
+    .progressBtn.legendaryFill::before{ background:linear-gradient(90deg,gold,#ff9b2f,#ff4d4d); }
 
-    /* Rarity bursts + fill tints */
-    .progressBtn.rareBurst{ box-shadow: 0 0 12px 3px #33d1ff, 0 0 28px 10px rgba(51,209,255,.45); filter: saturate(1.2) brightness(1.15); }
-    .progressBtn.legendaryBurst{ box-shadow: 0 0 15px 5px gold, 0 0 40px 15px rgba(255,215,0,.65); filter: saturate(2) brightness(1.3); }
-    .progressBtn.rareFill::before{ background: linear-gradient(90deg,#6fe7ff,#33d1ff); }
-    .progressBtn.legendaryFill::before{ background: linear-gradient(90deg, gold, #ff9b2f, #ff4d4d); }
-
-    /* Fish swim inside button */
     .progressBtn .fish{ position:absolute; top:50%; transform:translateY(-50%); font-size:1.3rem; white-space:nowrap; animation:swim 2.5s linear forwards; }
     @keyframes swim{ 0%{left:-2rem} 100%{left:calc(100% + 2rem)} }
 
-    /* Reward text under button */
     #catchCaption{ margin:.25rem 0 .1rem; text-align:center; }
-    #catchReward{ font-size:14px;color:#ffd34d;text-align:center;height:18px;line-height:18px;margin-bottom:.35rem; }
+    #catchReward{ font-size:14px; color:#ffd34d; text-align:center; height:18px; line-height:18px; margin-bottom:.35rem; }
   </style>
 </head>
 <body>
@@ -97,7 +71,7 @@
     <div class="banner"><div id="sky"></div><div class="horizon"></div></div>
 
     <h1>BYTE & SPICE: Moxie’s Catch</h1>
-    <div class="subtitle">Pluto Observatory District🛰️</div>
+    <div class="subtitle">Pluto Observatory District • “Every bite, a byte.”</div>
 
     <div class="stats">
       <div>ThiccTokens™: <span id="coins">0</span></div>
@@ -121,6 +95,13 @@
 
     <div class="row" style="margin-top:.6rem" id="upgradeRow"></div>
 
+    <div class="bar"></div>
+    <h3 style="margin:.2rem 0 .4rem;color:#ffd34d">Ancients</h3>
+    <div class="note" style="margin-bottom:.4rem">Spend Ξ‑Sigils on permanent, exponential buffs.</div>
+    <div id="ancientRow"></div>
+
+    <div class="bar"></div>
+
     <div class="row" style="margin-top:.6rem">
       <button id="prestigeBtn">💠 Sell the Haul</button>
       <small class="note">Reset for Ξ‑Sigils (permanent +15% BPH each)</small>
@@ -136,237 +117,229 @@
   <div id="toast" class="toast"></div>
 
   <script>
-    /* ==== Helpers ==== */
+    /* ===== helpers ===== */
     const $ = id => document.getElementById(id);
     const fmt = n => n.toLocaleString(undefined,{maximumFractionDigits:2});
     const toast = (msg, ms=4200) => { const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), ms); };
     function spawnFish(emoji){ const btn=$('catchBtn'); const s=document.createElement('span'); s.className='fish'; s.textContent=emoji; btn.appendChild(s); setTimeout(()=>s.remove(),2500); }
     function addBurst(type){ const btn=$('catchBtn'); btn.classList.remove('rareBurst','legendaryBurst','rareFill','legendaryFill'); void btn.offsetWidth;
-      if (type==='rare') btn.classList.add('rareBurst','rareFill');
-      if (type==='legendary') btn.classList.add('legendaryBurst','legendaryFill');
+      if (type==='rare') btn.classList.add('rareBurst','rareFill'); if (type==='legendary') btn.classList.add('legendaryBurst','legendaryFill');
       setTimeout(()=>btn.classList.remove('rareBurst','legendaryBurst','rareFill','legendaryFill'),1800);
     }
 
-    /* ==== Game State ==== */
+    /* ===== state ===== */
     const S = {
       coins:0, bph:0, catch:0,
-      // upgrades / prices:
       nets:0, rods:0, trawlers:0,
       netPrice:100, rodPrice:250, trawlPrice:400,
-      // lifetime mastery bonus:
-      lifetimeUpgrades: 0,
-      // prestige & temp buff:
+      lifetimeUpgrades:0,
       sigil:0, tempMult:1, tempUntil:0,
-      // active play meter (0..1):
-      activeFill: 0,
+      activeFill:0,
+      ancients:{ tide:0, spark:0, netmother:0, lucky:0, shark:0 },
       lastTick:Date.now()
     };
     const saved = localStorage.getItem('moxies-catch'); if (saved) Object.assign(S, JSON.parse(saved));
 
-    /* ==== Multipliers ==== */
-    // 0.001% per lifetime upgrade
-    const BOOST_PER_UPGRADE = 0.00001;
-    // Active Play config
-    const ACTIVE_DECAY_PER_SEC = 0.05;   // 5%/sec drain
-    const ACTIVE_FILL_PER_CLICK = 0.12;  // +12% per click
-    const ACTIVE_MAX_MULT      = 1.50;   // up to +50%
+    /* ===== ancients config ===== */
+    const ANCIENTS = [
+      { key:'tide', name:'Tidecaller', desc:'Global production multiplier (exponential).', baseCost:5, scale:2.0, effectMult:lvl => Math.pow(1.15, lvl) },
+      { key:'spark', name:'Spark of Moxie', desc:'Raises Active Boost cap by +0.05× per level.', baseCost:3, scale:2.5 },
+      { key:'netmother', name:'Netmother', desc:'Adds +2 BPH per Net per level (additive).', baseCost:4, scale:2.2 },
+      { key:'lucky', name:'Lucky Current', desc:'Boosts chances for Rare/Legendary catches.', baseCost:6, scale:2.4 },
+      { key:'shark', name:'Ledger Shark 🦈', desc:'Earn compounding +5% Ξ on “Sell the Haul” (×1.05^lvl).', baseCost:8, scale:2.6 }
+    ];
+    const ancientLevel = k => S.ancients[k] || 0;
+    const ancientCost = a => Math.ceil(a.baseCost * Math.pow(a.scale, ancientLevel(a.key)));
+    const ancientsMult = () => ANCIENTS.reduce((m,a)=> a.effectMult ? m * a.effectMult(ancientLevel(a.key)) : m, 1);
 
+    /* ===== multipliers ===== */
+    const BOOST_PER_UPGRADE = 0.00001; // +0.001% per lifetime upgrade
     function totalUpgradeLevels(){ return S.lifetimeUpgrades || 0; }
     function masteryMult(){ return 1 + totalUpgradeLevels() * BOOST_PER_UPGRADE; }
     const prestigeMult  = () => 1 + (S.sigil * 0.15);
-    function activeMult(){ return 1 + (ACTIVE_MAX_MULT - 1) * Math.max(0, Math.min(1, S.activeFill)); }
-    const effectiveMult = () => prestigeMult() * S.tempMult * masteryMult() * activeMult();
-    const cps           = () => (S.bph * effectiveMult()) / 3600;
 
-    /* ==== Skyline ==== */
+    function activeMaxMult(){ return 1.50 + 0.05 * ancientLevel('spark'); }
+    function activeMult(){ return 1 + (activeMaxMult() - 1) * Math.max(0, Math.min(1, S.activeFill)); }
+    function netmotherBPH(){ return 2 * ancientLevel('netmother') * S.nets; }
+
+    function ancientsGlobalMult(){ return ancientsMult(); }
+    function effectiveMult(){ return prestigeMult() * S.tempMult * masteryMult() * ancientsGlobalMult() * activeMult(); }
+    function cps(){ const base = S.bph + netmotherBPH(); return (base * effectiveMult()) / 3600; }
+
+    /* Ledger Shark — compounding */
+    function sigilGainMult(){ return Math.pow(1.05, ancientLevel('shark')); }
+
+    /* ===== skyline ===== */
     function updateSkyline(){
       const sky = $('sky'); sky.innerHTML = '';
-      const tier = S.sigil;
-      const stars = 40 + tier*15, lights = 10 + tier*6, beacons = Math.floor(tier/2);
+      const tier = S.sigil; const stars = 40 + tier*15, lights = 10 + tier*6, beacons = Math.floor(tier/2);
       const rand = (min,max)=>Math.random()*(max-min)+min;
-      for(let i=0;i<stars;i++){ const s=document.createElement('div'); s.className='star';
-        s.style.left = rand(2,98)+'%'; s.style.top = rand(5,55)+'%'; sky.appendChild(s); }
-      for(let i=0;i<lights;i++){ const l=document.createElement('div'); l.className='light';
-        l.style.left = rand(2,98)+'%'; l.style.top = rand(55,92)+'%'; sky.appendChild(l); }
-      for(let i=0;i<beacons;i++){ const b=document.createElement('div'); b.className='beacon';
-        b.style.left = rand(5,95)+'%'; b.style.top = rand(35,70)+'%'; sky.appendChild(b); }
+      for(let i=0;i<stars;i++){ const s=document.createElement('div'); s.className='star'; s.style.left=rand(2,98)+'%'; s.style.top=rand(5,55)+'%'; sky.appendChild(s); }
+      for(let i=0;i<lights;i++){ const l=document.createElement('div'); l.className='light'; l.style.left=rand(2,98)+'%'; l.style.top=rand(55,92)+'%'; sky.appendChild(l); }
+      for(let i=0;i<beacons;i++){ const b=document.createElement('div'); b.className='beacon'; b.style.left=rand(5,95)+'%'; b.style.top=rand(35,70)+'%'; sky.appendChild(b); }
     }
 
-    /* ==== Offline Progress ==== */
+    /* ===== offline ===== */
     (function offline(){
-      const now = Date.now();
-      const dt = Math.max(0, (now - (S.lastTick||now)) / 1000);
-      const CAP_HOURS = 12;
-      const capped = Math.min(dt, CAP_HOURS*3600);
-      const earned = cps() * capped;
-      if (earned > 0.01 && capped > 0){
-        S.coins += earned;
-        setTimeout(() => toast(`While you drifted among Pluto’s moons (${fmt(capped/3600)}h), Moxie’s crew hauled ${fmt(earned)} ThiccTokens™ from the currents.`), 180);
-      }
+      const now = Date.now(); const dt = Math.max(0, (now - (S.lastTick||now)) / 1000);
+      const CAP_HOURS = 12; const capped = Math.min(dt, CAP_HOURS*3600); const earned = cps() * capped;
+      if (earned > 0.01 && capped > 0){ S.coins += earned; setTimeout(()=>toast(`While you drifted among Pluto’s moons (${fmt(capped/3600)}h), Moxie’s crew hauled ${fmt(earned)} ThiccTokens™ from the currents.`), 180); }
       S.lastTick = now;
     })();
 
-    /* ==== Loop ==== */
+    /* ===== loop ===== */
     function loop(){
-      const now = Date.now();
-      const dt = (now - S.lastTick) / 1000;
-      S.lastTick = now;
-
-      // expire temp buff
+      const now = Date.now(); const dt = (now - S.lastTick) / 1000; S.lastTick = now;
       if (S.tempMult > 1 && now >= S.tempUntil){ S.tempMult = 1; }
-
-      // drain active meter
-      S.activeFill = Math.max(0, S.activeFill - ACTIVE_DECAY_PER_SEC * Math.min(dt, 1));
-
+      S.activeFill = Math.max(0, S.activeFill - 0.05 * Math.min(dt, 1)); // 5%/sec drain
       S.coins += cps() * Math.min(dt, 60);
       render();
     }
     setInterval(loop, 1000);
 
-    /* ==== Rarity table ==== */
-    const RARITY_TABLE = [
-      { name:'Common',    prob:0.80, wiggle:'wiggle',        flash:false,  bph:+3,   coins:+0,   buff:null,               emoji:'🪱' },
-      { name:'Uncommon',  prob:0.15, wiggle:'wiggle',        flash:false,  bph:+3,   coins:+50,  buff:null,               emoji:'🐟' },
-      { name:'Rare',      prob:0.04, wiggle:'wiggle-epic',   flash:true,   bph:+10,  coins:+250, buff:null,               emoji:'🐠' },
-      { name:'Legendary', prob:0.01, wiggle:'wiggle-legend', flash:true,   bph:+25,  coins:+1000,buff:{mult:1.5,secs:60}, emoji:'🐉' }
+    /* ===== rarity (Lucky-aware) ===== */
+    const BASE_RARITY = [
+      { name:'Common',    prob:0.80, wiggle:'wiggle',        flash:false,  bph:+3,   coins:+0,    buff:null,               emoji:'🪱' },
+      { name:'Uncommon',  prob:0.15, wiggle:'wiggle',        flash:false,  bph:+3,   coins:+50,   buff:null,               emoji:'🐟' },
+      { name:'Rare',      prob:0.04, wiggle:'wiggle-epic',   flash:true,   bph:+10,  coins:+250,  buff:null,               emoji:'🐠' },
+      { name:'Legendary', prob:0.01, wiggle:'wiggle-legend', flash:true,   bph:+25,  coins:+1000, buff:{mult:1.5,secs:60}, emoji:'🐉' }
     ];
-    function rollRarity(){
-      const r = Math.random(); let acc = 0;
-      for (const t of RARITY_TABLE){ acc += t.prob; if (r <= acc) return t; }
-      return RARITY_TABLE[0];
+    function adjustedRarity(){
+      const L = ancientLevel('lucky'); if (!L) return BASE_RARITY;
+      const mults = { Common: 1/(1+0.15*L), Uncommon: 1+0.08*L, Rare: 1+0.20*L, Legendary: 1+0.35*L };
+      const raw = BASE_RARITY.map(t => ({...t, prob: t.prob * (mults[t.name] || 1)}));
+      const sum = raw.reduce((a,t)=>a+t.prob,0);
+      return raw.map(t => ({...t, prob: t.prob / sum}));
     }
-    function startFrenzy(mult, secs){ const now=Date.now(); S.tempMult = mult; S.tempUntil = now + secs*1000; render(); }
+    function rollRarity(){ const table = adjustedRarity(); const r = Math.random(); let acc = 0; for (const t of table){ acc += t.prob; if (r <= acc) return t; } return table[0]; }
 
-    /* ==== Upgrades (array-driven) ==== */
+    /* ===== upgrades ===== */
     const upgrades = [
-      {
-        key:'nets', id:'netBtn', name:'⚓ Curvature Lattice',
-        get price(){ return S.netPrice; },
-        canBuy: () => S.coins >= S.netPrice,
-        buy: () => { S.coins -= S.netPrice; S.nets++; S.lifetimeUpgrades++; S.bph += 20; S.netPrice = Math.ceil(S.netPrice * 1.25); },
-        label: () => `⚓ Curvature Lattice (${S.netPrice} TT)`,
-        note:'+20 BPH per upgrade. Price scales ×1.25'
-      },
-      {
-        key:'rods', id:'rodBtn', name:'🎣 Cosmic Rod',
-        get price(){ return S.rodPrice; },
-        canBuy: () => S.nets >= 3 && S.coins >= S.rodPrice,
-        buy: () => { S.coins -= S.rodPrice; S.rods++; S.lifetimeUpgrades++; S.bph += 50; S.rodPrice = Math.ceil(S.rodPrice * 1.35); },
-        label: () => `🎣 Cosmic Rod (${S.rodPrice} TT)`,
-        note:'Requires 3 Curvature Lattices. +50 BPH. Price scales ×1.35'
-      },
-      {
-        key:'trawlers', id:'trawlBtn', name:'🛠️ Quantum Trawler',
-        get price(){ return S.trawlPrice; },
-        canBuy: () => S.nets >= 2 && S.coins >= S.trawlPrice,
-        buy: () => { S.coins -= S.trawlPrice; S.nets -= 2; S.trawlers++; S.lifetimeUpgrades++; S.bph += 120; S.trawlPrice = Math.ceil(S.trawlPrice * 1.40); },
-        label: () => `🛠️ Quantum Trawler (${S.trawlPrice} TT)`,
-        note:'Consumes 2 Curvature Lattices. +120 BPH. Price scales ×1.40'
-      }
+      { key:'nets', id:'netBtn', name:'⚓ Curvature Lattice', get price(){ return S.netPrice; }, canBuy:()=>S.coins>=S.netPrice,
+        buy:()=>{ S.coins-=S.netPrice; S.nets++; S.lifetimeUpgrades++; S.bph+=20; S.netPrice=Math.ceil(S.netPrice*1.25); },
+        label:()=>`⚓ Curvature Lattice (${S.netPrice} TT)`, note:'+20 BPH per upgrade. Price scales ×1.25' },
+      { key:'rods', id:'rodBtn', name:'🎣 Cosmic Rod', get price(){ return S.rodPrice; }, canBuy:()=>S.nets>=3 && S.coins>=S.rodPrice,
+        buy:()=>{ S.coins-=S.rodPrice; S.rods++; S.lifetimeUpgrades++; S.bph+=50; S.rodPrice=Math.ceil(S.rodPrice*1.35); },
+        label:()=>`🎣 Cosmic Rod (${S.rodPrice} TT)`, note:'Requires 3 Curvature Lattices. +50 BPH. Price scales ×1.35' },
+      { key:'trawlers', id:'trawlBtn', name:'🛠️ Quantum Trawler', get price(){ return S.trawlPrice; }, canBuy:()=>S.nets>=2 && S.coins>=S.trawlPrice,
+        buy:()=>{ S.coins-=S.trawlPrice; S.nets-=2; S.trawlers++; S.lifetimeUpgrades++; S.bph+=120; S.trawlPrice=Math.ceil(S.trawlPrice*1.40); },
+        label:()=>`🛠️ Quantum Trawler (${S.trawlPrice} TT)`, note:'Consumes 2 Curvature Lattices. +120 BPH. Price scales ×1.40' }
     ];
-
     function renderUpgrades(){
-      const row = $('upgradeRow'); row.innerHTML = '';
-      upgrades.forEach(u => {
-        const btn = document.createElement('button');
-        btn.id = u.id; btn.textContent = u.label(); btn.disabled = !u.canBuy();
-        btn.onclick = () => { if (!u.canBuy()) { toast('Requirements not met.'); return; } u.buy(); save(); render(); };
-        const info = document.createElement('small'); info.className='note'; info.textContent = u.note;
-        const wrap = document.createElement('div'); wrap.className='row'; wrap.style.marginTop='.4rem';
+      const row=$('upgradeRow'); row.innerHTML='';
+      upgrades.forEach(u=>{
+        const btn=document.createElement('button'); btn.id=u.id; btn.textContent=u.label(); btn.disabled=!u.canBuy();
+        btn.onclick=()=>{ if(!u.canBuy()) return toast('Requirements not met.'); u.buy(); save(); render(); };
+        const info=document.createElement('small'); info.className='note'; info.textContent=u.note;
+        const wrap=document.createElement('div'); wrap.className='row'; wrap.style.marginTop='.4rem';
         wrap.appendChild(btn); wrap.appendChild(info); row.appendChild(wrap);
       });
     }
 
-    /* ==== Actions ==== */
-    $('catchBtn').onclick = () => {
-      const tier = rollRarity();
-      S.catch += 1; S.bph += tier.bph; S.coins += tier.coins;
-      if (tier.buff) startFrenzy(tier.buff.mult, tier.buff.secs);
+    /* ===== ancients UI ===== */
+    function renderAncients(){
+      const wrap=$('ancientRow'); wrap.innerHTML='';
+      ANCIENTS.forEach(a=>{
+        const lvl=ancientLevel(a.key); const cost=ancientCost(a);
+        const row=document.createElement('div'); row.className='row'; row.style.marginTop='.35rem';
 
-      // Active Boost: fill + pulse
-      S.activeFill = Math.min(1, S.activeFill + ACTIVE_FILL_PER_CLICK);
-      const fillPct = Math.round(Math.max(0, Math.min(1, S.activeFill)) * 100);
-      $('catchBtn').style.setProperty('--fill', fillPct + '%');
-      const btn = $('catchBtn'); btn.classList.remove('pulse'); void btn.offsetWidth; btn.classList.add('pulse');
+        const btn=document.createElement('button');
+        btn.textContent=`${a.name} — Invoke (${cost} Ξ)`; btn.disabled=S.sigil<cost;
+        btn.onclick=()=>{ if(S.sigil<cost) return toast('Not enough sigils.');
+          S.sigil-=cost; S.ancients[a.key]=lvl+1; save(); render(); toast(`${a.name} ascends to level ${S.ancients[a.key]}!`); };
 
-      // Moxie feedback
-      const face = $('moxFace');
-      face.classList.remove('wiggle','wiggle-epic','wiggle-legend','flash'); void face.offsetWidth;
-      face.classList.add(tier.wiggle);
-      if (tier.flash){ face.classList.add('flash'); setTimeout(()=>face.classList.remove('flash'), 400); }
+        const info=document.createElement('small'); info.className='note';
+        let effectText=a.desc;
+        if(a.key==='spark'){ effectText+=` Current cap: x${activeMaxMult().toFixed(2)} (lvl ${lvl})`; }
+        else if(a.key==='netmother'){ effectText+=` Current bonus: +${(2*lvl)} BPH per Net (lvl ${lvl})`; }
+        else if(a.key==='tide'){ effectText+=` Current: ×${(a.effectMult?a.effectMult(lvl):1).toFixed(3)} (lvl ${lvl})`; }
+        else if(a.key==='lucky'){ effectText+=` Lvl ${lvl} (rarer catches more likely)`; }
+        else if(a.key==='shark'){ const bonusPct=(sigilGainMult()-1)*100; effectText+=` Current bonus: +${bonusPct.toFixed(2)}% sigils (lvl ${lvl})`; }
 
-      // Rarity effects
-      if (tier.name === 'Rare'){ spawnFish('🐟'); addBurst('rare'); }
-      if (tier.name === 'Legendary'){ spawnFish('🐠✨'); addBurst('legendary'); }
+        info.textContent=effectText;
+        row.appendChild(btn); row.appendChild(info); wrap.appendChild(row);
+      });
+    }
 
-      // Reward text under button
-      const rewardBits = [
-        `${tier.emoji} ${tier.name}`,
-        `+${tier.bph} BPH`,
-        tier.coins ? `+${fmt(tier.coins)} TT` : null,
-        tier.buff ? `Frenzy x${tier.buff.mult} ${tier.buff.secs}s` : null
-      ].filter(Boolean).join(' • ');
-      $('catchReward').textContent = rewardBits;
-      setTimeout(()=>{ $('catchReward').textContent = ''; }, 1200);
+    /* ===== actions ===== */
+    $('catchBtn').onclick=()=>{
+      const tier=rollRarity();
+      S.catch+=1; S.bph+=tier.bph; S.coins+=tier.coins;
+      if(tier.buff){ const {mult,secs}=tier.buff; S.tempMult=mult; S.tempUntil=Date.now()+secs*1000; }
 
+      // active fill + pulse
+      S.activeFill=Math.min(1,S.activeFill+0.12);
+      const pct=Math.round(Math.max(0,Math.min(1,S.activeFill))*100);
+      $('catchBtn').style.setProperty('--fill', pct+'%');
+      const btn=$('catchBtn'); btn.classList.remove('pulse'); void btn.offsetWidth; btn.classList.add('pulse');
+
+      // Moxie wiggle
+      const face=$('moxFace'); face.classList.remove('wiggle','wiggle-epic','wiggle-legend','flash'); void face.offsetWidth; face.classList.add(tier.wiggle);
+      if(tier.flash){ face.classList.add('flash'); setTimeout(()=>face.classList.remove('flash'), 400); }
+
+      // flair
+      if(tier.name==='Rare'){ spawnFish('🐟'); addBurst('rare'); }
+      if(tier.name==='Legendary'){ spawnFish('🐠✨'); addBurst('legendary'); }
+
+      const rewardBits=[ `${tier.emoji} ${tier.name}`, `+${tier.bph} BPH`, tier.coins?`+${fmt(tier.coins)} TT`:null, tier.buff?`Frenzy x${tier.buff.mult} ${tier.buff.secs}s`:null ].filter(Boolean).join(' • ');
+      $('catchReward').textContent=rewardBits; setTimeout(()=>{$('catchReward').textContent='';},1200);
       toast(rewardBits);
       render();
     };
 
+    /* ===== prestige ===== */
     function prestige(){
-      const earned = Math.floor(S.coins / 1000);
-      if (earned <= 0){ toast('Haul not big enough to impress Moxie.'); return; }
-      if (!confirm(`Sell your entire haul for ${earned} Ξ‑Sigil(s)? This resets your catch and gear.`)) return;
+      const baseSigils = S.coins / 1000;
+      const earned = Math.floor(baseSigils * sigilGainMult());
+      if(earned<=0) return toast('Haul not big enough to impress Moxie.');
+      if(!confirm(`Sell your entire haul for ${earned} Ξ‑Sigil(s)? This resets your catch and gear.`)) return;
       S.sigil += earned;
-      S.coins = 0; S.bph = 0; S.catch = 0; S.nets = 0; S.rods = 0; S.trawlers = 0;
-      S.netPrice = 100; S.rodPrice = 250; S.trawlPrice = 400;
-      S.tempMult = 1; S.tempUntil = 0;
-      S.activeFill = 0; // reset button fill on prestige
-      // lifetimeUpgrades persists
+      S.coins=0; S.bph=0; S.catch=0; S.nets=0; S.rods=0; S.trawlers=0;
+      S.netPrice=100; S.rodPrice=250; S.trawlPrice=400;
+      S.tempMult=1; S.tempUntil=0; S.activeFill=0; // ancients + lifetime persist
       save(); render(); toast(`Trade complete. ${earned} Ξ‑Sigil(s) etched into your soul.`);
     }
-    $('prestigeBtn').onclick = prestige;
+    $('prestigeBtn').onclick=prestige;
 
-    /* ==== Save / Reset ==== */
+    /* ===== save/reset/render ===== */
     function save(){ localStorage.setItem('moxies-catch', JSON.stringify(S)); }
-    $('saveBtn').onclick = () => { save(); toast('Scroll sealed. Progress preserved.'); };
-    $('resetBtn').onclick = () => { if (!confirm('Banish all progress to the depths?')) return; localStorage.removeItem('moxies-catch'); location.reload(); };
-    setInterval(save, 15000);
+    $('saveBtn').onclick=()=>{ save(); toast('Scroll sealed. Progress preserved.'); };
+    $('resetBtn').onclick=()=>{ if(!confirm('Banish all progress to the depths?')) return; localStorage.removeItem('moxies-catch'); location.reload(); };
+    setInterval(save,15000);
 
-    /* ==== Render ==== */
+    /* prestige preview on button */
+    function updatePrestigePreview(){
+      const baseSigils = S.coins / 1000;
+      const preview = Math.floor(baseSigils * sigilGainMult());
+      $('prestigeBtn').textContent = `💠 Sell the Haul (+${fmt(preview)} Ξ)`;
+    }
+
     function render(){
       $('coins').textContent = fmt(S.coins);
       $('cps').textContent   = fmt(cps());
-      $('bph').textContent   = fmt(S.bph);
+      $('bph').textContent   = fmt(S.bph + netmotherBPH());
       $('catch').textContent = S.catch;
       $('sigil').textContent = S.sigil;
-
-      // show total multiplier
       $('mult').textContent  = fmt(effectiveMult()) + '×';
 
-      // mastery
-      const masteryPct = ( (masteryMult() - 1) * 100 );
+      const masteryPct = ((masteryMult()-1)*100);
       $('mastery').textContent = `+${masteryPct.toFixed(3)}% (${totalUpgradeLevels()} lvls)`;
 
-      // Buff display
-      if (S.tempMult > 1){
-        const secs = Math.max(0, Math.ceil((S.tempUntil - Date.now())/1000));
-        $('buffs').textContent = `Frenzy x${S.tempMult} (${secs}s)`;
-      } else { $('buffs').textContent = '—'; }
+      if(S.tempMult>1){ const secs=Math.max(0,Math.ceil((S.tempUntil-Date.now())/1000)); $('buffs').textContent=`Frenzy x${S.tempMult} (${secs}s)`; }
+      else $('buffs').textContent='—';
 
-      // button fill mirrors active meter
       const pct = Math.round(Math.max(0, Math.min(1, S.activeFill)) * 100);
       $('catchBtn').style.setProperty('--fill', pct + '%');
 
       renderUpgrades();
+      renderAncients();
       updateSkyline();
+      updatePrestigePreview(); /* <- preview wired */
 
-      upgrades.forEach(u => { const b=$(u.id); if (b) b.disabled = !u.canBuy(); });
+      upgrades.forEach(u=>{ const b=$(u.id); if(b) b.disabled=!u.canBuy(); });
     }
 
-    // Init
-    updateSkyline();
-    render();
+    updateSkyline(); render();
   </script>
 </body>
 </html>
