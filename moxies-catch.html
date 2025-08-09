@@ -553,9 +553,9 @@ const prestigeMult = () => Math.pow(1 + TUNE.prestigeBphPerSigil, S.sigil);
       const R = TUNE.rarity, W = TUNE.rewards;
       BASE_RARITY = [
         { name:'Common',    prob:R.common,    wiggle:'wiggle',        flash:false,  bph:+W.common.bph,    coins:+W.common.coins,    buff:null,               emoji:'🤍' },
-        { name:'Uncommon',  prob:R.uncommon,  wiggle:'wiggle',        flash:false,  bph:+W.uncommon.bph,  coins:+W.uncommon.coins,  buff:null,               emoji:'💚' },
-        { name:'Rare',      prob:R.rare,      wiggle:'wiggle-epic',   flash:true,   bph:+W.rare.bph,      coins:+W.rare.coins,      buff:null,               emoji:'🩵' },
-        { name:'Legendary', prob:R.legendary, wiggle:'wiggle-legend', flash:true,   bph:+W.legendary.bph, coins:+W.legendary.coins, buff:W.legendary.buff,   emoji:'💜' }
+        { name:'Uncommon',  prob:R.uncommon,  wiggle:'wiggle',        flash:false,  bph:+W.uncommon.bph,  coins:+W.uncommon.coins,  buff:null,               emoji:'🩶' },
+        { name:'Rare',      prob:R.rare,      wiggle:'wiggle-epic',   flash:true,   bph:+W.rare.bph,      coins:+W.rare.coins,      buff:null,               emoji:'🖤🩵' },
+        { name:'Legendary', prob:R.legendary, wiggle:'wiggle-legend', flash:true,   bph:+W.legendary.bph, coins:+W.legendary.coins, buff:W.legendary.buff,   emoji:'🖤💛' }
       ];
     }
     regenerateRarity();
@@ -719,7 +719,7 @@ function nextBphGainFor(key){
       if(tier.flash){ face.classList.add('flash'); setTimeout(()=>face.classList.remove('flash'), 400); }
 
       // flair
-      if(tier.name==='Rare'){ spawnFish('🪙'); addBurst('rare'); }
+      if(tier.name==='Rare'){ spawnFish('💰'); addBurst('rare'); }
       if(tier.name==='Legendary'){ spawnFish('🧜‍♀️'); addBurst('legendary'); }
 
       const rewardBits = [
