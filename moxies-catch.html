@@ -233,7 +233,7 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
       <button id="t_reset">🧽 Defaults</button>
       <button id="t_close">Close</button>
     </div>
-    <small class="note">Tip: Press ⌘/Ctrl + ` to toggle panel.</small>
+    <small class="note">Tip: Press ⌘ to toggle panel.</small>
   </div>
 
   <script>
@@ -296,35 +296,47 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
     const saved = localStorage.getItem('moxies-catch'); if (saved) Object.assign(S, JSON.parse(saved));
 // existing: your S object and save/load setup here...
 
-// --- Playtime tracker ---
-if (!S.playedMs) S.playedMs = 0;
-if (!S.lastSeen) S.lastSeen = Date.now();
+// --- Playtime tracker (drop‑in) ---
+(function(){
+  // state
+  if (S.playedMs == null) S.playedMs = 0;
+  if (S.lastSeen  == null) S.lastSeen  = Date.now();
 
-// Add offline time on load
-{
-  const now = Date.now();
-  const offlineMs = now - S.lastSeen;
-  if (offlineMs > 0) S.playedMs += offlineMs;
-  S.lastSeen = now;
-}
+  // count offline time since last visit
+  {
+    const now = Date.now();
+    const offlineMs = Math.max(0, now - S.lastSeen);
+    S.playedMs += offlineMs;
+    S.lastSeen  = now;
+  }
 
-function formatPlaytime(ms){
-  let sec = Math.floor(ms / 1000);
-  const hrs = Math.floor(sec / 3600);
-  sec -= hrs * 3600;
-  const mins = Math.floor(sec / 60);
-  sec -= mins * 60;
-  return `${hrs.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
-}
+  // formatter HH:MM:SS
+  function formatPlaytime(ms){
+    let sec = Math.floor(ms / 1000);
+    const hrs  = Math.floor(sec / 3600); sec -= hrs * 3600;
+    const mins = Math.floor(sec / 60);   sec -= mins * 60;
+    return `${String(hrs).padStart(2,'0')}:${String(mins).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+  }
 
-// Update each loop tick
-const _oldLoop = loop;
-loop = function(){
-  S.playedMs += 1000/60; // ~1 sec per frame
-  S.lastSeen = Date.now();
-  $('playtime').textContent = formatPlaytime(S.playedMs);
-  _oldLoop();
-};
+  // draw once immediately
+  const draw = () => {
+    const el = document.getElementById('playtime');
+    if (el) el.textContent = formatPlaytime(S.playedMs);
+  };
+  draw();
+
+  // own ticker: uses real elapsed time (not tied to your game loop)
+  let prev = Date.now();
+  setInterval(() => {
+    const now = Date.now();
+    S.playedMs += Math.max(0, now - prev); // add real delta
+    S.lastSeen  = now;
+    prev = now;
+    draw();
+    // keep it persisted (lightweight)
+    localStorage.setItem('moxies-catch', JSON.stringify(S));
+  }, 1000);
+})();
     /* =========================
        ANCients
        ========================= */
