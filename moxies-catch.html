@@ -146,6 +146,7 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
       <div>Total Multiplier: <span id="mult">1.00×</span></div>
       <div>Mastery Bonus: <span id="mastery">+0.000% (0 lvls)</span></div>
       <div>Buffs: <span id="buffs">—</span></div>
+      <div id="playtime" style="margin-top:6px;">00:00:00</div>
     </div>
 
     <div class="bar"></div>
@@ -293,7 +294,37 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
       lastTick:Date.now()
     };
     const saved = localStorage.getItem('moxies-catch'); if (saved) Object.assign(S, JSON.parse(saved));
+// existing: your S object and save/load setup here...
 
+// --- Playtime tracker ---
+if (!S.playedMs) S.playedMs = 0;
+if (!S.lastSeen) S.lastSeen = Date.now();
+
+// Add offline time on load
+{
+  const now = Date.now();
+  const offlineMs = now - S.lastSeen;
+  if (offlineMs > 0) S.playedMs += offlineMs;
+  S.lastSeen = now;
+}
+
+function formatPlaytime(ms){
+  let sec = Math.floor(ms / 1000);
+  const hrs = Math.floor(sec / 3600);
+  sec -= hrs * 3600;
+  const mins = Math.floor(sec / 60);
+  sec -= mins * 60;
+  return `${hrs.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
+}
+
+// Update each loop tick
+const _oldLoop = loop;
+loop = function(){
+  S.playedMs += 1000/60; // ~1 sec per frame
+  S.lastSeen = Date.now();
+  $('playtime').textContent = formatPlaytime(S.playedMs);
+  _oldLoop();
+};
     /* =========================
        ANCients
        ========================= */
