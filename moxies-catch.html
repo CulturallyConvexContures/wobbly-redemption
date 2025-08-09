@@ -157,7 +157,7 @@ body, .wrap, .stats, .row, #catchReward, .subtitle, h1, .note {
       <div>Mastery Bonus: <span id="mastery">+0.000% (0 lvls)</span></div>
    <div class="stat-row">
   Buffs: <span id="buffs"></span>
-  <span class="divider">|</span>
+  <span class="divider">🍑💋</span>
   <span id="playtime">00:00:00</span>
 </div>
 </div>
@@ -683,8 +683,8 @@ rewardEl._hideTimer = setTimeout(()=>{
       const masteryPct = ((masteryMult()-1)*100);
       $('mastery').textContent = `+${masteryPct.toFixed(3)}% (${totalUpgradeLevels()} lvls)`;
 
-      if(S.tempMult>1){ const secs=Math.max(0,Math.ceil((S.tempUntil-Date.now())/1000)); $('buffs').textContent=`| Frenzy x${S.tempMult} (${secs}s)`; }
-      else $('buffs').textContent='|';
+      if(S.tempMult>1){ const secs=Math.max(0,Math.ceil((S.tempUntil-Date.now())/1000)); $('buffs').textContent=`|Frenzy x${S.tempMult} (${secs}s)`; }
+      else $('buffs').textContent='∅';
 
       const pct = Math.round(Math.max(0, Math.min(1, S.activeFill)) * 100);
       $('catchBtn').style.setProperty('--fill', pct + '%');
