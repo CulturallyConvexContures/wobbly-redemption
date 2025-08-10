@@ -10,14 +10,6 @@
       color: #00ffcc;
       padding: 2rem;
     }
-    button {
-      margin-right: 1rem;
-      background: #222;
-      color: #00ffcc;
-      border: 1px solid #00ffcc;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-    }
     pre {
       background: #111;
       padding: 1rem;
@@ -29,36 +21,7 @@
 </head>
 <body>
 
-  <h1>🛠️ Game Hub: Local Storage Inspector</h1>
-
-  <button onclick="viewStorage()">📦 View localStorage</button>
-  <button onclick="clearStorage()">🧹 Clear localStorage</button>
-
-  <pre id="output">Click "View" to inspect...</pre>
-
-  <script>
-    function viewStorage() {
-      const out = document.getElementById('output');
-      if (localStorage.length === 0) {
-        out.textContent = "🚫 No localStorage entries found.";
-        return;
-      }
-      let result = '';
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        const val = localStorage.getItem(key);
-        result += `${key}:\n${val}\n\n`;
-      }
-      out.textContent = result;
-    }
-
-    function clearStorage() {
-      if (confirm("Clear all localStorage?")) {
-        localStorage.clear();
-        viewStorage();
-      }
-    }
-  </script>
+  <h1>🎡GameHub🃏</h1>
 
 </body>
 </html>
