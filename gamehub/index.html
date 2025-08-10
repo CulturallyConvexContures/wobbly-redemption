@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GameHub Terminal</title>
+  <style>
+    body {
+      background-color: #000d1a; /* deep navy terminal black-blue */
+      color: #66ccff; /* soft neon blue */
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #66ccff;
+      margin-bottom: 0.5em;
+    }
+
+    .terminal-line {
+      margin: 10px 0;
+    }
+
+    .prompt {
+      color: #0088cc;
+    }
+
+    a {
+      color: #66ccff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .cmd {
+      font-weight: bold;
+    }
+
+    .blinker {
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      background: #66ccff;
+      animation: blink 1s step-start infinite;
+      vertical-align: bottom;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🌀 Bootyverse GameHub Terminal</h1>
+
+  <div class="terminal-line">
+    <span class="prompt">~/gamehub:</span> <span class="cmd">ls modules/</span>
+  </div>
+
+  <div class="terminal-line">
+    📦 <a href="modules/moxies-catch.html">moxies-catch.html</a>
+  </div>
+
+  <div class="terminal-line">
+    🦴 <a href="modules/moxies-bones.html">moxies-bones.html</a>
+  </div>
+
+  <div class="terminal-line">
+    📝 <a href="modules/README.md">README.md</a>
+  </div>
+
+  <div class="terminal-line">
+    <span class="prompt">~/gamehub:</span> <span class="blinker"></span>
+  </div>
+</body>
+</html>
