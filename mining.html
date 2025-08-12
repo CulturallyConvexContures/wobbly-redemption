@@ -1,0 +1,73 @@
+images/Untitled 08-11-2025 09-33-25.png
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dust HP Bar Mockup</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .bar-container {
+      position: relative;
+      width: 256px; /* Adjust if needed */
+      height: 32px;
+      margin-bottom: 1rem;
+    }
+
+    .bar-base,
+    .bar-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      image-rendering: pixelated;
+    }
+
+    .bar-fill {
+      clip-path: inset(0 40% 0 0); /* Default: 60% full */
+    }
+
+    input[type="range"] {
+      width: 256px;
+    }
+
+    .label {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="label">Dust HP: <span id="hpLabel">60%</span></div>
+
+  <div class="bar-container">
+    <img src="images/Untitled 08-11-2025 09-33-25.png" class="bar-base" alt="Empty Bar">
+    <img src="images/dust100.png" class="bar-fill" alt="Full Bar" id="barFill">
+  </div>
+
+  <input type="range" min="0" max="100" value="60" id="hpSlider">
+
+  <script>
+    const slider = document.getElementById('hpSlider');
+    const barFill = document.getElementById('barFill');
+    const label = document.getElementById('hpLabel');
+
+    slider.addEventListener('input', () => {
+      const hp = slider.value;
+      const rightClip = 100 - hp;
+      barFill.style.clipPath = `inset(0 ${rightClip}% 0 0)`;
+      label.textContent = `${hp}%`;
+    });
+  </script>
+</body>
+</html>
